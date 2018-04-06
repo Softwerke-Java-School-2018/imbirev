@@ -4,6 +4,8 @@ import com.imbirev.nikolay.beans.Client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -15,7 +17,7 @@ public class ClientSingleton extends SortClass {
      * классический паттерн синглетона
      */
     private static ClientSingleton sClientSingleton;
-    private List<Client> clients;
+    private Set<Client> clients;
 
 
     public static ClientSingleton getClientSingleton() {
@@ -30,7 +32,7 @@ public class ClientSingleton extends SortClass {
      * с выдергиванием их данных, так что мы добъемся чуть большей производительности
      */
     private ClientSingleton() {
-        clients = new ArrayList<>();
+        clients = new TreeSet<>();
     }
 
 }

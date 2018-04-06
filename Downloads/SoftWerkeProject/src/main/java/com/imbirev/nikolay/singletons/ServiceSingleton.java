@@ -1,29 +1,40 @@
-package com.imbirev.nikolay.services;
-
+package com.imbirev.nikolay.singletons;
 
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * описание основных подключений и создание connection
- */
-abstract class DbService {
+public class ServiceSingleton {
+    /**
+     * синглетон для подключения лучше, так как пусть лучше будет одно подключение
+     */
+    private static ServiceSingleton sServiceSingleton;
 
-    Connection connection;
+    private Connection connection;
 
 
-    // конструктор для создания connection
-    public DbService() {
+    private ServiceSingleton() {
         connection = getMysqlCon();
+        printConnectInfo();
+    }
+
+    public static ServiceSingleton getsServiceSingleton() {
+        if (sServiceSingleton == null) {
+            sServiceSingleton = new ServiceSingleton();
+        }
+        return sServiceSingleton;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     /**
-     * прописываем подключение тут
+     * тут прописываем подключение
      * @return
      */
-    public Connection getMysqlCon() {
+    private Connection getMysqlCon() {
 
         try {
             DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
@@ -58,7 +69,7 @@ abstract class DbService {
     /**
      * инфа по подключению
      */
-    public void printConnectInfo() {
+    private void printConnectInfo() {
         try {
             System.out.println("DB name: " + connection.getMetaData().getDatabaseProductName());
             System.out.println("DB version: " + connection.getMetaData().getDatabaseProductVersion());
