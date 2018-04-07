@@ -9,13 +9,19 @@ abstract class AbstractExecutor {
     private Connection connection;
 
     /**
-     * конструктор экзекьютора
-     * @param connection
+     *
+     * @param connection - object of some params from database
      */
     AbstractExecutor(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * this method create new statemtent for query
+     * @param connection
+     * @return
+     * @throws SQLException
+     */
     private Statement createStatement(Connection connection) throws SQLException {
         return createStatement(connection);
     }
@@ -23,11 +29,9 @@ abstract class AbstractExecutor {
     /**
      *
      * @param sqlQuery
-     * выполняем запрос
-     * если все хорошо - комитимся, закрываем statement, выводим 1
-     * если ловим исключение - вылетаем - выбрасываем проблему, откатываемся
-     * @return
-     * @throws SQLException
+     * get the query
+     * @return if everything ok - complete query, commit, close the statement
+     * @throws SQLException - if we catch this  - rollback, throw new Exception
      */
     int execUpdate(String sqlQuery) throws SQLException {
         try {

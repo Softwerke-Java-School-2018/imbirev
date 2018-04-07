@@ -1,8 +1,10 @@
 package com.imbirev.nikolay.services;
 
 
-// фабрика по созданию нужных подключений
+// here is the factory of creating new connections
 public class ServiceFactory {
+
+    // these methods below connect to  connection to database for each object
 
     public ClientDbService createClientDbService() {
         return new ClientDbService();

@@ -5,47 +5,47 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * интерфейс для описания методов по различным изменениям бд
+ * interface for adding conditions to work with dao classes
  */
 public interface QueriesInterface {
 
     /**
-     * метод для создания таблиц
+     * method for createing tables
      * @param query
      * @return
      */
     public abstract int createTableMethod(String query) throws SQLException;
 
     /**
-     * добавление в таблицу
+     * insert into table
      * @param query
      * @return
      */
     public abstract int insertIntoTableMethod(String query) throws SQLException;
 
     /**
-     * изменение в таблице
+     * update table
      * @param query
      * @return
      */
     public abstract int updateTableMethod(String query) throws SQLException;
 
     /**
-     * удаление конкретных записей
+     * delete from table
      * @param query
      * @return
      */
     public abstract int deleteMethod(String query) throws SQLException;
 
     /**
-     * удаление таблиц
+     * drop tables
      * @param query
      * @return
      */
     public abstract int deleteTableMethod(String query) throws SQLException;
 
     /**
-     * получаем данные из таблицы
+     * get data
      * @param query
      * @return
      */

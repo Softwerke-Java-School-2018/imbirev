@@ -4,18 +4,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * Device Executor to work with queries of changing device information
+ */
 public class DeviceExecutor extends AbstractExecutor implements QueriesInterface {
 
-
-    /**
-     * конструктор экзекьютора
-     *
-     * @param connection
-     */
     DeviceExecutor(Connection connection) {
         super(connection);
     }
 
+    // there some methods, which take only 1 param - query and try to complete it
     @Override
     public int createTableMethod(String query) throws SQLException {
         return execUpdate(query);
@@ -41,6 +40,7 @@ public class DeviceExecutor extends AbstractExecutor implements QueriesInterface
         return execUpdate(query);
     }
 
+    // here is another situation, with ResultSet
     // TODO
     @Override
     public ResultSet getFromTableMethod(String query) throws SQLException {

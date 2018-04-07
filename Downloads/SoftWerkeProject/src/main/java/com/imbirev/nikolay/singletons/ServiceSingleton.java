@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ServiceSingleton {
     /**
-     * синглетон для подключения лучше, так как пусть лучше будет одно подключение
+     * here we see singleton to connection to db
      */
     private static ServiceSingleton sServiceSingleton;
 
@@ -31,8 +31,9 @@ public class ServiceSingleton {
     }
 
     /**
-     * тут прописываем подключение
-     * @return
+     * all necessary urls are here
+     * @return if everything is okay, we create new connection
+     * else throw exception and go away
      */
     private Connection getMysqlCon() {
 
@@ -67,7 +68,7 @@ public class ServiceSingleton {
     }
 
     /**
-     * инфа по подключению
+     * method for printing connection info
      */
     private void printConnectInfo() {
         try {

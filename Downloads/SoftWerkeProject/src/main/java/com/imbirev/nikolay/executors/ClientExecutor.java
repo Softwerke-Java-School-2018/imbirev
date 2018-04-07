@@ -7,20 +7,16 @@ import java.sql.Statement;
 
 
 /**
- * Экзекьютор для работы с методами по изменению бд в области клиента
+ * Client Executor to work with queries of changing client information
  */
 public class ClientExecutor extends AbstractExecutor implements QueriesInterface {
 
-    /**
-     * конструктор экзекьютора
-     *
-     * @param connection
-     */
+
     protected ClientExecutor(Connection connection) {
         super(connection);
     }
 
-    // перечень методов которые по сути делают update
+    // there some methods, which take only 1 param - query and try to complete it
     @Override
     public int createTableMethod(String query) throws SQLException {
             return execUpdate(query);
@@ -46,7 +42,7 @@ public class ClientExecutor extends AbstractExecutor implements QueriesInterface
         return execUpdate(query);
     }
 
-    // тут уже по интереснее
+    // here is another situation, with ResultSet
     // TODO обработать метод, добавить к нему обработчик в виде интерфейса
     @Override
     public ResultSet getFromTableMethod(String query) throws SQLException {

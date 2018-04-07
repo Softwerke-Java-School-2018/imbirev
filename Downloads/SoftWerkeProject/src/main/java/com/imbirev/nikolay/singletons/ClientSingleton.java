@@ -1,23 +1,11 @@
 package com.imbirev.nikolay.singletons;
 
-import com.imbirev.nikolay.beans.Client;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-
-/**
- * здесь соответственно все сервисы по работе с данными клиента (сортировка, поиск, хранение информации в runtime
- */
-public class ClientSingleton extends SortClass {
+public class ClientSingleton {
 
     /**
-     * классический паттерн синглетона
+     * standart singleton pattern
      */
     private static ClientSingleton sClientSingleton;
-    private Set<Client> clients;
 
 
     public static ClientSingleton getClientSingleton() {
@@ -27,12 +15,8 @@ public class ClientSingleton extends SortClass {
         return sClientSingleton;
     }
 
-    /**
-     * почему ArrayList, потому что удаление клиентов происходит все же намного реже чем вставка новых и работа
-     * с выдергиванием их данных, так что мы добъемся чуть большей производительности
-     */
     private ClientSingleton() {
-        clients = new TreeSet<>();
+
     }
 
 }
