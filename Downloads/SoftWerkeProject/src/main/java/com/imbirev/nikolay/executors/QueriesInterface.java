@@ -24,13 +24,6 @@ public interface QueriesInterface {
     public abstract int insertIntoTableMethod(String query) throws SQLException;
 
     /**
-     * update table
-     * @param query
-     * @return
-     */
-    public abstract int updateTableMethod(String query) throws SQLException;
-
-    /**
      * delete from table
      * @param query
      * @return

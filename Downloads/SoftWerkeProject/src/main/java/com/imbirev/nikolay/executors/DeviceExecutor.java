@@ -26,11 +26,6 @@ public class DeviceExecutor extends AbstractExecutor implements QueriesInterface
     }
 
     @Override
-    public int updateTableMethod(String query) throws SQLException {
-        return execUpdate(query);
-    }
-
-    @Override
     public int deleteMethod(String query) throws SQLException {
         return execUpdate(query);
     }

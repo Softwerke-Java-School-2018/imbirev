@@ -27,4 +27,20 @@ public class Client {
         lName = clientBuilder.getLastName();
         dateOfBirth = clientBuilder.getDateOfBirth();
     }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
 }

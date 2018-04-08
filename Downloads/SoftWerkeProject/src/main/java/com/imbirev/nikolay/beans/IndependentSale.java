@@ -19,4 +19,23 @@ public class IndependentSale {
         this.saleDate = saleDate;
     }
 
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public int getNumberOfDevices() {
+        return numberOfDevices;
+    }
+
+    public LocalDate getSaleDate() {
+        return saleDate;
+    }
 }

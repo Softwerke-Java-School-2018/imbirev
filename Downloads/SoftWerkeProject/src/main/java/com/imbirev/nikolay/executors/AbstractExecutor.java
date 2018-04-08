@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-abstract class AbstractExecutor {
+abstract class AbstractExecutor implements ExecutorInterface {
 
     private Connection connection;
 
@@ -22,9 +22,11 @@ abstract class AbstractExecutor {
      * @return
      * @throws SQLException
      */
-    private Statement createStatement(Connection connection) throws SQLException {
+    @Override
+    public Statement createStatement(Connection connection) throws SQLException {
         return createStatement(connection);
     }
+
 
     /**
      *
@@ -33,7 +35,8 @@ abstract class AbstractExecutor {
      * @return if everything ok - complete query, commit, close the statement
      * @throws SQLException - if we catch this  - rollback, throw new Exception
      */
-    int execUpdate(String sqlQuery) throws SQLException {
+    @Override
+    public int execUpdate(String sqlQuery) {
         try {
             connection.setAutoCommit(false);
             Statement statement = createStatement(connection);
@@ -42,7 +45,12 @@ abstract class AbstractExecutor {
             statement.close();
             return 1;
         } catch (SQLException e) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException w) {
+                w.printStackTrace();
+                throw new RuntimeException("Data was losted");
+            }
             throw new RuntimeException("Database problem, please check your connection");
         }
     }

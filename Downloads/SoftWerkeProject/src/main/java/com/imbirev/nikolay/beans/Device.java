@@ -36,4 +36,32 @@ public class Device {
         this.type = builder.getType();
         this.dateOfStartingManufactoring = builder.getDateOfManufacturingStarted();
     }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public LocalDate getDateOfStartingManufactoring() {
+        return dateOfStartingManufactoring;
+    }
 }

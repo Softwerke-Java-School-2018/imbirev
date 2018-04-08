@@ -11,7 +11,6 @@ import java.sql.Statement;
  */
 public class ClientExecutor extends AbstractExecutor implements QueriesInterface {
 
-
     protected ClientExecutor(Connection connection) {
         super(connection);
     }
@@ -27,10 +26,6 @@ public class ClientExecutor extends AbstractExecutor implements QueriesInterface
         return execUpdate(query);
     }
 
-    @Override
-    public int updateTableMethod(String query) throws SQLException {
-        return execUpdate(query);
-    }
 
     @Override
     public int deleteMethod(String query) throws SQLException {
