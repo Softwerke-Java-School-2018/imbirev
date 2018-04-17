@@ -3,27 +3,26 @@ package com.nikolay.imbirev.connector.checker;
 public class Command {
 
     private String name;
+    private String instructions;
 
     private int requestCode;
 
-    public Command(String name, int requestCode) {
+    Command(String name, String instructions, int requestCode) {
         this.name = name;
         this.requestCode = requestCode;
+        this.instructions = instructions;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getRequestCode() {
+    int getRequestCode() {
         return requestCode;
     }
 
-    public void setRequestCode(int requestCode) {
-        this.requestCode = requestCode;
+    String getInstructions() {
+        return instructions;
     }
+
 }

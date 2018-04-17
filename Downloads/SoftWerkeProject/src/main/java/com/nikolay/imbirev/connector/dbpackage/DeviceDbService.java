@@ -19,16 +19,29 @@ public class DeviceDbService extends AbstractDbService {
         dao = new DeviceDao(executor);
     }
 
+    /**
+     * this method send query to database to add new value
+     * @param value - is the value to add
+     */
     public void sendToTable(Device value) {
         dao.createTable(DeviceTable.TABLE_NAME, DeviceTable.Cols.columns);
         dao.insertIntoTable(new String[] {
                 value.getDeviceId(),
                 value.getModel(),
                 value.getProducer(),
+                value.getColor(),
+                value.getType(),
                 String.valueOf(value.getPrice()),
                 value.getDateOfManufactoringStarted().toString()
         }, DeviceTable.Cols.columns, DeviceTable.TABLE_NAME);
     }
+    /**
+     * this method get list of objects from the database
+     * @param tableName - from where
+     * @param array - with what conditions
+     * @param sortColumns - sort conditions
+     * @return new list or throw IllegalArgumentException
+     */
     public List<Device> getFromTable(String tableName, Query[] array, Column[] sortColumns) {
         try {
             return dao.getListFromTable(tableName, array, sortColumns);

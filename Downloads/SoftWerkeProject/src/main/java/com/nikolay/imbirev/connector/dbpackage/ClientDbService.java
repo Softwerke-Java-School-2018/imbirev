@@ -20,6 +20,10 @@ public class ClientDbService extends AbstractDbService {
         dao = new ClientDao(executor);
     }
 
+    /**
+     * this method send query to database to add new value
+     * @param value - is the value to add
+     */
     public void sendToTable(Client client) {
         dao.createTable(ClientTable.TABLE_NAME, ClientTable.Cols.columns);
         dao.insertIntoTable(new String[] {
@@ -29,6 +33,13 @@ public class ClientDbService extends AbstractDbService {
                         client.getDateOfBirth().toString()}, ClientTable.Cols.columns, ClientTable.TABLE_NAME);
     }
 
+    /**
+     * this method get list of objects from the database
+     * @param tableName - from where
+     * @param array - with what conditions
+     * @param sortColumns - sort conditions
+     * @return new list or throw IllegalArgumentException
+     */
     public List<Client> getFromTable(String tableName, Query[] array, Column[] sortColumns) {
         try {
             return dao.getItemFromTable(tableName, array, sortColumns);

@@ -11,17 +11,25 @@ public class Device {
     private String producer;
 
     private double price;
+    private String type;
+    private String color;
+
+
 
     private LocalDate dateOfManufactoringStarted;
 
 
-    public Device(String deviceId, String model, String producer, double price, LocalDate dateOfManufactoringStarted) {
+    public Device(String deviceId, String model, String producer, double price, String type, String color, LocalDate dateOfManufactoringStarted) {
         this.deviceId = deviceId;
         this.model = model;
         this.producer = producer;
         this.price = price;
+        this.type = type;
+        this.color = color;
         this.dateOfManufactoringStarted = dateOfManufactoringStarted;
+
     }
+
 
     public static class DeviceBuilder {
 
@@ -32,6 +40,8 @@ public class Device {
 
         private double price;
         private LocalDate dateOfManufactoringStarted;
+        private String type;
+        private String color;
 
         public DeviceBuilder setDeviceId() {
             UUID id = UUID.randomUUID();
@@ -61,8 +71,17 @@ public class Device {
             return this;
         }
 
+        public DeviceBuilder setColor(String color) {
+            this.color = color;
+            return this;
+        }
+        public DeviceBuilder setType(String type) {
+            this.type = type;
+            return this;
+        }
+
         public Device build() {
-            return new Device(deviceId, model, producer, price, dateOfManufactoringStarted);
+            return new Device(deviceId, model, producer, price,type, color, dateOfManufactoringStarted);
         }
 
 
@@ -86,6 +105,14 @@ public class Device {
 
     public LocalDate getDateOfManufactoringStarted() {
         return dateOfManufactoringStarted;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getColor() {
+        return color;
     }
 }
 

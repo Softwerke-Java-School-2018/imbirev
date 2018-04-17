@@ -21,6 +21,12 @@ public class DeviceDao extends AbstractDao {
         devices = new ArrayList<>();
     }
 
+    /**
+     * this method return item from the database
+     * @param tableName - from this table
+     * @param array - with this conditions
+     * @return new client or throw nullPointerException if we have no client for this conditions
+     */
     public List<Device> getListFromTable(String tableName, Query[] array, Column[] sortColumns) {
         StringBuilder query = new StringBuilder()
                 .append("select * from ").append(tableName).append(" where ");
@@ -63,6 +69,8 @@ public class DeviceDao extends AbstractDao {
                                 .setModel(resultSet.getString(DeviceTable.Cols.MODEL))
                                 .setPrice(resultSet.getDouble(DeviceTable.Cols.PRICE))
                                 .setProducer(resultSet.getString(DeviceTable.Cols.PRODUCER))
+                                .setColor(resultSet.getString(DeviceTable.Cols.COLOR))
+                                .setType(resultSet.getString(DeviceTable.Cols.TYPE))
                                 .build();
                         devices.add(device);
                     }

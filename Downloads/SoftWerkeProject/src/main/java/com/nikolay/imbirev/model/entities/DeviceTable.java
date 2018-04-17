@@ -12,6 +12,8 @@ public class DeviceTable {
         public static final String PRODUCER = "device_producer";
         public static final String PRICE = "device_price";
         public static final String DATE_OF_STARTING_MANUFACTORING = "device_date";
+        public static final String TYPE = "type";
+        public static final String COLOR = "color";
 
         private static final String type = "varchar (256) ";
 
@@ -20,7 +22,9 @@ public class DeviceTable {
                 new Column.ColumnBuilder().setName(MODEL).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
                 new Column.ColumnBuilder().setName(PRODUCER).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
                 new Column.ColumnBuilder().setName(PRICE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(DATE_OF_STARTING_MANUFACTORING).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn()
+                new Column.ColumnBuilder().setName(DATE_OF_STARTING_MANUFACTORING).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn(),
+                new Column.ColumnBuilder().setName(TYPE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
+                new Column.ColumnBuilder().setName(COLOR).setType(type).setIsNull(false).setIsAuto(false).buildColumn()
         };
 
 

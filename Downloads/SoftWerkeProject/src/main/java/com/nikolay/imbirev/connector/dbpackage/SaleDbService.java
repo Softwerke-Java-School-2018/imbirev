@@ -19,6 +19,10 @@ public class SaleDbService extends AbstractDbService {
         dao = new SaleDao(executor);
     }
 
+    /**
+     * this method send query to database to add new value
+     * @param value - is the value to add
+     */
     public void sendToTable(Sale value) {
         dao.createTable(SaleTable.TABLE_NAME, SaleTable.Cols.columns);
         dao.insertIntoTable(new String[] {
@@ -29,6 +33,13 @@ public class SaleDbService extends AbstractDbService {
         }, SaleTable.Cols.columns, SaleTable.TABLE_NAME);
     }
 
+    /**
+     * this method get list of objects from the database
+     * @param tableName - from where
+     * @param array - with what conditions
+     * @param sortColumns - sort conditions
+     * @return new list or throw IllegalArgumentException
+     */
     public List<Sale> getList(String tableName, Query[] array, Column[] sortColumns) {
         try {
             return dao.getItemFromTable(tableName, array, sortColumns);
