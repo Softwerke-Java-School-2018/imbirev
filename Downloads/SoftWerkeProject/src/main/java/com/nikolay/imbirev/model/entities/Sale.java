@@ -55,6 +55,9 @@ public class Sale {
             this.dateOfSale = dateOfSale;
             return this;
         }
+        public Sale build() {
+            return new Sale(saleId, clientId, overallPrice, dateOfSale);
+        }
 
     }
 
