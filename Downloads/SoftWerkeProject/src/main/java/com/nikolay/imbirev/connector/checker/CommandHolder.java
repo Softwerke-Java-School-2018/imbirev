@@ -18,7 +18,7 @@ public class CommandHolder {
                 "Add data of the client in such format [name surname date of birth (17/04/2018)]",
                 2));
         commandList.add(new Command("update client",
-                "Add data of the client in such format [name surname] and new data in such format[name surname date of birth (17/04/2018)]",
+                "Add data of the client in such format [name surname] and new data in such format[name = new name, surname = new surname, date of birth = new date of birth (17/04/2018)]",
                 3));
         commandList.add(new Command("get client",
                 "Add data of the client in such format [name surname date of birth (17/04/2018)]",

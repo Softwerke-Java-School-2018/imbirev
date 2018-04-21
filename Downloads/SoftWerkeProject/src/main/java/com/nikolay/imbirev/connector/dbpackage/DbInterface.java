@@ -1,6 +1,6 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
-import com.nikolay.imbirev.model.entities.Query;
+import com.nikolay.imbirev.connector.checker.Query;
 
 public interface DbInterface<T> {
 

@@ -1,11 +1,10 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
-import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.Client;
 import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.entities.Query;
+import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class ClientDbService extends AbstractDbService {
      * this method send query to database to add new value
      * @param client - is the value to add
      */
-    public void sendToTable(Client client) {
+    public void sendToTable(Client client) throws IllegalArgumentException {
         dao.createTable(ClientTable.TABLE_NAME, ClientTable.Cols.columns);
         dao.insertIntoTable(new String[] {
                         client.getClietnId(),

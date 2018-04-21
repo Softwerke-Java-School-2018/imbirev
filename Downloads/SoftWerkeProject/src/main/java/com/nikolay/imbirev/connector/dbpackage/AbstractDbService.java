@@ -1,8 +1,7 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
 import com.nikolay.imbirev.model.dao.AbstractDao;
-import com.nikolay.imbirev.model.entities.DeviceTable;
-import com.nikolay.imbirev.model.entities.Query;
+import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.entities.Sale;
 import com.nikolay.imbirev.model.entities.SaleTable;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
@@ -54,8 +53,8 @@ abstract class AbstractDbService implements DbInterface<Sale> {
      * @param array - conditions of the deleting
      */
     @Override
-    public void deleteFromTable(String tableName ,Query[] array) {
-        dao.deleteFromTable(SaleTable.TABLE_NAME,array);
+    public void deleteFromTable(String tableName ,Query[] array) throws IllegalArgumentException {
+        dao.deleteFromTable(tableName,array);
     }
 
     /**
@@ -65,7 +64,7 @@ abstract class AbstractDbService implements DbInterface<Sale> {
      * @param array - with this conditions
      */
     @Override
-    public void updateTable(String tableName, String id, Query[] array) {
+    public void updateTable(String tableName, String id, Query[] array) throws IllegalArgumentException {
         dao.updateTable(tableName, id, array);
     }
 }

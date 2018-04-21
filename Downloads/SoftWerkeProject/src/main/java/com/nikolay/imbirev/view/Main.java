@@ -12,13 +12,13 @@ public class Main {
     private static Scanner scanner;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         scanner = new Scanner(System.in);
         printHelpCommands();
         getCommand();
     }
 
-    private static void getCommand() {
+    private static void getCommand() throws InterruptedException {
         while (true) {
             String command = scanner.nextLine();
             resolveCommand(command);
@@ -34,7 +34,7 @@ public class Main {
         }
     }
 
-    private static void resolveCommand(String command) {
+    private static void resolveCommand(String command) throws InterruptedException {
         try {
             dataParser = new ParsingClientData(command);
             dataParser.parseCommand();

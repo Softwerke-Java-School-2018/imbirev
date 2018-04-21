@@ -1,5 +1,6 @@
 package com.nikolay.imbirev.model.dao;
 
+import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import com.nikolay.imbirev.model.executors.Handler;

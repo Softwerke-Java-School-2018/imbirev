@@ -1,4 +1,4 @@
-package com.nikolay.imbirev.model.entities;
+package com.nikolay.imbirev.connector.checker;
 
 public class Query {
 

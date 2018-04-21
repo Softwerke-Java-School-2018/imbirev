@@ -1,11 +1,10 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
-import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.dao.DeviceDao;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.entities.Device;
 import com.nikolay.imbirev.model.entities.DeviceTable;
-import com.nikolay.imbirev.model.entities.Query;
+import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
 import java.util.List;
