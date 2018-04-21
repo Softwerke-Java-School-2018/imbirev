@@ -13,7 +13,7 @@ public class Command {
         this.instructions = instructions;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -21,7 +21,7 @@ public class Command {
         return requestCode;
     }
 
-    String getInstructions() {
+    public String getInstructions() {
         return instructions;
     }
 

@@ -12,16 +12,16 @@ public class CommandHolder {
     private CommandHolder() {
         commandList = new ArrayList<>();
         commandList.add(new Command("create client",
-                "Add data of the client in such format [name, surname, date of birth (17/04/2018)]",
+                "Add data of the client in such format [name surname date of birth (17/04/2018)]",
                 1));
         commandList.add(new Command("delete client",
-                "Add data of the client in such format [name, surname, date of birth (17/04/2018)]",
+                "Add data of the client in such format [name surname date of birth (17/04/2018)]",
                 2));
         commandList.add(new Command("update client",
-                "Add data of the client in such format [name, surname] and new data in such format[name, surname, date of birth (17/04/2018)]",
+                "Add data of the client in such format [name surname] and new data in such format[name surname date of birth (17/04/2018)]",
                 3));
         commandList.add(new Command("get client",
-                "Add data of the client in such format [name, surname, date of birth (17/04/2018)]",
+                "Add data of the client in such format [name surname date of birth (17/04/2018)]",
                 4));
     }
 

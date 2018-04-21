@@ -22,7 +22,7 @@ public class ClientDbService extends AbstractDbService {
 
     /**
      * this method send query to database to add new value
-     * @param value - is the value to add
+     * @param client - is the value to add
      */
     public void sendToTable(Client client) {
         dao.createTable(ClientTable.TABLE_NAME, ClientTable.Cols.columns);
