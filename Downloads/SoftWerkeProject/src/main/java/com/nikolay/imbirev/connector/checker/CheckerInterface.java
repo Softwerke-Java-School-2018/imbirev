@@ -10,7 +10,7 @@ public interface CheckerInterface<T> {
 
     void deleteFromTable(T object);
 
-    T getFromTable(Query[] columns, Column[] sortConditions);
+    T getFromTable(String[] cols, String[] vals);
 
     void deleteTable(String tableName);
 

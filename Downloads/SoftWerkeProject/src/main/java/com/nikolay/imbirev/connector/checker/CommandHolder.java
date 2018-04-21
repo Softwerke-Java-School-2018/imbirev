@@ -21,8 +21,11 @@ public class CommandHolder {
                 "Add data of the client in such format [name surname] and new data in such format[name = new name, surname = new surname, date of birth = new date of birth (17/04/2018)]",
                 3));
         commandList.add(new Command("get client",
-                "Add data of the client in such format [name surname date of birth (17/04/2018)]",
+                "Add data of the client in such format [name = search name, surname = search surname, date of birth = search date of birth (17/04/2018)]",
                 4));
+        commandList.add(new Command("list client",
+                "Add data of the client in such format [name = search name, surname = search surname, date of birth = search date of birth (17/04/2018)] {sorted columns}",
+                5));
     }
 
     public static synchronized CommandHolder getCommandHolder() {

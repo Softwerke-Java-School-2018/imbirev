@@ -11,6 +11,7 @@ public class ClientChecker implements CheckerInterface<Client> {
 
 
     private ClientDbService clientDbService;
+    private Query[] queries;
 
     public ClientChecker() {
         clientDbService = new ClientDbService();
@@ -41,26 +42,20 @@ public class ClientChecker implements CheckerInterface<Client> {
     }
 
     /**
-     * this method get data/list from the table of clients
+     * this method get data from the table of clients
      * @param columns - conditions
-     * @param sortConditions - sorted columns
      * @return client or throw new IllegalArgumentException if we have more than 1 client in list
      */
     @Override
-    public Client getFromTable(Query[] columns, Column[] sortConditions) throws IllegalArgumentException {
-        List<Client> clients = clientDbService.getFromTable(ClientTable.TABLE_NAME, columns, sortConditions);
-        if (clients.size() > 1) {
-            System.out.println("ClientChecker");
-            throw new IllegalArgumentException();
-        }
-        else {
-            return clients.get(0);
-        }
+    public Client getFromTable(String[] columns, String[] values) throws IllegalArgumentException {
+        queries = getQueryArray(columns, values);
+        return clientDbService.getFromTable(ClientTable.TABLE_NAME, queries);
+
     }
 
-    public List<Client> getClientList(Query[] columns, Column[] sortConditions) throws IllegalArgumentException {
-        return clientDbService.getFromTable(ClientTable.TABLE_NAME, columns, sortConditions);
-    }
+//    public List<Client> getClientList(Query[] columns, Column[] sortConditions) throws IllegalArgumentException {
+//        return clientDbService.getFromTable(ClientTable.TABLE_NAME, columns, sortConditions);
+//    }
 
     /**
      * this method delete table with parameter
@@ -81,30 +76,55 @@ public class ClientChecker implements CheckerInterface<Client> {
     }
 
     public void updateClient(Client client, String[] columns, String[] newData) throws IllegalArgumentException {
-        Client client1 = getFromTable(new Query[]{
-                new Query(ClientTable.Cols.FIRST_NAME, client.getFirstName()),
-                new Query(ClientTable.Cols.SECOND_NAME, client.getLastName())
-        }, new Column[]{});
+        Client client1 = getFromTable(new String[]{"name", "surname"}, new String[]{client.getFirstName(), client.getLastName()});
         if (client1 == null) {
             throw new IllegalArgumentException();
         }
         else {
-            Query[] queries = new Query[columns.length];
-            if (queries.length == 0) {
-                throw new IllegalArgumentException();
-            }
-            for (int i = 0; i < columns.length; i++) {
-                if (columns[i].trim().equals("name")) {
-                    queries[i] = new Query(ClientTable.Cols.FIRST_NAME, newData[i]);
-                }
-                if (columns[i].trim().equals("surname")) {
-                    queries[i] = new Query(ClientTable.Cols.SECOND_NAME, newData[i]);
-                }
-                if (columns[i].trim().equals("date of birth")) {
-                    queries[i] = new Query(ClientTable.Cols.DATE_OF_BIRTH, newData[i]);
-                }
-            }
+
             clientDbService.updateTable(ClientTable.TABLE_NAME, client1.getClietnId(), queries);
+        }
+    }
+    private Query[] getQueryArray(String[] columns, String[] newData) {
+        Query[] queries = new Query[columns.length];
+        if (queries.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < columns.length; i++) {
+            if (columns[i].trim().equals("name")) {
+                queries[i] = new Query(ClientTable.Cols.FIRST_NAME, newData[i]);
+            }
+            if (columns[i].trim().equals("surname")) {
+                queries[i] = new Query(ClientTable.Cols.SECOND_NAME, newData[i]);
+            }
+            if (columns[i].trim().equals("date of birth")) {
+                queries[i] = new Query(ClientTable.Cols.DATE_OF_BIRTH, newData[i]);
+            }
+        }
+        return queries;
+    }
+    private Column[] getSortColumns(String[] cols) {
+        if (cols.length == 0) return new Column[] {};
+        Column[] columns = new Column[cols.length];
+        for (int i = 0; i < columns.length; i++) {
+            if (cols[i].trim().equals("name")) {
+                columns[i] = new Column(ClientTable.Cols.FIRST_NAME, null, false, false);
+            }
+            if (cols[i].trim().equals("surname")) {
+                columns[i] = new Column(ClientTable.Cols.SECOND_NAME, null, false, false);
+            }
+            if (cols[i].trim().equals("date of birth")) {
+                columns[i] = new Column(ClientTable.Cols.DATE_OF_BIRTH, null, false, false);
+            }
+        }
+        return columns;
+    }
+
+    public List<Client> getListOfClient(String[] cols, String[] data, String[] sortCols) {
+        if (cols.length > 0) {
+            return clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols));
+        } else {
+            return clientDbService.getList(new Query[]{}, getSortColumns(sortCols));
         }
     }
 }

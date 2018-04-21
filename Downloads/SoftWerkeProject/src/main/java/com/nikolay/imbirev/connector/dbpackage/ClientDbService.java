@@ -7,16 +7,19 @@ import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ClientDbService extends AbstractDbService {
 
     private ClientDao dao;
+    private List<Client> clients;
 
     public ClientDbService() {
         AbstractExecutor executor = new AbstractExecutor();
         dao = new ClientDao(executor);
+        clients = new ArrayList<>();
     }
 
     /**
@@ -36,15 +39,23 @@ public class ClientDbService extends AbstractDbService {
      * this method get list of objects from the database
      * @param tableName - from where
      * @param array - with what conditions
-     * @param sortColumns - sort conditions
      * @return new list or throw IllegalArgumentException
      */
-    public List<Client> getFromTable(String tableName, Query[] array, Column[] sortColumns) {
+    public Client getFromTable(String tableName, Query[] array) {
         try {
-            return dao.getItemFromTable(tableName, array, sortColumns);
+            return dao.getItemFromTable(tableName, array);
         } catch (NullPointerException e) {
             throw new IllegalArgumentException();
         }
     }
+
+    public List<Client> getList(Query[] array, Column[] arraySort) {
+        try {
+            return dao.getListFromTable(ClientTable.TABLE_NAME, array, arraySort);
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
 
 }
