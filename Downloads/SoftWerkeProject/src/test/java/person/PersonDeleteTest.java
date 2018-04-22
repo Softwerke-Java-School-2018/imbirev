@@ -19,20 +19,50 @@ public class PersonDeleteTest {
     @Before
     public void startTesting() {
         service = new ClientDbService();
-        clientData = new ParsingClientData("delete client nikolay imbirev 30/06/1997");
-        clientData.parseCommand();
     }
-
 
     @Test
     public void testMethod() {
         try {
+            clientData = new ParsingClientData("delete niko imbirev 30/06/1997");
+            clientData.parseCommand();
             Client client = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
-                    new Query(ClientTable.Cols.FIRST_NAME, "nikolay"),
+                    new Query(ClientTable.Cols.FIRST_NAME, "niko"),
                     new Query(ClientTable.Cols.SECOND_NAME, "imbirev")
             });
         } catch (IllegalArgumentException e) {
             assertNotEquals("", e.getMessage());
         }
+        try {
+            clientData = new ParsingClientData("delete imbirev 30/06/1997");
+            clientData.parseCommand();
+            Client client = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "niko"),
+                    new Query(ClientTable.Cols.SECOND_NAME, "imbirev")
+            });
+        } catch (IllegalArgumentException e) {
+            assertNotEquals("", e.getMessage());
+        }
+        try {
+            clientData = new ParsingClientData("delete client 30/06/1997");
+            clientData.parseCommand();
+            Client client = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "niko"),
+                    new Query(ClientTable.Cols.SECOND_NAME, "imbirev")
+            });
+        } catch (IllegalArgumentException e) {
+            assertNotEquals("", e.getMessage());
+        }
+        try {
+            clientData = new ParsingClientData("delete client niko imbirev 30/06/1997");
+            clientData.parseCommand();
+            Client client = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "nikolay"),
+                    new Query(ClientTable.Cols.SECOND_NAME, "imbirev")
+            });
+        } catch (IllegalArgumentException e) { // success deleting
+            assertNotEquals("", e.getMessage());
+        }
+
     }
 }

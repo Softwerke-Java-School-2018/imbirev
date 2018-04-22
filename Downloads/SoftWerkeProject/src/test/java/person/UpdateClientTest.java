@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 public class UpdateClientTest {
 
-    private static final String name = "nikolay";
+    private static final String name = "alex";
     private static final String surname = "imbirev";
 
 
@@ -27,11 +27,64 @@ public class UpdateClientTest {
     @BeforeClass
     public static void setService() {
         service = new ClientDbService();
-        clientData = new ParsingClientData("update client " + name + " " + surname + " [name = " + newName + "]");
+
     }
 
     @Test
     public  void getClient() {
+        try {
+            clientData =
+                    new ParsingClientData("update " + name + " " + surname + " [name = " + newName + "]");
+            clientData.parseCommand();
+            Client c = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "egor")
+            });
+        }catch (IllegalArgumentException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+        try {
+            clientData =
+                    new ParsingClientData(" update client" + name + " " + surname + " [name = " + newName + "]");
+            clientData.parseCommand();
+            Client c = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "egor")
+            });
+        }catch (IllegalArgumentException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+        try {
+            clientData =
+                    new ParsingClientData("update client " + "aristotel" + " " + surname + " [name = " + newName + "]");
+            clientData.parseCommand();
+            Client c = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "egor")
+            });
+        }catch (IllegalArgumentException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+        try {
+            clientData =
+                    new ParsingClientData("update " + name + " " + surname + " [name = " + "303030" + "]");
+            clientData.parseCommand();
+            Client c = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "egor")
+            });
+        }catch (IllegalArgumentException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+        try {
+            clientData =
+                    new ParsingClientData("update " + name + " " + surname + " [name = " + newName + ", far = gar]");
+            clientData.parseCommand();
+            Client c = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
+                    new Query(ClientTable.Cols.FIRST_NAME, "egor")
+            });
+        }catch (IllegalArgumentException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+
+        clientData =
+                new ParsingClientData("update client " + name + " " + surname + " [name = " + newName + "]");
         clientData.parseCommand();
         Client c = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
                 new Query(ClientTable.Cols.FIRST_NAME, "egor")

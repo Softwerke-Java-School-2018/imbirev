@@ -71,7 +71,7 @@ public class CreateClientTest {
         } catch (IllegalArgumentException e) {
             assertNotEquals("", e.getMessage());
         }
-        clientData = new ParsingClientData("create client nikolauskas imbiryov 30/06/1997");
+        clientData = new ParsingClientData("create client niko imbirev 30/06/1997");
         clientData.parseCommand();
         Client a = service.getFromTable(ClientTable.TABLE_NAME, new Query[]{
                 new Query(ClientTable.Cols.FIRST_NAME, name)
