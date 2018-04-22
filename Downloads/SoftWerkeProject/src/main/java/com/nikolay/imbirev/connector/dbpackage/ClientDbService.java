@@ -44,7 +44,7 @@ public class ClientDbService extends AbstractDbService {
     public Client getFromTable(String tableName, Query[] array) {
         try {
             return dao.getItemFromTable(tableName, array);
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException();
         }
     }

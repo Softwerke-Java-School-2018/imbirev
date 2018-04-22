@@ -77,6 +77,7 @@ public class ClientChecker implements CheckerInterface<Client> {
 
     public void updateClient(Client client, String[] columns, String[] newData) throws IllegalArgumentException {
         Client client1 = getFromTable(new String[]{"name", "surname"}, new String[]{client.getFirstName(), client.getLastName()});
+        queries = getQueryArray(columns, newData);
         if (client1 == null) {
             throw new IllegalArgumentException();
         }

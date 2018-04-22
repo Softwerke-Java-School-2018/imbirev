@@ -48,7 +48,6 @@ public class ClientDao extends AbstractDao {
         @Override
         public Client handle(ResultSet resultSet) throws SQLException {
             if (resultSet.next()) {
-                resultSet.next();
                 Client client = new Client.ClientBuilder().setClientId(resultSet.getString(ClientTable.Cols.ID))
                         .setFirstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
                         .setLastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
@@ -57,7 +56,7 @@ public class ClientDao extends AbstractDao {
                 mClient = client;
                 return mClient;
             } else {
-                throw new IllegalArgumentException();
+                return null;
             }
         }
     });
@@ -128,6 +127,7 @@ public class ClientDao extends AbstractDao {
             }
         }
         query.append(" where clientId = '").append(id).append("'");
+        System.out.println(query.toString());
         abstractExecutor.execUpdate(query.toString());
     }
 

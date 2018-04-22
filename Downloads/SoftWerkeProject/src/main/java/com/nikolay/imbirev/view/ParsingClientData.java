@@ -32,7 +32,7 @@ public class ParsingClientData {
     /**
      * here we check all matches of input and if all right - go to transforming client object from the string
      */
-    public void parseCommand() throws InterruptedException {
+    public void parseCommand() {
         String typeOfCommand = command.substring(0, 13); // this a length of a string with word client and command
         String[] typeParts = typeOfCommand.split(" ");
         if (!typeParts[1].trim().equals("client")) {
@@ -64,6 +64,7 @@ public class ParsingClientData {
                     case "update": {
                         int f = command.indexOf('[');
                         Client client = getClientFromData(objectParts[0].trim(), objectParts[1].trim());
+                        System.out.println(client.getFirstName());
                         if (client == null) {
                             System.out.println("Client won't found");
                             throw new IllegalArgumentException();
