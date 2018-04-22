@@ -141,8 +141,8 @@ public class ParsingClientData {
                         }
 
                     }
+                    printList(clients);
                 }
-                printList(clients);
             } else {
                 throw new IllegalArgumentException();
             }

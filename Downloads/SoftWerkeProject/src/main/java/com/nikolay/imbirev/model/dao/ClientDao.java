@@ -37,30 +37,32 @@ public class ClientDao extends AbstractDao {
         if (array.length == 0) {
             throw new IllegalArgumentException();
         }
-        for (int i = 0; i < array.length; i++) {
-            if (i == array.length - 1) {
-                query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
-            } else {
-                query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
+        else {
+            for (int i = 0; i < array.length; i++) {
+                if (i == array.length - 1) {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
+                } else {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
+                }
             }
+            abstractExecutor.execQuery(query.toString(), new Handler<Client>() {
+                @Override
+                public Client handle(ResultSet resultSet) throws SQLException {
+                    if (resultSet.next()) {
+                        Client client = new Client.ClientBuilder().setClientId(resultSet.getString(ClientTable.Cols.ID))
+                                .setFirstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
+                                .setLastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
+                                .setDateofBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())
+                                .build();
+                        mClient = client;
+                        return mClient;
+                    } else {
+                        return null;
+                    }
+                }
+            });
+            return mClient;
         }
-    abstractExecutor.execQuery(query.toString(), new Handler<Client>() {
-        @Override
-        public Client handle(ResultSet resultSet) throws SQLException {
-            if (resultSet.next()) {
-                Client client = new Client.ClientBuilder().setClientId(resultSet.getString(ClientTable.Cols.ID))
-                        .setFirstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
-                        .setLastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
-                        .setDateofBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())
-                        .build();
-                mClient = client;
-                return mClient;
-            } else {
-                return null;
-            }
-        }
-    });
-        return mClient;
     }
     public List<Client> getListFromTable(String tableName, Query[] array, Column[] sortArray) {
         StringBuilder query = new StringBuilder()
@@ -88,6 +90,7 @@ public class ClientDao extends AbstractDao {
                 }
             }
         }
+        System.out.println(query.toString());
         abstractExecutor.execQuery(query.toString(), new Handler<List<Client>>() {
             @Override
             public List<Client> handle(ResultSet resultSet) throws SQLException {

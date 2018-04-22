@@ -5,6 +5,9 @@ import com.nikolay.imbirev.model.entities.Client;
 import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ClientChecker implements CheckerInterface<Client> {
@@ -99,7 +102,7 @@ public class ClientChecker implements CheckerInterface<Client> {
                 queries[i] = new Query(ClientTable.Cols.SECOND_NAME, newData[i]);
             }
             if (columns[i].trim().equals("date of birth")) {
-                queries[i] = new Query(ClientTable.Cols.DATE_OF_BIRTH, newData[i]);
+                queries[i] = new Query(ClientTable.Cols.DATE_OF_BIRTH, Date.valueOf(LocalDate.parse(newData[i], DateTimeFormatter.ofPattern("d/MM/yyyy"))).toString());
             }
         }
         return queries;
