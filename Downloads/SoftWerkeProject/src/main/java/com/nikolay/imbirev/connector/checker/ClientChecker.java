@@ -86,7 +86,7 @@ public class ClientChecker implements CheckerInterface<Client> {
         }
         else {
 
-            clientDbService.updateTable(ClientTable.TABLE_NAME, client1.getClietnId(), queries);
+            clientDbService.updateTable(ClientTable.TABLE_NAME, ClientTable.Cols.ID, client1.getClietnId(), queries);
         }
     }
     private Query[] getQueryArray(String[] columns, String[] newData) {

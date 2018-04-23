@@ -90,7 +90,6 @@ public class ClientDao extends AbstractDao {
                 }
             }
         }
-        System.out.println(query.toString());
         abstractExecutor.execQuery(query.toString(), new Handler<List<Client>>() {
             @Override
             public List<Client> handle(ResultSet resultSet) throws SQLException {
@@ -108,30 +107,6 @@ public class ClientDao extends AbstractDao {
         });
         return clients;
     }
-    /**
-     * this method update current item into database
-     * @param tableName - name of table which will be modified
-     * @param id - id of the item
-     * @param array - set of chenges
-     */
-    public void updateTable(String tableName, String id, Query[] array) {
-        StringBuilder query = new StringBuilder()
-                .append("update ").append(tableName).append(" set ");
-        if (array.length == 0) {
-            throw new IllegalArgumentException();
-        }
-        for (int i = 0; i < array.length; i++) {
-            if (i == array.length-1) {
-                query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append(" ' ");
-                break;
-            }
-            else {
-                query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append(" ', ");
-            }
-        }
-        query.append(" where clientId = '").append(id).append("'");
-        System.out.println(query.toString());
-        abstractExecutor.execUpdate(query.toString());
-    }
+
 
 }

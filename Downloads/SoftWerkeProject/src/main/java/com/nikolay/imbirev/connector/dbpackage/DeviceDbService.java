@@ -41,10 +41,18 @@ public class DeviceDbService extends AbstractDbService {
      * @param sortColumns - sort conditions
      * @return new list or throw IllegalArgumentException
      */
-    public List<Device> getFromTable(String tableName, Query[] array, Column[] sortColumns) {
+    public List<Device> getList(String tableName, Query[] array, Column[] sortColumns) {
         try {
             return dao.getListFromTable(tableName, array, sortColumns);
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public Device getDevice(String tableName, Query[] array) {
+        try {
+            return dao.getItemFromTable(tableName,array);
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException();
         }
     }

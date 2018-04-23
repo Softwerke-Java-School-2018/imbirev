@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CommandHolder {
 
-    public static CommandHolder holder;
+    private static CommandHolder holder;
     private List<Command> commandList;
 
     private CommandHolder() {
@@ -28,14 +28,14 @@ public class CommandHolder {
                 5));
     }
 
-    public static synchronized CommandHolder getCommandHolder() {
+    static synchronized CommandHolder getCommandHolder() {
         if (holder == null) {
             holder = new CommandHolder();
         }
         return holder;
     }
 
-    public List<Command> getCommandList() {
+    List<Command> getCommandList() {
         return Collections.unmodifiableList(commandList);
     }
 

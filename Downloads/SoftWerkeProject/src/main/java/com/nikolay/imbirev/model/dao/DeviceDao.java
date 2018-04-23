@@ -14,6 +14,7 @@ public class DeviceDao extends AbstractDao {
 
     AbstractExecutor abstractExecutor;
     private List<Device> devices;
+    private Device mDevice;
 
 
     public DeviceDao(AbstractExecutor executor) {
@@ -60,25 +61,64 @@ public class DeviceDao extends AbstractDao {
         abstractExecutor.execQuery(query.toString(), new Handler<List<Device>>() {
             @Override
             public List<Device> handle(ResultSet resultSet) throws SQLException {
-                resultSet.next();
-                String id = resultSet.getString(1);
-                if(id.substring(0, 2).equals("dev")) {
-                    while (resultSet.next()) {
-                        Device device = new Device.DeviceBuilder()
-                                .setDeviceId(id)
-                                .setDate(resultSet.getDate(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING).toLocalDate())
-                                .setModel(resultSet.getString(DeviceTable.Cols.MODEL))
-                                .setPrice(resultSet.getDouble(DeviceTable.Cols.PRICE))
-                                .setProducer(resultSet.getString(DeviceTable.Cols.PRODUCER))
-                                .setColor(resultSet.getString(DeviceTable.Cols.COLOR))
-                                .setType(resultSet.getString(DeviceTable.Cols.TYPE))
-                                .build();
-                        devices.add(device);
-                    }
+                while (resultSet.next()) {
+                    Device device = new Device.DeviceBuilder()
+                            .setDeviceId(resultSet.getString(DeviceTable.Cols.ID))
+                            .setDate(resultSet.getDate(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING).toLocalDate())
+                            .setModel(resultSet.getString(DeviceTable.Cols.MODEL))
+                            .setPrice(resultSet.getDouble(DeviceTable.Cols.PRICE))
+                            .setProducer(resultSet.getString(DeviceTable.Cols.PRODUCER))
+                            .setColor(resultSet.getString(DeviceTable.Cols.COLOR))
+                            .setType(resultSet.getString(DeviceTable.Cols.TYPE))
+                            .build();
+                    devices.add(device);
                 }
                 return devices;
             }
         });
-        throw new NullPointerException();
+        return devices;
+    }
+    /**
+     * this method return item from the database
+     * @param tableName - from this table
+     * @param array - with this conditions
+     * @return new client or throw nullPointerException if we have no client for this conditions
+     */
+    public Device getItemFromTable(String tableName, Query[] array) {
+        StringBuilder query = new StringBuilder()
+                .append("select * from ").append(tableName).append(" where ");
+        if (array.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            for (int i = 0; i < array.length; i++) {
+                if (i == array.length - 1) {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
+                } else {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
+                }
+            }
+            abstractExecutor.execQuery(query.toString(), new Handler<Device>() {
+                @Override
+                public Device handle(ResultSet resultSet) throws SQLException {
+                    if (resultSet.next()) {
+                        Device device = new Device.DeviceBuilder()
+                                .setDeviceId(resultSet.getString(DeviceTable.Cols.ID))
+                                .setModel(resultSet.getString(DeviceTable.Cols.MODEL))
+                                .setColor(resultSet.getString(DeviceTable.Cols.COLOR))
+                                .setPrice(resultSet.getDouble(DeviceTable.Cols.PRICE))
+                                .setProducer(resultSet.getString(DeviceTable.Cols.PRODUCER))
+                                .setType(resultSet.getString(DeviceTable.Cols.TYPE))
+                                .setDate(resultSet.getDate(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING).toLocalDate())
+                                .build();
+                        mDevice = device;
+                        return mDevice;
+                    } else {
+                        return null;
+                    }
+                }
+            });
+            return mDevice;
+        }
     }
 }

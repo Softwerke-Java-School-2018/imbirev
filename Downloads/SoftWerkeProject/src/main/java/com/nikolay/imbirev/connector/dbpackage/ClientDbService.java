@@ -5,6 +5,7 @@ import com.nikolay.imbirev.model.entities.Client;
 import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.connector.checker.Query;
+import com.nikolay.imbirev.model.entities.Device;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class ClientDbService extends AbstractDbService {
             throw new IllegalArgumentException();
         }
     }
+
 
 
 }

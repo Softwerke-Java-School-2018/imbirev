@@ -12,5 +12,5 @@ public interface DbInterface<T> {
 
     void deleteFromTable(String tableName ,Query[] array);
 
-    void updateTable(String tableName, String id, Query[] array);
+    void updateTable(String tableName,String col,  String id, Query[] array);
 }

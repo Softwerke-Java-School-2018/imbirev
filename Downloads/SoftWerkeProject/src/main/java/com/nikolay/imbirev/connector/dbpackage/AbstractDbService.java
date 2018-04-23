@@ -65,7 +65,7 @@ abstract class AbstractDbService implements DbInterface<Sale> {
      * @param array - with this conditions
      */
     @Override
-    public void updateTable(String tableName, String id, Query[] array) throws IllegalArgumentException {
-        dao.updateTable(tableName, id, array);
+    public void updateTable(String tableName, String colQuery,  String id, Query[] array) throws IllegalArgumentException {
+        dao.updateTable(tableName,colQuery, id, array);
     }
 }
