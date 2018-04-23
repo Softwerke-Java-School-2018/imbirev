@@ -64,7 +64,6 @@ public class ParsingClientData {
                     case "update": {
                         int f = command.indexOf('[');
                         Client client = getClientFromData(objectParts[0].trim(), objectParts[1].trim());
-                        System.out.println(client.getFirstName());
                         if (client == null) {
                             System.out.println("Client won't found");
                             throw new IllegalArgumentException();
@@ -139,7 +138,6 @@ public class ParsingClientData {
                             }
                             clients = checker.getListOfClient(columns, values, new String[]{});
                         }
-
                     }
                     printList(clients);
                 }

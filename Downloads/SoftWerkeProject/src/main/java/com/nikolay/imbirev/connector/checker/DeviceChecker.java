@@ -1,10 +1,7 @@
 package com.nikolay.imbirev.connector.checker;
 
 import com.nikolay.imbirev.connector.dbpackage.DeviceDbService;
-import com.nikolay.imbirev.model.entities.ClientTable;
-import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.entities.Device;
-import com.nikolay.imbirev.model.entities.DeviceTable;
+import com.nikolay.imbirev.model.entities.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -107,11 +104,14 @@ public class DeviceChecker implements CheckerInterface<Device> {
     }
 
     public List<Device> getListOfDevices(String[] cols, String[] vals, String[] sort) {
+        List<Device> devices;
         if (cols.length > 0) {
             queries = getQueryArray(cols, vals);
-            return service.getList(DeviceTable.TABLE_NAME, queries, getSortColumns(sort));
+            devices = service.getList(DeviceTable.TABLE_NAME, queries, getSortColumns(sort));
+            return devices;
         } else {
-            return service.getList(DeviceTable.TABLE_NAME, new Query[]{}, getSortColumns(sort));
+            devices = service.getList(DeviceTable.TABLE_NAME, new Query[]{}, getSortColumns(sort));
+            return devices;
         }
     }
 

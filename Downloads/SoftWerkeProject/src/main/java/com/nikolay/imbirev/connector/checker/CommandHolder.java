@@ -27,7 +27,7 @@ public class CommandHolder {
                 "Add data of the client in such format [name = search name, surname = search surname, date of birth = search date of birth (17/04/2018)] {sorted columns}",
                 5));
         commandList.add(new Command("create device",
-                "Add data of the device in such format [model producer date of starting manufactoring (17/04/2018) color type price]",
+                "Add data of the device in such format [model producer price date of starting manufactoring (17/04/2018) type color]",
                 6));
         commandList.add(new Command("delete device",
                 "Add data of the device in such format [model producer date of starting manufactoring (17/04/2018) color type price]",

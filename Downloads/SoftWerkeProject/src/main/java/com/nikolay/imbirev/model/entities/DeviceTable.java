@@ -21,10 +21,11 @@ public class DeviceTable {
                 new Column.ColumnBuilder().setName(ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
                 new Column.ColumnBuilder().setName(MODEL).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
                 new Column.ColumnBuilder().setName(PRODUCER).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(PRICE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(DATE_OF_STARTING_MANUFACTORING).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn(),
+                new Column.ColumnBuilder().setName(COLOR).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
                 new Column.ColumnBuilder().setName(TYPE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(COLOR).setType(type).setIsNull(false).setIsAuto(false).buildColumn()
+                new Column.ColumnBuilder().setName(PRICE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
+                new Column.ColumnBuilder().setName(DATE_OF_STARTING_MANUFACTORING).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn()
+
         };
 
 

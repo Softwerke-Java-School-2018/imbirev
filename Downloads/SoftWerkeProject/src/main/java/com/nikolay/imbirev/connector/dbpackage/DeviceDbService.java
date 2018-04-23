@@ -7,6 +7,7 @@ import com.nikolay.imbirev.model.entities.DeviceTable;
 import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceDbService extends AbstractDbService {
@@ -43,7 +44,9 @@ public class DeviceDbService extends AbstractDbService {
      */
     public List<Device> getList(String tableName, Query[] array, Column[] sortColumns) {
         try {
-            return dao.getListFromTable(tableName, array, sortColumns);
+            List<Device> devices;
+            devices = dao.getListFromTable(tableName, array, sortColumns);
+            return devices;
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException();
         }

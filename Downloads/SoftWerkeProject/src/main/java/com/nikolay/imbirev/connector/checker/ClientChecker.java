@@ -126,6 +126,7 @@ public class ClientChecker implements CheckerInterface<Client> {
 
     public List<Client> getListOfClient(String[] cols, String[] data, String[] sortCols) {
         if (cols.length > 0) {
+            System.out.println(clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols)).size()  + "   checker");
             return clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols));
         } else {
             return clientDbService.getList(new Query[]{}, getSortColumns(sortCols));
