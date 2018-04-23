@@ -75,7 +75,30 @@ public class DeviceDataParser {
             }
             case "update":
             {
-
+                int f = command.indexOf('[');
+                String des = command.substring(14, f);
+                String[] parts = des.split(" ");
+                Device device = new Device.DeviceBuilder()
+                        .setDeviceId()
+                        .setModel(parts[0]).build();
+                if (device == null) {
+                    System.out.println("Client won't found");
+                    throw new IllegalArgumentException();
+                }
+                int h = command.indexOf(']');
+                String d = command.substring(f+1, h);
+                String[] desc = d.split(", ");
+                String[] columns = new String[desc.length];
+                String[] values = new String[desc.length];
+                for (int i = 0; i < desc.length; i++) {
+                    if (desc.length == 0) throw new IllegalArgumentException();
+                    int y = desc[i].indexOf('=');
+                    columns[i] = desc[i].substring(0, y).trim();
+                    values[i] = desc[i].substring(y+1).trim();
+                }
+                checker.updateTable(device, columns, values);
+                System.out.println("client updated");
+                break;
             }
             case "list":
             {

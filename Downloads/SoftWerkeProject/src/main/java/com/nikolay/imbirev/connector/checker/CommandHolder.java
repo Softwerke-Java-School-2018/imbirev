@@ -48,7 +48,7 @@ public class CommandHolder {
                 "Add data of the sale in such format [clientId date of sale (17/04/2018) overall price]",
                 12));
         commandList.add(new Command("update sale",
-                "Add data of the sale in such format [clientId date of sale price] and new data [clientId = new clientId, and etc]",
+                "Add data of the sale in such format [clientId price] and new data [clientId = new clientId, and etc]",
                 13));
         commandList.add(new Command("get sale",
                 "Add data of the sale in such format [clientId = search clientId, and etc]",

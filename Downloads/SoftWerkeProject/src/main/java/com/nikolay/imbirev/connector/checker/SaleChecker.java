@@ -92,9 +92,9 @@ public class SaleChecker implements CheckerInterface<Sale> {
         return columns;
     }
 
-    private void updateSale(Sale sale, String[] columns, String[] newData) throws IllegalArgumentException {
-        Sale s = getFromTable(new String[]{"clientId", "date of sale", "price"},
-                new String[]{sale.getClientid(), sale.getDateOfSale().toString(), String.valueOf(sale.getOverallPrice())});
+    public void updateSale(Sale sale, String[] columns, String[] newData) throws IllegalArgumentException {
+        Sale s = getFromTable(new String[]{"clientId", "price"},
+                new String[]{sale.getClientid(), String.valueOf(sale.getOverallPrice())});
         queries = getQueryArray(columns, newData);
         if (s != null) {
             service.updateTable(SaleTable.TABLE_NAME, SaleTable.Cols.ID, s.getSaleId(), queries);

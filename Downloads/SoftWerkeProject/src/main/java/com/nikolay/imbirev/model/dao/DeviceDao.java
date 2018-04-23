@@ -97,6 +97,7 @@ public class DeviceDao extends AbstractDao {
                     query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
                 }
             }
+            System.out.println(query.toString());
             abstractExecutor.execQuery(query.toString(), new Handler<Device>() {
                 @Override
                 public Device handle(ResultSet resultSet) throws SQLException {

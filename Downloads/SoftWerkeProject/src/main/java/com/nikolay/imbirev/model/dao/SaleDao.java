@@ -93,6 +93,7 @@ public class SaleDao extends AbstractDao {
                     query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
                 }
             }
+            System.out.println(query.toString());
             abstractExecutor.execQuery(query.toString(), new Handler<Sale>() {
                 @Override
                 public Sale handle(ResultSet resultSet) throws SQLException {
