@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Main {
 
     private static ClientChecker clientChecker;
-    private static ParsingClientData dataParser;
     private static Scanner scanner;
 
 
@@ -36,12 +35,27 @@ public class Main {
 
     private static void resolveCommand(String command) throws InterruptedException {
         try {
-            dataParser = new ParsingClientData(command);
-            dataParser.parseCommand();
+            String desc = command.substring(0, 14);
+            String[] params = desc.split(" ");
+            switch (params[1]) {
+                case "client":
+                    ParsingClientData dataParser = new ParsingClientData(command);
+                    dataParser.parseCommand();
+                    break;
+                case "sale":
+                    SaleParsingData datapars = new SaleParsingData(command);
+                    datapars.parseCommand();
+                    break;
+                case "device":
+                    DeviceDataParser parser = new DeviceDataParser(command);
+                    parser.parseCommand();
+                    break;
+                    default:
+                        throw new IllegalArgumentException();
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Please check your input");
             getCommand();
         }
-
     }
 }
