@@ -13,7 +13,6 @@ public class DeviceDataParser {
 
     private String command;
     private DeviceChecker checker;
-    private Device mDevice;
     private List<Device> devices;
 
     public DeviceDataParser(String command) {
@@ -139,13 +138,6 @@ public class DeviceDataParser {
         }
     }
 
-    private void checkForIllegalChars(String input) {
-        for (int i = 0; i < input.length(); i++) {
-            char a = input.charAt(i);
-            if (a == '.' || a == '-')
-                throw new IllegalArgumentException();
-        }
-    }
 
     public void printDevice(List<Device> devices) {
         int i = 1;

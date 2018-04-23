@@ -30,32 +30,31 @@ public class SaleDao extends AbstractDao {
      */
     public List<Sale> getListFromTable(String tableName, Query[] array, Column[] sortArray) {
         StringBuilder query = new StringBuilder()
-                .append("select * from ").append(tableName).append(" where ");
-        if (array.length == 0) {
-            throw new IllegalArgumentException();
-        }
-        for (int i = 0; i < array.length; i++) {
-            if (i == array.length-1) {
-                query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
-            }
-            else {
-                query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("', ");
+                .append("select * from ").append(tableName);
+        if (array.length != 0) {
+            query.append(" where ");
+            for (int i = 0; i < array.length; i++) {
+                if (i == array.length - 1) {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
+                } else {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("', ");
+                }
             }
         }
         if (sortArray.length == 0) {
-            query.append(");");
+            query.append(";");
         }
         else {
             query.append(" order by ");
             for (int i = 0; i < sortArray.length; i++) {
                 if (i == sortArray.length-1) {
-                    query.append(sortArray[i]);
+                    query.append(sortArray[i].getColumnName());
                 }
                 else {
-                    query.append(sortArray[i]).append(", ");
+                    query.append(sortArray[i].getColumnName()).append(", ");
                 }
             }
-            query.append(");");
+            query.append(";");
         }
         abstractExecutor.execQuery(query.toString(), new Handler<List<Sale>>() {
             @Override
