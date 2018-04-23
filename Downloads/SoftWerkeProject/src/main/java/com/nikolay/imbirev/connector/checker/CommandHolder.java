@@ -26,6 +26,38 @@ public class CommandHolder {
         commandList.add(new Command("list client",
                 "Add data of the client in such format [name = search name, surname = search surname, date of birth = search date of birth (17/04/2018)] {sorted columns}",
                 5));
+        commandList.add(new Command("create device",
+                "Add data of the device in such format [model producer date of starting manufactoring (17/04/2018) color type price]",
+                6));
+        commandList.add(new Command("delete device",
+                "Add data of the device in such format [model producer date of starting manufactoring (17/04/2018) color type price]",
+                7));
+        commandList.add(new Command("update device",
+                "Add data of the device in such format [model] and new data [model producer date of starting manufactoring (17/04/2018) color type price]",
+                8));
+        commandList.add(new Command("get device",
+                "Add data of the device in such format [model = search model and etc]",
+                9));
+        commandList.add(new Command("list device",
+                "Add data of the device in such format [model = search model, and etc] {sorted columns}",
+                10));
+        commandList.add(new Command("create sale",
+                "Add data of the sale in such format [clientId date of sale (17/04/2018) overall price]",
+                11));
+        commandList.add(new Command("delete sale",
+                "Add data of the sale in such format [clientId date of sale (17/04/2018) overall price]",
+                12));
+        commandList.add(new Command("update sale",
+                "Add data of the sale in such format [clientId date of sale price] and new data [clientId = new clientId, and etc]",
+                13));
+        commandList.add(new Command("get sale",
+                "Add data of the sale in such format [clientId = search clientId, and etc]",
+                14));
+        commandList.add(new Command("list sale",
+                "Add data of the sale in such format [clientId = search clientId, and etc] {sorted columns}",
+                15));
+
+
     }
 
     static synchronized CommandHolder getCommandHolder() {

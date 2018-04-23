@@ -41,8 +41,16 @@ public class SaleDbService extends AbstractDbService {
      */
     public List<Sale> getList(String tableName, Query[] array, Column[] sortColumns) {
         try {
-            return dao.getItemFromTable(tableName, array, sortColumns);
-        } catch (NullPointerException e) {
+            return dao.getListFromTable(tableName, array, sortColumns);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public Sale getSale(String tableName, Query[] array) {
+        try {
+            return dao.getItemFromTable(tableName, array);
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException();
         }
     }

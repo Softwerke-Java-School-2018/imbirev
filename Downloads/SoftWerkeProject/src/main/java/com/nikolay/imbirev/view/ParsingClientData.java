@@ -224,6 +224,7 @@ public class ParsingClientData {
         int i = 1;
         for (Client a : clients) {
             System.out.println(i++);
+            System.out.println(a.getClietnId() + " client id");
             System.out.println(a.getFirstName() + " first name");
             System.out.println(a.getLastName() + " last name");
             System.out.println(a.getDateOfBirth() + " date of birth");

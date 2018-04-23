@@ -14,6 +14,7 @@ public class SaleDao extends AbstractDao {
 
     AbstractExecutor abstractExecutor;
     private List<Sale> sales;
+    private Sale mSale;
 
 
     public SaleDao(AbstractExecutor executor) {
@@ -27,7 +28,7 @@ public class SaleDao extends AbstractDao {
      * @param array - with this conditions
      * @return new client or throw nullPointerException if we have no client for this conditions
      */
-    public List<Sale> getItemFromTable(String tableName, Query[] array, Column[] sortArray) {
+    public List<Sale> getListFromTable(String tableName, Query[] array, Column[] sortArray) {
         StringBuilder query = new StringBuilder()
                 .append("select * from ").append(tableName).append(" where ");
         if (array.length == 0) {
@@ -59,22 +60,59 @@ public class SaleDao extends AbstractDao {
         abstractExecutor.execQuery(query.toString(), new Handler<List<Sale>>() {
             @Override
             public List<Sale> handle(ResultSet resultSet) throws SQLException {
-                resultSet.next();
-                String id = resultSet.getString(1);
-                if(id.substring(0, 2).equals("sal")) {
                     while (resultSet.next()) {
                         Sale sale = new Sale.SaleBuilder()
-                                .setSaleId(id)
+                                .setSaleId(resultSet.getString(SaleTable.Cols.ID))
                                 .setClient(resultSet.getString(SaleTable.Cols.ClIENT_ID))
                                 .setDateOfSale(resultSet.getDate(SaleTable.Cols.DATE_OF_SALE).toLocalDate())
                                 .setPrice(resultSet.getDouble(SaleTable.Cols.PRICE))
                                 .build();
                         sales.add(sale);
                     }
-                }
                 return sales;
             }
         });
-        throw new NullPointerException();
+        return sales;
     }
+    /**
+     * this method return item from the database
+     * @param tableName - from this table
+     * @param array - with this conditions
+     * @return new client or throw nullPointerException if we have no client for this conditions
+     */
+    public Sale getItemFromTable(String tableName, Query[] array) {
+        StringBuilder query = new StringBuilder()
+                .append("select * from ").append(tableName).append(" where ");
+        if (array.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            for (int i = 0; i < array.length; i++) {
+                if (i == array.length - 1) {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
+                } else {
+                    query.append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
+                }
+            }
+            abstractExecutor.execQuery(query.toString(), new Handler<Sale>() {
+                @Override
+                public Sale handle(ResultSet resultSet) throws SQLException {
+                    if (resultSet.next()) {
+                        Sale sale = new Sale.SaleBuilder()
+                                .setSaleId(resultSet.getString(SaleTable.Cols.ID))
+                                .setClient(resultSet.getString(SaleTable.Cols.ClIENT_ID))
+                                .setPrice(resultSet.getDouble(SaleTable.Cols.PRICE))
+                                .setDateOfSale(resultSet.getDate(SaleTable.Cols.DATE_OF_SALE).toLocalDate())
+                                .build();
+                        mSale = sale;
+                        return mSale;
+                    } else {
+                        return null;
+                    }
+                }
+            });
+            return mSale;
+        }
+    }
+
 }
