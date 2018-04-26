@@ -44,31 +44,31 @@ public class DeviceChecker implements CheckerInterface<Device> {
         }
         return queries;
     }
-    private Column[] getSortColumns(String[] cols) {
-        if (cols.length == 0) return new Column[] {};
-        Column[] columns = new Column[cols.length];
-        for (int i = 0; i < columns.length; i++) {
-            if (cols[i].trim().equals("model")) {
-                columns[i] = new Column(DeviceTable.Cols.MODEL, null, false, false);
-            }
-            if (cols[i].trim().equals("producer")) {
-                columns[i] = new Column(DeviceTable.Cols.PRODUCER, null, false, false);
-            }
-            if (cols[i].trim().equals("date of start")) {
-                columns[i] = new Column(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING, null, false, false);
-            }
-            if (cols[i].trim().equals("type")) {
-                columns[i] = new Column(DeviceTable.Cols.TYPE, null, false, false);
-            }
-            if (cols[i].trim().equals("price")) {
-                columns[i] = new Column(DeviceTable.Cols.PRICE, null, false, false);
-            }
-            if (cols[i].trim().equals("color")) {
-                columns[i] = new Column(DeviceTable.Cols.COLOR, null, false, false);
-            }
-        }
-        return columns;
-    }
+//    private Column[] getSortColumns(String[] cols) {
+//        if (cols.length == 0) return new Column[] {};
+//        Column[] columns = new Column[cols.length];
+//        for (int i = 0; i < columns.length; i++) {
+//            if (cols[i].trim().equals("model")) {
+//                columns[i] = new Column(DeviceTable.Cols.MODEL, null, false, false);
+//            }
+//            if (cols[i].trim().equals("producer")) {
+//                columns[i] = new Column(DeviceTable.Cols.PRODUCER, null, false, false);
+//            }
+//            if (cols[i].trim().equals("date of start")) {
+//                columns[i] = new Column(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING, null, false, false);
+//            }
+//            if (cols[i].trim().equals("type")) {
+//                columns[i] = new Column(DeviceTable.Cols.TYPE, null, false, false);
+//            }
+//            if (cols[i].trim().equals("price")) {
+//                columns[i] = new Column(DeviceTable.Cols.PRICE, null, false, false);
+//            }
+//            if (cols[i].trim().equals("color")) {
+//                columns[i] = new Column(DeviceTable.Cols.COLOR, null, false, false);
+//            }
+//        }
+//        return columns;
+ //   }
 
     @Override
     public void addToTable(Device object) throws IllegalArgumentException {
@@ -103,17 +103,17 @@ public class DeviceChecker implements CheckerInterface<Device> {
         return service.getDevice(DeviceTable.TABLE_NAME, queries);
     }
 
-    public List<Device> getListOfDevices(String[] cols, String[] vals, String[] sort) {
-        List<Device> devices;
-        if (cols.length > 0) {
-            queries = getQueryArray(cols, vals);
-            devices = service.getList(DeviceTable.TABLE_NAME, queries, getSortColumns(sort));
-            return devices;
-        } else {
-            devices = service.getList(DeviceTable.TABLE_NAME, new Query[]{}, getSortColumns(sort));
-            return devices;
-        }
-    }
+//    public List<Device> getListOfDevices(String[] cols, String[] vals, String[] sort) {
+//        List<Device> devices;
+//        if (cols.length > 0) {
+//            queries = getQueryArray(cols, vals);
+//            devices = service.getList(DeviceTable.TABLE_NAME, queries, getSortColumns(sort));
+//            return devices;
+//        } else {
+//            devices = service.getList(DeviceTable.TABLE_NAME, new Query[]{}, getSortColumns(sort));
+//            return devices;
+//        }
+//    }
 
     @Override
     public void deleteTable(String tableName) {

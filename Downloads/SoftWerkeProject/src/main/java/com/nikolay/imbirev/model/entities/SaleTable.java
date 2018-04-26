@@ -1,5 +1,7 @@
 package com.nikolay.imbirev.model.entities;
 
+import com.nikolay.imbirev.model.exceptions.ColumnCreateException;
+
 public class SaleTable {
 
     public final static String TABLE_NAME = "sale_table";
@@ -13,13 +15,21 @@ public class SaleTable {
 
         private static final String type = "varchar (256) ";
 
-        public static final Column[] columns = {
-                new Column.ColumnBuilder().setName(ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(ClIENT_ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(PRICE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName(DATE_OF_SALE).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn()
-        };
+        public static  Column[] columns;
 
+        static {
+            try {
+                columns = new Column[]{
+                                new Column.ColumnBuilder().setName(ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
+                                new Column.ColumnBuilder().setName(ClIENT_ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
+                                new Column.ColumnBuilder().setName(PRICE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
+                                new Column.ColumnBuilder().setName(DATE_OF_SALE).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn()
+                        };
+            } catch (ColumnCreateException e) {
+
+
+            }
+        }
 
 
     }

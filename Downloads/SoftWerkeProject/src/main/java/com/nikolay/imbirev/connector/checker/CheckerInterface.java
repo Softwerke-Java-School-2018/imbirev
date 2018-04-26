@@ -1,7 +1,5 @@
 package com.nikolay.imbirev.connector.checker;
 
-import com.nikolay.imbirev.model.entities.Column;
-
 import java.util.List;
 
 public interface CheckerInterface<T> {

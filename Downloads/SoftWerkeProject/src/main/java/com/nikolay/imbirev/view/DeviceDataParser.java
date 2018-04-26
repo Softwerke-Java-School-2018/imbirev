@@ -100,50 +100,50 @@ public class DeviceDataParser {
                 System.out.println("client updated");
                 break;
             }
-            case "list":
-            {
-                int f = command.indexOf('[');
-                int h = command.indexOf(']');
-                String d = command.substring(f+1, h);
-                String[] ss = d.split(", ");
-                int g = command.indexOf('{');
-                int s = command.indexOf('}');
-                String q = command.substring(g+1, s);
-                String[] desc = q.split(", ");
-                if (!d.equals("") && !q.equals("")) {
-                    String[] columns = new String[ss.length];
-                    String[] values = new String[ss.length];
-                    for (int i = 0; i < ss.length; i++) {
-                        int y = ss[i].indexOf('=');
-                        columns[i] = ss[i].substring(0, y).trim();
-                        values[i] = ss[i].substring(y+1).trim();
-                    }
-                    devices = checker.getListOfDevices(columns, values, desc);
-                    printDevice(devices);
-
-                } else if (d.equals("") && q.equals("")) {
-                    devices = checker.getListOfDevices(new String[]{}, new String[]{}, new String[]{});
-                    printDevice(devices);
-
-                }
-                else if (d.equals("") && !q.equals("")) {
-                    devices = checker.getListOfDevices(new String[]{}, new String[]{}, desc);
-                    printDevice(devices);
-
-                }
-                else {
-                    String[] columns = new String[ss.length];
-                    String[] values = new String[ss.length];
-                    for (int i = 0; i < ss.length; i++) {
-                        int y = ss[i].indexOf('=');
-                        columns[i] = ss[i].substring(0, y).trim();
-                        values[i] = ss[i].substring(y+1).trim();
-                    }
-                    devices = checker.getListOfDevices(columns, values, new String[]{});
-                    printDevice(devices);
-                }
-                break;
-            }
+//            case "list":
+//            {
+//                int f = command.indexOf('[');
+//                int h = command.indexOf(']');
+//                String d = command.substring(f+1, h);
+//                String[] ss = d.split(", ");
+//                int g = command.indexOf('{');
+//                int s = command.indexOf('}');
+//                String q = command.substring(g+1, s);
+//                String[] desc = q.split(", ");
+//                if (!d.equals("") && !q.equals("")) {
+//                    String[] columns = new String[ss.length];
+//                    String[] values = new String[ss.length];
+//                    for (int i = 0; i < ss.length; i++) {
+//                        int y = ss[i].indexOf('=');
+//                        columns[i] = ss[i].substring(0, y).trim();
+//                        values[i] = ss[i].substring(y+1).trim();
+//                    }
+//                    devices = checker.getListOfDevices(columns, values, desc);
+//                    printDevice(devices);
+//
+//                } else if (d.equals("") && q.equals("")) {
+//                    devices = checker.getListOfDevices(new String[]{}, new String[]{}, new String[]{});
+//                    printDevice(devices);
+//
+//                }
+//                else if (d.equals("") && !q.equals("")) {
+//                    devices = checker.getListOfDevices(new String[]{}, new String[]{}, desc);
+//                    printDevice(devices);
+//
+//                }
+//                else {
+//                    String[] columns = new String[ss.length];
+//                    String[] values = new String[ss.length];
+//                    for (int i = 0; i < ss.length; i++) {
+//                        int y = ss[i].indexOf('=');
+//                        columns[i] = ss[i].substring(0, y).trim();
+//                        values[i] = ss[i].substring(y+1).trim();
+//                    }
+//                    devices = checker.getListOfDevices(columns, values, new String[]{});
+//                    printDevice(devices);
+//                }
+//                break;
+//            }
             default:
                 throw new IllegalArgumentException();
         }

@@ -6,6 +6,7 @@ import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.entities.Device;
+import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
 import java.util.ArrayList;
@@ -18,7 +19,12 @@ public class ClientDbService extends AbstractDbService {
     private List<Client> clients;
 
     public ClientDbService() {
-        AbstractExecutor executor = new AbstractExecutor();
+        AbstractExecutor executor = null;
+        try {
+            executor = new AbstractExecutor();
+        } catch (DatabaseAccessException e) {
+            e.printStackTrace();
+        }
         dao = new ClientDao(executor);
         clients = new ArrayList<>();
     }

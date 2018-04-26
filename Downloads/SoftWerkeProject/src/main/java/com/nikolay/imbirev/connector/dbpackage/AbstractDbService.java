@@ -5,6 +5,7 @@ import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.Sale;
 import com.nikolay.imbirev.model.entities.SaleTable;
+import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 
 abstract class AbstractDbService implements DbInterface<Sale> {
@@ -12,7 +13,12 @@ abstract class AbstractDbService implements DbInterface<Sale> {
     private ClientDao dao;
 
     public AbstractDbService() {
-        AbstractExecutor executor = new AbstractExecutor();
+        AbstractExecutor executor = null;
+        try {
+            executor = new AbstractExecutor();
+        } catch (DatabaseAccessException e) {
+            e.printStackTrace();
+        }
         dao = new ClientDao(executor);
     }
 

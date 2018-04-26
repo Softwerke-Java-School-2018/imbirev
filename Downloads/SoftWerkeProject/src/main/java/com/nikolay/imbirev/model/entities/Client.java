@@ -10,7 +10,7 @@ public class Client {
     private String lastName;
     private LocalDate dateOfBirth;
 
-    public Client(String clietnId, String firstName, String lastName, LocalDate dateOfBirth) {
+    private Client(String clietnId, String firstName, String lastName, LocalDate dateOfBirth) {
         this.clietnId = clietnId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,8 +26,7 @@ public class Client {
 
         public ClientBuilder setClientId() {
             UUID id = UUID.randomUUID();
-            StringBuilder clientId = new StringBuilder().append("cli").append(id.toString());
-            this.clietnId = clientId.toString();
+            this.clietnId = id.toString();
             return this;
         }
 
@@ -54,7 +53,6 @@ public class Client {
         }
 
     }
-
 
     public String getClietnId() {
         return clietnId;

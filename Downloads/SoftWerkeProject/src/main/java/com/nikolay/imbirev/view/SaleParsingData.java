@@ -104,50 +104,50 @@ public class SaleParsingData {
                 System.out.println("sale found");
                 break;
             }
-            case "list":
-            {
-                int f = command.indexOf('[');
-                int h = command.indexOf(']');
-                String d = command.substring(f+1, h);
-                String[] ss = d.split(", ");
-                int g = command.indexOf('{');
-                int s = command.indexOf('}');
-                String q = command.substring(g+1, s);
-                String[] desc = q.split(", ");
-                if (!d.equals("") && !q.equals("")) {
-                    String[] columns = new String[ss.length];
-                    String[] values = new String[ss.length];
-                    for (int i = 0; i < ss.length; i++) {
-                        int y = ss[i].indexOf('=');
-                        columns[i] = ss[i].substring(0, y).trim();
-                        values[i] = ss[i].substring(y+1).trim();
-                    }
-                    sales = checker.getList(columns, values, desc);
-                    printSales(sales);
-
-                } else if (d.equals("") && q.equals("")) {
-                    sales = checker.getList(new String[]{}, new String[]{}, new String[]{});
-                    printSales(sales);
-
-                }
-                else if (d.equals("") && !q.equals("")) {
-                    sales = checker.getList(new String[]{}, new String[]{}, desc);
-                    printSales(sales);
-
-                }
-                else {
-                    String[] columns = new String[ss.length];
-                    String[] values = new String[ss.length];
-                    for (int i = 0; i < ss.length; i++) {
-                        int y = ss[i].indexOf('=');
-                        columns[i] = ss[i].substring(0, y).trim();
-                        values[i] = ss[i].substring(y+1).trim();
-                    }
-                    sales = checker.getList(columns, values, new String[]{});
-                    printSales(sales);
-                }
-                break;
-            }
+//            case "list":
+//            {
+//                int f = command.indexOf('[');
+//                int h = command.indexOf(']');
+//                String d = command.substring(f+1, h);
+//                String[] ss = d.split(", ");
+//                int g = command.indexOf('{');
+//                int s = command.indexOf('}');
+//                String q = command.substring(g+1, s);
+//                String[] desc = q.split(", ");
+//                if (!d.equals("") && !q.equals("")) {
+//                    String[] columns = new String[ss.length];
+//                    String[] values = new String[ss.length];
+//                    for (int i = 0; i < ss.length; i++) {
+//                        int y = ss[i].indexOf('=');
+//                        columns[i] = ss[i].substring(0, y).trim();
+//                        values[i] = ss[i].substring(y+1).trim();
+//                    }
+//                    sales = checker.getList(columns, values, desc);
+//                    printSales(sales);
+//
+//                } else if (d.equals("") && q.equals("")) {
+//                    sales = checker.getList(new String[]{}, new String[]{}, new String[]{});
+//                    printSales(sales);
+//
+//                }
+//                else if (d.equals("") && !q.equals("")) {
+//                    sales = checker.getList(new String[]{}, new String[]{}, desc);
+//                    printSales(sales);
+//
+//                }
+//                else {
+//                    String[] columns = new String[ss.length];
+//                    String[] values = new String[ss.length];
+//                    for (int i = 0; i < ss.length; i++) {
+//                        int y = ss[i].indexOf('=');
+//                        columns[i] = ss[i].substring(0, y).trim();
+//                        values[i] = ss[i].substring(y+1).trim();
+//                    }
+//                    sales = checker.getList(columns, values, new String[]{});
+//                    printSales(sales);
+//                }
+//                break;
+//            }
             default:
                 throw new IllegalArgumentException();
         }

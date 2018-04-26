@@ -67,30 +67,30 @@ public class SaleChecker implements CheckerInterface<Sale> {
         return CommandHolder.getCommandHolder().getCommandList();
     }
 
-    public List<Sale> getList(String[] cols, String[] data, String[] sortCols) {
-        if (cols.length > 0) {
-            return service.getList(SaleTable.TABLE_NAME, getQueryArray(cols, data), getSortColumns(sortCols));
-        } else {
-            return service.getList(SaleTable.TABLE_NAME, new Query[]{}, getSortColumns(sortCols));
-        }
-    }
+//    public List<Sale> getList(String[] cols, String[] data, String[] sortCols) {
+//        if (cols.length > 0) {
+//            return service.getList(SaleTable.TABLE_NAME, getQueryArray(cols, data), getSortColumns(sortCols));
+//        } else {
+//            return service.getList(SaleTable.TABLE_NAME, new Query[]{}, getSortColumns(sortCols));
+//        }
+//    }
 
-    private Column[] getSortColumns(String[] cols) {
-        if (cols.length == 0) return new Column[] {};
-        Column[] columns = new Column[cols.length];
-        for (int i = 0; i < columns.length; i++) {
-            if (cols[i].trim().equals("price")) {
-                columns[i] = new Column(SaleTable.Cols.PRICE, null, false, false);
-            }
-            if (cols[i].trim().equals("clientId")) {
-                columns[i] = new Column(SaleTable.Cols.ClIENT_ID, null, false, false);
-            }
-            if (cols[i].trim().equals("date of sale")) {
-                columns[i] = new Column(SaleTable.Cols.DATE_OF_SALE, null, false, false);
-            }
-        }
-        return columns;
-    }
+//    private Column[] getSortColumns(String[] cols) {
+//        if (cols.length == 0) return new Column[] {};
+//        Column[] columns = new Column[cols.length];
+//        for (int i = 0; i < columns.length; i++) {
+//            if (cols[i].trim().equals("price")) {
+//                columns[i] = new Column(SaleTable.Cols.PRICE, null, false, false);
+//            }
+//            if (cols[i].trim().equals("clientId")) {
+//                columns[i] = new Column(SaleTable.Cols.ClIENT_ID, null, false, false);
+//            }
+//            if (cols[i].trim().equals("date of sale")) {
+//                columns[i] = new Column(SaleTable.Cols.DATE_OF_SALE, null, false, false);
+//            }
+//        }
+//        return columns;
+//    }
 
     public void updateSale(Sale sale, String[] columns, String[] newData) throws IllegalArgumentException {
         Sale s = getFromTable(new String[]{"clientId", "price"},

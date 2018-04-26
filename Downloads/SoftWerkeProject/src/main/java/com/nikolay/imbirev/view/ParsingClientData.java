@@ -101,45 +101,45 @@ public class ParsingClientData {
                         System.out.println("client found");
                         break;
                     }
-                    case "list": {
-                        int f = command.indexOf('[');
-                        int h = command.indexOf(']');
-                        String d = command.substring(f+1, h);
-                        String[] ss = d.split(", ");
-                        int g = command.indexOf('{');
-                        int s = command.indexOf('}');
-                        String q = command.substring(g+1, s);
-                        String[] desc = q.split(", ");
-                        if (!d.equals("") && !q.equals("")) {
-                            String[] columns = new String[ss.length];
-                            String[] values = new String[ss.length];
-                            for (int i = 0; i < ss.length; i++) {
-                                int y = ss[i].indexOf('=');
-                                columns[i] = ss[i].substring(0, y).trim();
-                                values[i] = ss[i].substring(y+1).trim();
-                            }
-                            clients = checker.getListOfClient(columns, values, desc);
-
-                        } else if (d.equals("") && q.equals("")) {
-                            clients = checker.getListOfClient(new String[]{}, new String[]{}, new String[]{});
-
-                        }
-                        else if (d.equals("") && !q.equals("")) {
-                            clients = checker.getListOfClient(new String[]{}, new String[]{}, desc);
-
-                        }
-                        else {
-                            String[] columns = new String[ss.length];
-                            String[] values = new String[ss.length];
-                            for (int i = 0; i < ss.length; i++) {
-                                int y = ss[i].indexOf('=');
-                                columns[i] = ss[i].substring(0, y).trim();
-                                values[i] = ss[i].substring(y+1).trim();
-                            }
-                            clients = checker.getListOfClient(columns, values, new String[]{});
-                        }
-                    }
-                    printList(clients);
+//                    case "list": {
+//                        int f = command.indexOf('[');
+//                        int h = command.indexOf(']');
+//                        String d = command.substring(f+1, h);
+//                        String[] ss = d.split(", ");
+//                        int g = command.indexOf('{');
+//                        int s = command.indexOf('}');
+//                        String q = command.substring(g+1, s);
+//                        String[] desc = q.split(", ");
+//                        if (!d.equals("") && !q.equals("")) {
+//                            String[] columns = new String[ss.length];
+//                            String[] values = new String[ss.length];
+//                            for (int i = 0; i < ss.length; i++) {
+//                                int y = ss[i].indexOf('=');
+//                                columns[i] = ss[i].substring(0, y).trim();
+//                                values[i] = ss[i].substring(y+1).trim();
+//                            }
+//                            clients = checker.getListOfClient(columns, values, desc);
+//
+//                        } else if (d.equals("") && q.equals("")) {
+//                            clients = checker.getListOfClient(new String[]{}, new String[]{}, new String[]{});
+//
+//                        }
+//                        else if (d.equals("") && !q.equals("")) {
+//                            clients = checker.getListOfClient(new String[]{}, new String[]{}, desc);
+//
+//                        }
+//                        else {
+//                            String[] columns = new String[ss.length];
+//                            String[] values = new String[ss.length];
+//                            for (int i = 0; i < ss.length; i++) {
+//                                int y = ss[i].indexOf('=');
+//                                columns[i] = ss[i].substring(0, y).trim();
+//                                values[i] = ss[i].substring(y+1).trim();
+//                            }
+//                            clients = checker.getListOfClient(columns, values, new String[]{});
+//                        }
+//                    }
+                  //  printList(clients);
                 }
             } else {
                 throw new IllegalArgumentException();

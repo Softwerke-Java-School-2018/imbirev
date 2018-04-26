@@ -1,5 +1,7 @@
 package com.nikolay.imbirev.model.entities;
 
+import com.nikolay.imbirev.model.exceptions.ColumnCreateException;
+
 // here is the entity of 1 column of the table of database
 public class Column {
 
@@ -11,7 +13,7 @@ public class Column {
 
     private final boolean isAutoIncremented;
 
-    public Column(String name, String type, boolean isNull, boolean isAuto) {
+    private Column(String name, String type, boolean isNull, boolean isAuto) {
         this.columnName = name;
         this.columnType = type;
         this.isAutoIncremented = isAuto;
@@ -47,8 +49,12 @@ public class Column {
             return this;
         }
 
-        public Column buildColumn() {
-            return new Column(columnName, columnType, isNullableColumn, isAutoIncremented);
+        public Column buildColumn() throws ColumnCreateException {
+            if (!columnName.equals("") && !columnType.equals("")) {
+                return new Column(columnName, columnType, isNullableColumn, isAutoIncremented);
+            } else {
+                throw new ColumnCreateException("column is not created completely");
+            }
         }
 
 

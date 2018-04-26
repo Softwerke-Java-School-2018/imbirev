@@ -18,7 +18,6 @@ public class ClientDao extends AbstractDao {
     private Client mClient;
     private List<Client> clients;
 
-
     public ClientDao(AbstractExecutor executor) {
         super(executor);
         abstractExecutor = executor;

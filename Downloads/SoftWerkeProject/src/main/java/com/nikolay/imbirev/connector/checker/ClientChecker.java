@@ -107,29 +107,29 @@ public class ClientChecker implements CheckerInterface<Client> {
         }
         return queries;
     }
-    private Column[] getSortColumns(String[] cols) {
-        if (cols.length == 0) return new Column[] {};
-        Column[] columns = new Column[cols.length];
-        for (int i = 0; i < columns.length; i++) {
-            if (cols[i].trim().equals("name")) {
-                columns[i] = new Column(ClientTable.Cols.FIRST_NAME, null, false, false);
-            }
-            if (cols[i].trim().equals("surname")) {
-                columns[i] = new Column(ClientTable.Cols.SECOND_NAME, null, false, false);
-            }
-            if (cols[i].trim().equals("date of birth")) {
-                columns[i] = new Column(ClientTable.Cols.DATE_OF_BIRTH, null, false, false);
-            }
-        }
-        return columns;
-    }
+//    private Column[] getSortColumns(String[] cols) {
+//        if (cols.length == 0) return new Column[] {};
+//        Column[] columns = new Column[cols.length];
+//        for (int i = 0; i < columns.length; i++) {
+//            if (cols[i].trim().equals("name")) {
+//                columns[i] = new Column(ClientTable.Cols.FIRST_NAME, null, false, false);
+//            }
+//            if (cols[i].trim().equals("surname")) {
+//                columns[i] = new Column(ClientTable.Cols.SECOND_NAME, null, false, false);
+//            }
+//            if (cols[i].trim().equals("date of birth")) {
+//                columns[i] = new Column(ClientTable.Cols.DATE_OF_BIRTH, null, false, false);
+//            }
+//        }
+//        return columns;
+//    }
 
-    public List<Client> getListOfClient(String[] cols, String[] data, String[] sortCols) {
-        if (cols.length > 0) {
-            System.out.println(clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols)).size()  + "   checker");
-            return clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols));
-        } else {
-            return clientDbService.getList(new Query[]{}, getSortColumns(sortCols));
-        }
-    }
+//    public List<Client> getListOfClient(String[] cols, String[] data, String[] sortCols) {
+//        if (cols.length > 0) {
+//            System.out.println(clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols)).size()  + "   checker");
+//            return clientDbService.getList(getQueryArray(cols, data), getSortColumns(sortCols));
+//        } else {
+//            return clientDbService.getList(new Query[]{}, getSortColumns(sortCols));
+//        }
+//    }
 }
