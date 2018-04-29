@@ -1,8 +1,14 @@
 package com.nikolay.imbirev.model.entities;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 import java.time.LocalDate;
-import java.util.UUID;
 
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
+@Value
 public class Client {
 
     private String clietnId;
@@ -10,63 +16,4 @@ public class Client {
     private String lastName;
     private LocalDate dateOfBirth;
 
-    private Client(String clietnId, String firstName, String lastName, LocalDate dateOfBirth) {
-        this.clietnId = clietnId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public static class ClientBuilder {
-
-        private String clietnId;
-        private String firstName;
-        private String lastName;
-        private LocalDate dateOfBirth;
-
-        public ClientBuilder setClientId() {
-            UUID id = UUID.randomUUID();
-            this.clietnId = id.toString();
-            return this;
-        }
-
-        public ClientBuilder setClientId(String id) {
-            this.clietnId = id;
-            return this;
-        }
-
-        public ClientBuilder setFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-        public ClientBuilder setLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-        public ClientBuilder setDateofBirth(LocalDate dateOfBirth) {
-            this.dateOfBirth = dateOfBirth;
-            return this;
-        }
-
-        public Client build() {
-            return new Client(clietnId, firstName, lastName, dateOfBirth);
-        }
-
-    }
-
-    public String getClietnId() {
-        return clietnId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
 }

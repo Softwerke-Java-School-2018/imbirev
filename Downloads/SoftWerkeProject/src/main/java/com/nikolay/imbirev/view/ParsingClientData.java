@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ParsingClientData {
 
@@ -162,11 +163,11 @@ public class ParsingClientData {
             throw new IllegalArgumentException();
         }
         else {
-            client = new Client.ClientBuilder()
-                    .setClientId()
-                    .setDateofBirth(getLocalDate(dateOfBirth))
-                    .setFirstName(name)
-                    .setLastName(secondName)
+            client = Client.builder()
+                    .clietnId(UUID.randomUUID().toString())
+                    .dateOfBirth(getLocalDate(dateOfBirth))
+                    .firstName(name)
+                    .lastName(secondName)
                     .build();
             return client;
         }
@@ -182,10 +183,10 @@ public class ParsingClientData {
             throw new IllegalArgumentException();
         }
         else {
-            client = new Client.ClientBuilder()
-                    .setClientId()
-                    .setFirstName(name)
-                    .setLastName(secondName)
+            client = Client.builder()
+                    .clietnId(UUID.randomUUID().toString())
+                    .firstName(name)
+                    .lastName(secondName)
                     .build();
             return client;
         }

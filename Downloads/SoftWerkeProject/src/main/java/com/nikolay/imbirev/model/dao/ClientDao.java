@@ -48,10 +48,10 @@ public class ClientDao extends AbstractDao {
                 @Override
                 public Client handle(ResultSet resultSet) throws SQLException {
                     if (resultSet.next()) {
-                        Client client = new Client.ClientBuilder().setClientId(resultSet.getString(ClientTable.Cols.ID))
-                                .setFirstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
-                                .setLastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
-                                .setDateofBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())
+                        Client client = Client.builder().clietnId(resultSet.getString(ClientTable.Cols.ID))
+                                .firstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
+                                .lastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
+                                .dateOfBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())
                                 .build();
                         mClient = client;
                         return mClient;
@@ -93,10 +93,10 @@ public class ClientDao extends AbstractDao {
             @Override
             public List<Client> handle(ResultSet resultSet) throws SQLException {
                 while (resultSet.next()) {
-                    Client client = new Client.ClientBuilder().setClientId(resultSet.getString(ClientTable.Cols.ID))
-                            .setFirstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
-                            .setLastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
-                            .setDateofBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())
+                    Client client = Client.builder().clietnId(resultSet.getString(ClientTable.Cols.ID))
+                            .firstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
+                            .lastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
+                            .dateOfBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())
                             .build();
                     mClient = client;
                     clients.add(mClient);

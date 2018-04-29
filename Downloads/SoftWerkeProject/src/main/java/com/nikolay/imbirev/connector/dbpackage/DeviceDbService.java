@@ -31,15 +31,15 @@ public class DeviceDbService extends AbstractDbService {
      */
     public void sendToTable(Device value) {
         dao.createTable(DeviceTable.TABLE_NAME, DeviceTable.Cols.columns);
-        dao.insertIntoTable(new String[] {
-                value.getDeviceId(),
-                value.getModel(),
-                value.getProducer(),
-                value.getColor(),
-                value.getType(),
-                String.valueOf(value.getPrice()),
-                value.getDateOfManufactoringStarted().toString()
-        }, DeviceTable.Cols.columns, DeviceTable.TABLE_NAME);
+//        dao.insertIntoTable(new String[] {
+//                value.getDeviceId(),
+//                value.getModel(),
+//                value.getProducer(),
+//                value.getColor(),
+//                value.getType(),
+//                String.valueOf(value.getPrice()),
+//                value.getDateOfManufactoringStarted().toString()
+//        }, DeviceTable.Cols.columns, DeviceTable.TABLE_NAME);
     }
     /**
      * this method get list of objects from the database

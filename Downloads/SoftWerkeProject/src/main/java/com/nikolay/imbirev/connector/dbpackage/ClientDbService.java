@@ -35,11 +35,11 @@ public class ClientDbService extends AbstractDbService {
      */
     public void sendToTable(Client client) throws IllegalArgumentException {
         dao.createTable(ClientTable.TABLE_NAME, ClientTable.Cols.columns);
-        dao.insertIntoTable(new String[] {
-                        client.getClietnId(),
-                        client.getFirstName(),
-                        client.getLastName(),
-                        client.getDateOfBirth().toString()}, ClientTable.Cols.columns, ClientTable.TABLE_NAME);
+//        dao.insertIntoTable(new String[] {
+//                        client.getClietnId(),
+//                        client.getFirstName(),
+//                        client.getLastName(),
+//                        client.getDateOfBirth().toString()}, ClientTable.Cols.columns, ClientTable.TABLE_NAME);
     }
 
     /**

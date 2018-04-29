@@ -30,12 +30,12 @@ public class SaleDbService extends AbstractDbService {
      */
     public void sendToTable(Sale value) {
         dao.createTable(SaleTable.TABLE_NAME, SaleTable.Cols.columns);
-        dao.insertIntoTable(new String[] {
-                value.getSaleId(),
-                value.getClientid(),
-                String.valueOf(value.getOverallPrice()),
-                value.getDateOfSale().toString()
-        }, SaleTable.Cols.columns, SaleTable.TABLE_NAME);
+//        dao.insertIntoTable(new String[] {
+//                value.getSaleId(),
+//                value.getClientid(),
+//                String.valueOf(value.getOverallPrice()),
+//                value.getDateOfSale().toString()
+//        }, SaleTable.Cols.columns, SaleTable.TABLE_NAME);
     }
 
     /**

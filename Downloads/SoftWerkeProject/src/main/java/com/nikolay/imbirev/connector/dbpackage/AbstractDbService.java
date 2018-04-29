@@ -28,22 +28,22 @@ abstract class AbstractDbService implements DbInterface<Sale> {
      * @param tableName
      * @param columnName - which column will be primary
      */
-    @Override
-    public void modifyTable(String tableName, String columnName) {
-        dao.addPrimaryKey(SaleTable.TABLE_NAME,columnName);
-    }
-
-    /**
-     * this method add foreign key to the table
-     * @param tableName
-     * @param columnName
-     * @param tableRef
-     * @param columnRef
-     */
-    @Override
-    public void modifyForeignKey(String tableName, String columnName, String tableRef, String columnRef) {
-        dao.addForeignKey(SaleTable.TABLE_NAME,columnName, tableRef, columnRef);
-    }
+//    @Override
+//    public void modifyTable(String tableName, String columnName) {
+//        dao.addPrimaryKey(SaleTable.TABLE_NAME,columnName);
+//    }
+//
+//    /**
+//     * this method add foreign key to the table
+//     * @param tableName
+//     * @param columnName
+//     * @param tableRef
+//     * @param columnRef
+//     */
+//    @Override
+//    public void modifyForeignKey(String tableName, String columnName, String tableRef, String columnRef) {
+//        dao.addForeignKey(SaleTable.TABLE_NAME,columnName, tableRef, columnRef);
+//    }
 
     /**
      * this method drop the table with tableName
@@ -72,6 +72,6 @@ abstract class AbstractDbService implements DbInterface<Sale> {
      */
     @Override
     public void updateTable(String tableName, String colQuery,  String id, Query[] array) throws IllegalArgumentException {
-        dao.updateTable(tableName,colQuery, id, array);
+        //dao.updateTable(tableName,colQuery, id, array);
     }
 }

@@ -14,7 +14,8 @@ public enum RequestCode {
     WARNING(15),
     SUCCESS(0),
     INFO(1),
-    DATABASE_ERROR(30);
+    DATABASE_ERROR(30),
+    EMPTY_SET(2);
 
     private int value;
 
