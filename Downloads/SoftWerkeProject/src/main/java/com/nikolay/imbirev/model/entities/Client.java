@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Value;
 import java.time.LocalDate;
 
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Value
 public class Client {

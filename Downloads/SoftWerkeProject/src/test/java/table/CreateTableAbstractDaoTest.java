@@ -47,9 +47,9 @@ public class CreateTableAbstractDaoTest {
     @Test
     public void test4() throws ColumnCreateException {
         int result3 = dao.createTable(" ", new Column[]{
-                new Column.ColumnBuilder().setName("null ")
-                        .setType("varchar (256) ").setIsAuto(false)
-                        .setIsNull(false).buildColumn()
+                Column.builder().columnName("null ")
+                        .columnType("varchar (256) ").isAutoIncremented(false)
+                        .isNullableColumn(false).build()
         }).getValue();
         Assert.assertEquals(99 ,result3);
         log.info("test 4 done");
@@ -57,9 +57,9 @@ public class CreateTableAbstractDaoTest {
     @Test
     public void test5() throws ColumnCreateException {
         int result4 = dao.createTable("new Table", new Column[]{
-                new Column.ColumnBuilder().setName("null ")
-                        .setType("varchar (256) ").setIsAuto(false)
-                        .setIsNull(false).buildColumn()
+                Column.builder().columnName("null ")
+                        .columnType("varchar (256) ").isAutoIncremented(false)
+                        .isNullableColumn(false).build()
         }).getValue();
         Assert.assertEquals(99,result4);
         log.info("test 5 done");
@@ -67,8 +67,8 @@ public class CreateTableAbstractDaoTest {
     @Test
     public void test6() throws ColumnCreateException {
         int result5 = dao.createTable("new_table2", new Column[]{
-                new Column.ColumnBuilder().setName("first").
-                        setType(" varchar(256)").setIsNull(false).setIsAuto(false).buildColumn()
+                Column.builder().columnName("first").
+                        columnType(" varchar(256)").isNullableColumn(false).isAutoIncremented(false).build()
         }).getValue();
         Assert.assertEquals(15,result5);
         log.info("test 6 done");
@@ -76,10 +76,10 @@ public class CreateTableAbstractDaoTest {
     @Test
     public void test7() throws ColumnCreateException {
         int result6 = dao.createTable("new_table2", new Column[]{
-                new Column.ColumnBuilder().setName("first").
-                        setType(" varchar(256)").setIsNull(false).setIsAuto(false).buildColumn(),
-                new Column.ColumnBuilder().setName("second").
-                        setType(" varchar(256)").setIsNull(false).setIsAuto(false).buildColumn()
+                Column.builder().columnName("first").
+                        columnType(" varchar(256)").isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName("second").
+                        columnType(" varchar(256)").isNullableColumn(false).isNullableColumn(false).build()
         }).getValue();
         Assert.assertEquals(15, result6);
         log.info("test 7 done");

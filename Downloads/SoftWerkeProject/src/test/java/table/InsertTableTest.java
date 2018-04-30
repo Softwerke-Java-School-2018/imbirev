@@ -4,7 +4,6 @@ import com.nikolay.imbirev.connector.checker.Query;
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.exceptions.ColumnCreateException;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import com.sun.istack.internal.NotNull;
@@ -28,25 +27,22 @@ public class InsertTableTest {
             e.printStackTrace();
         }
         dao = new AbstractDao(executor);
-        try {
-            dao.createTable("Order_table", new Column[]{
-                    new Column
-                            .ColumnBuilder()
-                            .setName("pojo")
-                            .setType(" varchar (256) ")
-                            .setIsAuto(false).setIsNull(false)
-                            .buildColumn(),
-                    new Column
-                            .ColumnBuilder()
-                            .setName("date_column")
-                            .setType("date")
-                            .setIsNull(false)
-                            .setIsAuto(false)
-                            .buildColumn()
-        });
-        } catch (ColumnCreateException e) {
-            log.error(e.getMessage());
-        }
+        dao.createTable("Order_table", new Column[]{
+                Column
+                        .builder()
+                        .columnName("pojo")
+                        .columnType(" varchar (256) ")
+                        .isAutoIncremented(false)
+                        .isNullableColumn(false)
+                        .build(),
+                Column
+                        .builder()
+                        .columnName("date_column")
+                        .columnType("date")
+                        .isNullableColumn(false)
+                        .isAutoIncremented(false)
+                        .build()
+    });
     }
 
     @Test

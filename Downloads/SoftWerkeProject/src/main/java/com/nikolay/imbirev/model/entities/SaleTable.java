@@ -1,6 +1,5 @@
 package com.nikolay.imbirev.model.entities;
 
-import com.nikolay.imbirev.model.exceptions.ColumnCreateException;
 
 public class SaleTable {
 
@@ -18,17 +17,12 @@ public class SaleTable {
         public static  Column[] columns;
 
         static {
-            try {
                 columns = new Column[]{
-                                new Column.ColumnBuilder().setName(ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                                new Column.ColumnBuilder().setName(ClIENT_ID).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                                new Column.ColumnBuilder().setName(PRICE).setType(type).setIsNull(false).setIsAuto(false).buildColumn(),
-                                new Column.ColumnBuilder().setName(DATE_OF_SALE).setType(" date ").setIsNull(false).setIsAuto(false).buildColumn()
+                                Column.builder().columnName(ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                                Column.builder().columnName(ClIENT_ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                                Column.builder().columnName(PRICE).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                                Column.builder().columnName(DATE_OF_SALE).columnType("date").isNullableColumn(false).isAutoIncremented(false).build()
                         };
-            } catch (ColumnCreateException e) {
-
-
-            }
         }
 
 
