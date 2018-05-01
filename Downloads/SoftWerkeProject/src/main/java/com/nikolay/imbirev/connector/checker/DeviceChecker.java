@@ -14,7 +14,7 @@ public class DeviceChecker implements CheckerInterface<Device> {
     private Query[] queries;
 
     public DeviceChecker() {
-        service = new DeviceDbService();
+        //service = new DeviceDbService();
     }
 
     private Query[] getQueryArray(String[] columns, String[] newData) {
@@ -72,14 +72,14 @@ public class DeviceChecker implements CheckerInterface<Device> {
 
     @Override
     public void addToTable(Device object) throws IllegalArgumentException {
-        service.sendToTable(object);
+       // service.sendToTable(object);
     }
 
     public void updateTable(Device object, String[] cols, String[] vals) {
         Device device = getFromTable(new String[]{"model"}, new String[]{object.getModel()});
         queries = getQueryArray(cols, vals);
         if (device != null) {
-            service.updateTable(DeviceTable.TABLE_NAME, DeviceTable.Cols.ID, device.getDeviceId(), queries);
+           // service.updateTable(DeviceTable.TABLE_NAME, DeviceTable.Cols.ID, device.getDeviceId(), queries);
         } else {
             throw new IllegalArgumentException();
         }
@@ -87,14 +87,14 @@ public class DeviceChecker implements CheckerInterface<Device> {
 
     @Override
     public void deleteFromTable(Device object) throws IllegalArgumentException {
-        service.deleteFromTable(DeviceTable.TABLE_NAME, new Query[]{
-                new Query(DeviceTable.Cols.MODEL, object.getModel()),
-                new Query(DeviceTable.Cols.PRICE, String.valueOf(object.getPrice())),
-                new Query(DeviceTable.Cols.PRODUCER, object.getProducer()),
-                new Query(DeviceTable.Cols.TYPE, object.getType()),
-                new Query(DeviceTable.Cols.COLOR, object.getColor()),
-                new Query(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING, object.getDateOfManufactoringStarted().toString())
-        });
+//        service.deleteFromTable(DeviceTable.TABLE_NAME, new Query[]{
+//                new Query(DeviceTable.Cols.MODEL, object.getModel()),
+//                new Query(DeviceTable.Cols.PRICE, String.valueOf(object.getPrice())),
+//                new Query(DeviceTable.Cols.PRODUCER, object.getProducer()),
+//                new Query(DeviceTable.Cols.TYPE, object.getType()),
+//                new Query(DeviceTable.Cols.COLOR, object.getColor()),
+//                new Query(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING, object.getDateOfManufactoringStarted().toString())
+//        });
     }
 
     @Override
@@ -122,7 +122,7 @@ public class DeviceChecker implements CheckerInterface<Device> {
 
     @Override
     public void deleteTable(String tableName) {
-        service.dropTable(tableName);
+        //service.dropTable(tableName);
     }
 
     @Override

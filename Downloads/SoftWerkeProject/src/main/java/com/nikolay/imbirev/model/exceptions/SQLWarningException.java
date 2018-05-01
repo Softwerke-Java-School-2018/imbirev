@@ -1,5 +1,8 @@
 package com.nikolay.imbirev.model.exceptions;
 
+/**
+ * this exception throws when result set or statement to the database contains warnings
+ */
 public class SQLWarningException extends Exception {
     private String message;
 

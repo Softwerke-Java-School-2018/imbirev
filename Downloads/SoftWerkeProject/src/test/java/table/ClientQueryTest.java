@@ -1,5 +1,6 @@
 package table;
 
+import com.nikolay.imbirev.connector.savers.SaverClients;
 import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.Column;
@@ -75,4 +76,15 @@ public class ClientQueryTest {
         }).getValue();
         Assert.assertEquals(0, result);
     }
+    @Test
+    public void test8() {
+        int result = dao.getListFromTable("Client_table", new Query[]{
+                new Query("second_name", "imbirev")
+        }, new Column[]{
+                Column.builder().columnName("first_name").build()
+        }).getValue();
+        System.out.println(SaverClients.getInstance().getClients().size());
+        Assert.assertEquals(0, result);
+    }
+
 }

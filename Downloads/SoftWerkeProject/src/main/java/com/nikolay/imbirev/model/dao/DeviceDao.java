@@ -22,6 +22,13 @@ public class DeviceDao extends AbstractDao {
         devices = new ArrayList<>();
     }
 
+    /**
+     * this method try to find some data from the database
+     * @param tableName is the table where we will try find data (can not be null)
+     * @param array is query conditions for search information
+     * @param sortColumns is an array of sorting columns to determine the order of the results
+     * @return success code and add list of devices to the singleton or return unsuccessful code
+     */
     public RequestCode getListFromTable(@NotNull String tableName, Query[] array, Column[] sortColumns) {
         if (tableName == null || tableName.equals("")) return RequestCode.SYNTAX_ERROR;
         StringBuilder query = new StringBuilder();
@@ -40,11 +47,10 @@ public class DeviceDao extends AbstractDao {
                             .build();
                     devices.add(device);
                 }
-                DeviceSaver.getInstance().setDeviceList(devices);
             });
+            DeviceSaver.getInstance().setDeviceList(devices);
             return RequestCode.SUCCESS;
-        }
-          catch(IllegalArgumentException e) {
+        } catch(IllegalArgumentException e) {
             return RequestCode.EMPTY_SET;
         } catch(SQLSyntaxErrorException e){
             return RequestCode.SQL_SYNTAX_ERROR;

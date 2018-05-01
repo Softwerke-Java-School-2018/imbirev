@@ -17,7 +17,7 @@ public class ClientChecker implements CheckerInterface<Client> {
     private Query[] queries;
 
     public ClientChecker() {
-        clientDbService = new ClientDbService();
+        //clientDbService = new ClientDbService();
     }
 
     /**
@@ -28,7 +28,7 @@ public class ClientChecker implements CheckerInterface<Client> {
      */
     @Override
     public void addToTable(Client object) throws IllegalArgumentException {
-        clientDbService.sendToTable(object);
+      //  clientDbService.sendToTable(object);
     }
 
     /**
@@ -37,11 +37,11 @@ public class ClientChecker implements CheckerInterface<Client> {
      */
     @Override
     public void deleteFromTable(Client object) throws IllegalArgumentException {
-        clientDbService.deleteFromTable(ClientTable.TABLE_NAME, new Query[]{
-                new Query(ClientTable.Cols.FIRST_NAME, object.getFirstName()),
-                new Query(ClientTable.Cols.SECOND_NAME, object.getLastName()),
-                new Query(ClientTable.Cols.DATE_OF_BIRTH, object.getDateOfBirth().toString())
-        });
+//        clientDbService.deleteFromTable(ClientTable.TABLE_NAME, new Query[]{
+//                new Query(ClientTable.Cols.FIRST_NAME, object.getFirstName()),
+//                new Query(ClientTable.Cols.SECOND_NAME, object.getLastName()),
+//                new Query(ClientTable.Cols.DATE_OF_BIRTH, object.getDateOfBirth().toString())
+//        });
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ClientChecker implements CheckerInterface<Client> {
      */
     @Override
     public void deleteTable(String tableName) {
-        clientDbService.dropTable(tableName);
+        //clientDbService.dropTable(tableName);
     }
 
     /**
@@ -91,7 +91,7 @@ public class ClientChecker implements CheckerInterface<Client> {
         }
         else {
 
-            clientDbService.updateTable(ClientTable.TABLE_NAME, ClientTable.Cols.ID, client1.getClietnId(), queries);
+            //clientDbService.updateTable(ClientTable.TABLE_NAME, ClientTable.Cols.ID, client1.getClietnId(), queries);
         }
     }
     private Query[] getQueryArray(String[] columns, String[] newData) {

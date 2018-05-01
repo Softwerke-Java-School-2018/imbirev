@@ -14,13 +14,13 @@ public class SaleChecker implements CheckerInterface<Sale> {
     private Query[] queries;
 
     public SaleChecker() {
-        service = new SaleDbService();
+        //service = new SaleDbService();
     }
 
 
     @Override
     public void addToTable(Sale object) throws IllegalArgumentException {
-        service.sendToTable(object);
+       // service.sendToTable(object);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class SaleChecker implements CheckerInterface<Sale> {
 
     @Override
     public void deleteTable(String tableName) {
-        service.dropTable(tableName);
+        //service.dropTable(tableName);
     }
 
     @Override
