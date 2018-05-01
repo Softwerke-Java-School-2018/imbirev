@@ -1,63 +1,55 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
 import com.nikolay.imbirev.model.dao.SaleDao;
-import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.connector.checker.Query;
-import com.nikolay.imbirev.model.entities.Sale;
-import com.nikolay.imbirev.model.entities.SaleTable;
+import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
+import org.apache.log4j.Logger;
 
-import java.util.List;
-
-public class SaleDbService extends AbstractDbService {
+public class SaleDbService implements DbInterface {
 
     private SaleDao dao;
+    private final static Logger log = Logger.getLogger(SaleDbService.class);
+    private final static String TAG = "SaleDbService";
 
-    public SaleDbService() {
+    public SaleDbService() throws DatabaseAccessException {
         AbstractExecutor executor = null;
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
-            e.printStackTrace();
+            log.error(TAG);
+            throw new DatabaseAccessException(e.getMessage());
         }
         dao = new SaleDao(executor);
     }
 
-    /**
-     * this method send query to database to add new value
-     * @param value - is the value to add
-     */
-    public void sendToTable(Sale value) {
-        dao.createTable(SaleTable.TABLE_NAME, SaleTable.Cols.columns);
-//        dao.insertIntoTable(new String[] {
-//                value.getSaleId(),
-//                value.getClientid(),
-//                String.valueOf(value.getOverallPrice()),
-//                value.getDateOfSale().toString()
-//        }, SaleTable.Cols.columns, SaleTable.TABLE_NAME);
+    @Override
+    public RequestCode createTable(String tableName, Column[] array) {
+        return dao.createTable(tableName, array);
     }
 
-    /**
-     * this method get list of objects from the database
-     * @param tableName - from where
-     * @param array - with what conditions
-     * @param sortColumns - sort conditions
-     * @return new list or throw IllegalArgumentException
-     */
-    public List<Sale> getList(String tableName, Query[] array, Column[] sortColumns) {
-        try {
-            return dao.getListFromTable(tableName, array, sortColumns);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
-        }
+    @Override
+    public RequestCode dropTable(String tableName) {
+        return dao.dropTable(tableName);
     }
 
-    public Sale getSale(String tableName, Query[] array) {
-        try {
-            return dao.getItemFromTable(tableName, array);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
-        }
+    @Override
+    public RequestCode deleteFromTable(String tableName, Query[] array) {
+        return dao.deleteFromTable(tableName, array);
+    }
+
+    @Override
+    public RequestCode updateTable(String tableName, Query[] condArray, Query[] newArray) {
+        return dao.updateTable(tableName, condArray, newArray);
+    }
+
+    @Override
+    public RequestCode insertIntoTable(String tableName, Query[] array) {
+        return dao.insertIntoTable(array, tableName);
+    }
+
+    @Override
+    public RequestCode getFromTable(String tableName, Query[] array, Column[] sortArray) {
+        return dao.getListFromTable(tableName, array, sortArray);
     }
 }

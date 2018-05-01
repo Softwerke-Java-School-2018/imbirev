@@ -99,9 +99,14 @@ public class DeviceChecker implements CheckerInterface<Device> {
 
     @Override
     public Device getFromTable(String[] cols, String[] vals) {
-        queries = getQueryArray(cols, vals);
-        return service.getDevice(DeviceTable.TABLE_NAME, queries);
+        return null;
     }
+
+//    @Override
+//    public Device getFromTable(String[] cols, String[] vals) {
+//        queries = getQueryArray(cols, vals);
+//        return service.getDevice(DeviceTable.TABLE_NAME, queries);
+//    }
 
 //    public List<Device> getListOfDevices(String[] cols, String[] vals, String[] sort) {
 //        List<Device> devices;

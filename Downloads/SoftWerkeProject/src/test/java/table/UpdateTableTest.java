@@ -1,6 +1,6 @@
 package table;
 
-import com.nikolay.imbirev.connector.checker.Query;
+import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;

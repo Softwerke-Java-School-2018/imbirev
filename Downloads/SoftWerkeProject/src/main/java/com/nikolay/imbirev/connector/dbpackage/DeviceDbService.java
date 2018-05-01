@@ -1,69 +1,54 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
 import com.nikolay.imbirev.model.dao.DeviceDao;
-import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.entities.Device;
-import com.nikolay.imbirev.model.entities.DeviceTable;
-import com.nikolay.imbirev.connector.checker.Query;
+import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
+import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DeviceDbService extends AbstractDbService {
+public class DeviceDbService implements DbInterface {
 
     private DeviceDao dao;
+    private final static Logger log = Logger.getLogger(DeviceDbService.class);
+    private final static String TAG = "DeviceDbService";
 
-    public DeviceDbService() {
+    public DeviceDbService() throws DatabaseAccessException {
         AbstractExecutor executor = null;
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
-            e.printStackTrace();
+            log.error(TAG);
+            throw new DatabaseAccessException(e.getMessage());
         }
         dao = new DeviceDao(executor);
     }
-
-    /**
-     * this method send query to database to add new value
-     * @param value - is the value to add
-     */
-    public void sendToTable(Device value) {
-        dao.createTable(DeviceTable.TABLE_NAME, DeviceTable.Cols.columns);
-//        dao.insertIntoTable(new String[] {
-//                value.getDeviceId(),
-//                value.getModel(),
-//                value.getProducer(),
-//                value.getColor(),
-//                value.getType(),
-//                String.valueOf(value.getPrice()),
-//                value.getDateOfManufactoringStarted().toString()
-//        }, DeviceTable.Cols.columns, DeviceTable.TABLE_NAME);
-    }
-    /**
-     * this method get list of objects from the database
-     * @param tableName - from where
-     * @param array - with what conditions
-     * @param sortColumns - sort conditions
-     * @return new list or throw IllegalArgumentException
-     */
-    public List<Device> getList(String tableName, Query[] array, Column[] sortColumns) {
-        try {
-            List<Device> devices;
-            devices = dao.getListFromTable(tableName, array, sortColumns);
-            return devices;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
-        }
+    @Override
+    public RequestCode createTable(String tableName, Column[] array) {
+        return dao.createTable(tableName, array);
     }
 
-    public Device getDevice(String tableName, Query[] array) {
-        try {
-            return dao.getItemFromTable(tableName,array);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
-        }
+    @Override
+    public RequestCode dropTable(String tableName) {
+        return dao.dropTable(tableName);
     }
 
+    @Override
+    public RequestCode deleteFromTable(String tableName, Query[] array) {
+        return dao.deleteFromTable(tableName, array);
+    }
+
+    @Override
+    public RequestCode updateTable(String tableName, Query[] condArray, Query[] newArray) {
+        return dao.updateTable(tableName, condArray, newArray);
+    }
+
+    @Override
+    public RequestCode insertIntoTable(String tableName, Query[] array) {
+        return dao.insertIntoTable(array, tableName);
+    }
+
+    @Override
+    public RequestCode getFromTable(String tableName, Query[] array, Column[] sortArray) {
+        return dao.getListFromTable(tableName, array, sortArray);
+    }
 }

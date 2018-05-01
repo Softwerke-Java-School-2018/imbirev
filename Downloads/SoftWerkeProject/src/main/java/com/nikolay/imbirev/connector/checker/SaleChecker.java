@@ -24,19 +24,29 @@ public class SaleChecker implements CheckerInterface<Sale> {
     }
 
     @Override
-    public void deleteFromTable(Sale object) throws IllegalArgumentException {
-        service.deleteFromTable(SaleTable.TABLE_NAME, new Query[]{
-                new Query(SaleTable.Cols.ClIENT_ID, object.getClientid()),
-                new Query(SaleTable.Cols.DATE_OF_SALE, object.getDateOfSale().toString()),
-                new Query(SaleTable.Cols.PRICE, String.valueOf(object.getOverallPrice()))
-        });
+    public void deleteFromTable(Sale object) {
+
     }
 
     @Override
     public Sale getFromTable(String[] cols, String[] vals) {
-        queries = getQueryArray(cols, vals);
-        return service.getSale(SaleTable.TABLE_NAME, queries);
+        return null;
     }
+
+//    @Override
+//    public void deleteFromTable(Sale object) throws IllegalArgumentException {
+//        service.deleteFromTable(SaleTable.TABLE_NAME, new Query[]{
+//                new Query(SaleTable.Cols.ClIENT_ID, object.getClientid()),
+//                new Query(SaleTable.Cols.DATE_OF_SALE, object.getDateOfSale().toString()),
+//                new Query(SaleTable.Cols.PRICE, String.valueOf(object.getOverallPrice()))
+//        });
+//    }
+//
+//    @Override
+//    public Sale getFromTable(String[] cols, String[] vals) {
+//        queries = getQueryArray(cols, vals);
+//        return service.getSale(SaleTable.TABLE_NAME, queries);
+//    }
 
     private Query[] getQueryArray(String[] columns, String[] newData) {
         Query[] queries = new Query[columns.length];
@@ -92,15 +102,15 @@ public class SaleChecker implements CheckerInterface<Sale> {
 //        return columns;
 //    }
 
-    public void updateSale(Sale sale, String[] columns, String[] newData) throws IllegalArgumentException {
-        Sale s = getFromTable(new String[]{"clientId", "price"},
-                new String[]{sale.getClientid(), String.valueOf(sale.getOverallPrice())});
-        queries = getQueryArray(columns, newData);
-        if (s != null) {
-            service.updateTable(SaleTable.TABLE_NAME, SaleTable.Cols.ID, s.getSaleId(), queries);
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
-    }
+//    public void updateSale(Sale sale, String[] columns, String[] newData) throws IllegalArgumentException {
+//        Sale s = getFromTable(new String[]{"clientId", "price"},
+//                new String[]{sale.getClientid(), String.valueOf(sale.getOverallPrice())});
+//        queries = getQueryArray(columns, newData);
+//        if (s != null) {
+//            service.updateTable(SaleTable.TABLE_NAME, SaleTable.Cols.ID, s.getSaleId(), queries);
+//        }
+//        else {
+//            throw new IllegalArgumentException();
+//        }
+//    }
 }

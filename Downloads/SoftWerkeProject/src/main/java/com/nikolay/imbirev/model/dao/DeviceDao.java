@@ -1,7 +1,7 @@
 package com.nikolay.imbirev.model.dao;
 
-import com.nikolay.imbirev.connector.DeviceSaver;
-import com.nikolay.imbirev.connector.checker.Query;
+import com.nikolay.imbirev.connector.savers.DeviceSaver;
+import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import com.sun.istack.internal.NotNull;

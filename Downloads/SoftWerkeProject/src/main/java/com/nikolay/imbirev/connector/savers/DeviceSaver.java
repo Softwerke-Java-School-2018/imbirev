@@ -1,4 +1,4 @@
-package com.nikolay.imbirev.connector;
+package com.nikolay.imbirev.connector.savers;
 
 import com.nikolay.imbirev.model.entities.Device;
 

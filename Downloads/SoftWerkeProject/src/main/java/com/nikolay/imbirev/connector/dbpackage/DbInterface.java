@@ -1,13 +1,20 @@
 package com.nikolay.imbirev.connector.dbpackage;
 
-import com.nikolay.imbirev.connector.checker.Query;
+import com.nikolay.imbirev.model.entities.Query;
+import com.nikolay.imbirev.model.entities.Column;
+import com.nikolay.imbirev.model.entities.RequestCode;
 
-public interface DbInterface<T> {
+public interface DbInterface {
 
+    RequestCode createTable(String tableName, Column[] array);
 
-    void dropTable(String tableName);
+    RequestCode dropTable(String tableName);
 
-    void deleteFromTable(String tableName ,Query[] array);
+    RequestCode deleteFromTable(String tableName ,Query[] array);
 
-    void updateTable(String tableName,String col,  String id, Query[] array);
+    RequestCode updateTable(String tableName, Query[] condArray, Query[] newArray);
+
+    RequestCode insertIntoTable(String tableName, Query[] array);
+
+    RequestCode getFromTable(String tableName, Query[] array, Column[] sortArray);
 }

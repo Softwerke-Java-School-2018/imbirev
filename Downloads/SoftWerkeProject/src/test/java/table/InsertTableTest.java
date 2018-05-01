@@ -1,16 +1,14 @@
 package table;
 
-import com.nikolay.imbirev.connector.checker.Query;
+import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import com.sun.istack.internal.NotNull;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class InsertTableTest {

@@ -3,7 +3,7 @@ package com.nikolay.imbirev.connector.checker;
 import com.nikolay.imbirev.connector.dbpackage.ClientDbService;
 import com.nikolay.imbirev.model.entities.Client;
 import com.nikolay.imbirev.model.entities.ClientTable;
-import com.nikolay.imbirev.model.entities.Column;
+import com.nikolay.imbirev.model.entities.Query;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -44,17 +44,22 @@ public class ClientChecker implements CheckerInterface<Client> {
         });
     }
 
-    /**
-     * this method get data from the table of clients
-     * @param columns - conditions
-     * @return client or throw new IllegalArgumentException if we have more than 1 client in list
-     */
     @Override
-    public Client getFromTable(String[] columns, String[] values) throws IllegalArgumentException {
-        queries = getQueryArray(columns, values);
-        return clientDbService.getFromTable(ClientTable.TABLE_NAME, queries);
-
+    public Client getFromTable(String[] cols, String[] vals) {
+        return null;
     }
+
+//    /**
+//     * this method get data from the table of clients
+//     * @param columns - conditions
+//     * @return client or throw new IllegalArgumentException if we have more than 1 client in list
+//     */
+//    @Override
+//    public Client getFromTable(String[] columns, String[] values) throws IllegalArgumentException {
+//        queries = getQueryArray(columns, values);
+//        return clientDbService.getFromTable(ClientTable.TABLE_NAME, queries);
+//
+//    }
 
 //    public List<Client> getClientList(Query[] columns, Column[] sortConditions) throws IllegalArgumentException {
 //        return clientDbService.getFromTable(ClientTable.TABLE_NAME, columns, sortConditions);

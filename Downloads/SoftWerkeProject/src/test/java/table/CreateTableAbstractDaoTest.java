@@ -2,7 +2,6 @@ package table;
 
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.exceptions.ColumnCreateException;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import org.apache.log4j.Logger;
@@ -27,7 +26,7 @@ public class CreateTableAbstractDaoTest {
     }
 
     @Test
-    public void test1() throws ColumnCreateException {
+    public void test1()  {
         int result = dao.createTable("NEW_TABLE", null).getValue();
         Assert.assertEquals(20, result);
         log.info("test 1 done");
@@ -45,7 +44,7 @@ public class CreateTableAbstractDaoTest {
         log.info("test 3 done");
     }
     @Test
-    public void test4() throws ColumnCreateException {
+    public void test4() {
         int result3 = dao.createTable(" ", new Column[]{
                 Column.builder().columnName("null ")
                         .columnType("varchar (256) ").isAutoIncremented(false)
@@ -55,7 +54,7 @@ public class CreateTableAbstractDaoTest {
         log.info("test 4 done");
     }
     @Test
-    public void test5() throws ColumnCreateException {
+    public void test5()  {
         int result4 = dao.createTable("new Table", new Column[]{
                 Column.builder().columnName("null ")
                         .columnType("varchar (256) ").isAutoIncremented(false)
@@ -65,7 +64,7 @@ public class CreateTableAbstractDaoTest {
         log.info("test 5 done");
     }
     @Test
-    public void test6() throws ColumnCreateException {
+    public void test6() {
         int result5 = dao.createTable("new_table2", new Column[]{
                 Column.builder().columnName("first").
                         columnType(" varchar(256)").isNullableColumn(false).isAutoIncremented(false).build()
@@ -74,7 +73,7 @@ public class CreateTableAbstractDaoTest {
         log.info("test 6 done");
     }
     @Test
-    public void test7() throws ColumnCreateException {
+    public void test7()  {
         int result6 = dao.createTable("new_table2", new Column[]{
                 Column.builder().columnName("first").
                         columnType(" varchar(256)").isNullableColumn(false).isAutoIncremented(false).build(),
