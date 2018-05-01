@@ -13,7 +13,7 @@ public class DeviceDbService implements DbInterface {
     private final static String TAG = "DeviceDbService";
 
     public DeviceDbService() throws DatabaseAccessException {
-        AbstractExecutor executor = null;
+        AbstractExecutor executor;
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
@@ -23,32 +23,32 @@ public class DeviceDbService implements DbInterface {
         dao = new DeviceDao(executor);
     }
     @Override
-    public RequestCode createTable(String tableName, Column[] array) {
-        return dao.createTable(tableName, array);
+    public RequestCode createTable(Column[] array) {
+        return dao.createTable(DeviceTable.TABLE_NAME, array);
     }
 
     @Override
-    public RequestCode dropTable(String tableName) {
-        return dao.dropTable(tableName);
+    public RequestCode dropTable() {
+        return dao.dropTable(DeviceTable.TABLE_NAME);
     }
 
     @Override
-    public RequestCode deleteFromTable(String tableName, Query[] array) {
-        return dao.deleteFromTable(tableName, array);
+    public RequestCode deleteFromTable(Query[] array) {
+        return dao.deleteFromTable(DeviceTable.TABLE_NAME, array);
     }
 
     @Override
-    public RequestCode updateTable(String tableName, Query[] condArray, Query[] newArray) {
-        return dao.updateTable(tableName, condArray, newArray);
+    public RequestCode updateTable(Query[] condArray, Query[] newArray) {
+        return dao.updateTable(DeviceTable.TABLE_NAME, condArray, newArray);
     }
 
     @Override
-    public RequestCode insertIntoTable(String tableName, Query[] array) {
-        return dao.insertIntoTable(array, tableName);
+    public RequestCode insertIntoTable(Query[] array) {
+        return dao.insertIntoTable(array, DeviceTable.TABLE_NAME);
     }
 
     @Override
-    public RequestCode getFromTable(String tableName, Query[] array, Column[] sortArray) {
-        return dao.getListFromTable(tableName, array, sortArray);
+    public RequestCode getFromTable(Query[] array, Column[] sortArray) {
+        return dao.getListFromTable(DeviceTable.TABLE_NAME, array, sortArray);
     }
 }

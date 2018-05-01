@@ -4,7 +4,6 @@ public class DeviceTable {
 
     public final static String TABLE_NAME = "device_table";
 
-
     public static class Cols {
 
         public static final String ID = "device_id";
@@ -17,20 +16,14 @@ public class DeviceTable {
 
         private static final String type = "varchar (256) ";
 
-        public static  Column[] columns;
-
-        static {
-                columns = new Column[]{
-                                Column.builder().columnName(ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(MODEL).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(PRODUCER).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(COLOR).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(TYPE).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(PRICE).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(DATE_OF_STARTING_MANUFACTORING).columnType("date").isNullableColumn(false).isAutoIncremented(false).build()
-
-                        };
-        }
+        public static Column[] columns = {
+                Column.builder().columnName(ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(MODEL).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(PRODUCER).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(COLOR).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(TYPE).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(PRICE).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(DATE_OF_STARTING_MANUFACTORING).columnType("date").isNullableColumn(false).isAutoIncremented(false).build()
+        };
     }
-
 }

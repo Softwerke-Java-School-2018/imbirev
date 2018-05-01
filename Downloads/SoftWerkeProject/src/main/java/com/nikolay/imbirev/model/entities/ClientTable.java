@@ -12,15 +12,11 @@ public class ClientTable {
         public final static String SECOND_NAME = "second_name";
         public final static String DATE_OF_BIRTH = "date_of_birth";
 
-        public static Column[] columns;
-
-        static {
-                columns = new Column[]{
-                                Column.builder().columnName(ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(FIRST_NAME).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(SECOND_NAME).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
-                                Column.builder().columnName(DATE_OF_BIRTH).columnType("date").isNullableColumn(false).isAutoIncremented(false).build()
-                        };
-        }
+        public static Column[] columns = {
+                Column.builder().columnName(ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(FIRST_NAME).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(SECOND_NAME).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(DATE_OF_BIRTH).columnType("date").isNullableColumn(false).isAutoIncremented(false).build()
+        };
     }
 }

@@ -1,9 +1,5 @@
 package com.nikolay.imbirev.model.entities;
 
-/**
- * this enum is describing request_codes of the operations with their names for better understanding by
- * client and developer
- */
 public enum RequestCode {
 
     SYNTAX_ERROR(20),

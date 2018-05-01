@@ -11,5 +11,4 @@ public class Query {
 
     private String ColumnName;
     private String ColumnQuery;
-
 }
