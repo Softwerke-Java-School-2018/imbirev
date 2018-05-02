@@ -4,12 +4,12 @@ import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public class ClientDbService implements DbInterface {
 
     private ClientDao dao;
-    private final static Logger log = Logger.getLogger(ClientDbService.class);
+    private final static Logger log = Logger.getAnonymousLogger();
     private final static String TAG = "ClientDbService";
 
     public ClientDbService() throws DatabaseAccessException {
@@ -17,7 +17,7 @@ public class ClientDbService implements DbInterface {
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.error(TAG);
+            log.info(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new ClientDao(executor);

@@ -3,16 +3,17 @@ package table;
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.logging.Logger;
+
 public class DropTableTest {
 
-    AbstractDao dao;
-    AbstractExecutor executor;
-    private final static Logger log = Logger.getLogger(DropTableTest.class);
+    private AbstractDao dao;
+    private AbstractExecutor executor;
+    private final static Logger log = Logger.getAnonymousLogger();
 
     @Before
     public void setUp() {

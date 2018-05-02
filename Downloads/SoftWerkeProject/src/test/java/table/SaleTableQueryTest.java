@@ -6,10 +6,11 @@ import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.SaleTable;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.logging.Logger;
 
 public class SaleTableQueryTest {
 
@@ -17,7 +18,7 @@ public class SaleTableQueryTest {
 
     private AbstractExecutor executor;
 
-    private final static Logger log = Logger.getLogger(SaleTableQueryTest.class);
+    private final static Logger log = Logger.getAnonymousLogger();
 
 
     @Before
@@ -25,7 +26,7 @@ public class SaleTableQueryTest {
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.error(e.getMessage());
+            log.info(e.getMessage());
         }
         dao = new SaleDao(executor);
         dao.dropTable("sale_table");

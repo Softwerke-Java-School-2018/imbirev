@@ -4,12 +4,13 @@ import com.nikolay.imbirev.model.dao.DeviceDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import org.apache.log4j.Logger;
+
+import java.util.logging.Logger;
 
 public class DeviceDbService implements DbInterface {
 
     private DeviceDao dao;
-    private final static Logger log = Logger.getLogger(DeviceDbService.class);
+    private final static Logger log = Logger.getAnonymousLogger();
     private final static String TAG = "DeviceDbService";
 
     public DeviceDbService() throws DatabaseAccessException {
@@ -17,7 +18,7 @@ public class DeviceDbService implements DbInterface {
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.error(TAG);
+            log.info(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new DeviceDao(executor);

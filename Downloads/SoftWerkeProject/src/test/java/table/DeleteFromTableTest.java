@@ -4,23 +4,24 @@ import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.logging.Logger;
 
 public class DeleteFromTableTest {
 
     private AbstractExecutor executor;
     private AbstractDao dao;
-    private final static Logger log = Logger.getLogger(DeleteFromTableTest.class);
+    private final static Logger log = Logger.getAnonymousLogger();
 
     @Before
     public void setUp() {
         try {
             executor = new AbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.error(e.getMessage());
+            log.info(e.getMessage());
         }
         dao = new AbstractDao(executor);
     }

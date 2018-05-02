@@ -6,16 +6,17 @@ import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.logging.Logger;
 
 public class InsertTableTest {
 
     private AbstractDao dao;
     private AbstractExecutor executor;
-    private final static Logger log = Logger.getLogger(InsertTableTest.class);
+    private final static Logger log = Logger.getAnonymousLogger();
 
     @Before
     public void set() {
