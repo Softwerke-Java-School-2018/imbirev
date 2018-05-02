@@ -83,6 +83,17 @@ public class CreateTableAbstractDaoTest {
         Assert.assertEquals(15, result6);
         log.info("test 7 done");
     }
+    @Test
+    public void test8()  {
+        int result6 = dao.createTable("good_table9", new Column[]{
+                Column.builder().columnName("first").
+                        columnType(" varchar(256)").isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName("second").
+                        columnType(" varchar(256)").isNullableColumn(false).isNullableColumn(false).build()
+        }).getValue();
+        Assert.assertEquals(0, result6);
+        log.info("test 8 done");
+    }
 
 
 
