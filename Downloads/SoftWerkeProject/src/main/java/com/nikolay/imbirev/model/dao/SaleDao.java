@@ -36,7 +36,7 @@ public class SaleDao extends AbstractDao {
                 while (resultSet.next()) {
                     Sale sale = Sale.builder()
                             .saleId(resultSet.getString(SaleTable.Cols.ID))
-                            .clientId(resultSet.getString(SaleTable.Cols.ClIENT_ID))
+                            .clientId(resultSet.getString(ClientTable.Cols.FIRST_NAME) + " " + resultSet.getString(ClientTable.Cols.SECOND_NAME))
                             .dateOfSale(resultSet.getDate(SaleTable.Cols.DATE_OF_SALE).toLocalDate())
                             .overallPrice(resultSet.getDouble(SaleTable.Cols.PRICE))
                             .build();
@@ -52,5 +52,39 @@ public class SaleDao extends AbstractDao {
         } catch(SQLException e){
             return RequestCode.DATABASE_ERROR;
         }
+    }
+
+    /**
+     * in this method we get data from sale_table (we have inner join here to connect to another table to get client info
+     */
+    StringBuilder execQueryOperation(@NotNull String tableName, Query[] array, Column[] sortArray) {
+        StringBuilder query = new StringBuilder();
+        query.append("select * from ").append(tableName).append(" inner join ").append(ClientTable.TABLE_NAME).append(" on ");
+        query.append(SaleTable.TABLE_NAME).append(".").append(SaleTable.Cols.ClIENT_ID).append(" = ");
+        query.append(ClientTable.TABLE_NAME).append(".").append(ClientTable.Cols.ID);
+        if (array != null && array.length != 0) {
+            query.append(" where ");
+            for (int i = 0; i < array.length; i++) {
+                if (i == array.length - 1) {
+                    query.append(SaleTable.TABLE_NAME).append(".").append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("'");
+                } else {
+                    query.append(SaleTable.TABLE_NAME).append(".").append(array[i].getColumnName()).append(" = '").append(array[i].getColumnQuery()).append("' and ");
+                }
+            }
+        }
+        if (sortArray != null && sortArray.length != 0) {
+            query.append(" order by ");
+            for (int i = 0; i < sortArray.length; i++) {
+                if (i == sortArray.length - 1) {
+                    query.append(SaleTable.TABLE_NAME).append(".").append(sortArray[i].getColumnName());
+                } else {
+                    query.append(SaleTable.TABLE_NAME).append(".").append(sortArray[i].getColumnName()).append(", ");
+                }
+            }
+        }
+        else {
+            query.append(";");
+        }
+        return query;
     }
 }
