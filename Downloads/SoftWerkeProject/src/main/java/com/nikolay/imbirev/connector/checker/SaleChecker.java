@@ -58,7 +58,7 @@ public class SaleChecker implements CheckerInterface<Sale> {
                 queries[i] = new Query(SaleTable.Cols.PRICE, newData[i]);
             }
             if (columns[i].trim().equals("clientId")) {
-                queries[i] = new Query(SaleTable.Cols.ClIENT_ID, newData[i]);
+               // queries[i] = new Query(SaleTable.Cols.ClIENT_ID, newData[i]);
             }
             if (columns[i].trim().equals("date of sale")) {
                 queries[i] = new Query(SaleTable.Cols.DATE_OF_SALE, Date.valueOf(LocalDate.parse(newData[i], DateTimeFormatter.ofPattern("d/MM/yyyy"))).toString());

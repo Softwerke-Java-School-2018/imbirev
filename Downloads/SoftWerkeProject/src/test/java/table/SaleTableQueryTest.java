@@ -1,6 +1,5 @@
 package table;
 
-import com.nikolay.imbirev.connector.savers.SaleSaver;
 import com.nikolay.imbirev.model.dao.SaleDao;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.entities.Query;
@@ -29,6 +28,8 @@ public class SaleTableQueryTest {
             log.error(e.getMessage());
         }
         dao = new SaleDao(executor);
+        dao.dropTable("sale_table");
+        dao.createTable(SaleTable.TABLE_NAME, SaleTable.Cols.columns);
     }
 
     @Test
@@ -38,19 +39,20 @@ public class SaleTableQueryTest {
         }, new Column[]{
                 Column.builder().columnName(SaleTable.Cols.DATE_OF_SALE).build()
         }).getValue();
-        Assert.assertEquals(0, result);
+        Assert.assertEquals(2, result);
     }
     @Test
     public void test1() {
         int result = dao.getListFromTable("sale_table",null, new Column[]{
                 Column.builder().columnName(SaleTable.Cols.DATE_OF_SALE).build()
         }).getValue();
-        Assert.assertEquals(0, result);
+        Assert.assertEquals(2, result);
     }
     @Test
     public void test2() {
         int result = dao.getListFromTable("sale_table",null, null).getValue();
-        Assert.assertEquals(0, result);
+        Assert.assertEquals(2, result);
     }
+
 
 }

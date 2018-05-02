@@ -15,7 +15,9 @@ public class Sale {
 
     private String saleId;
 
-    private String clientId;
+    private String clientName;
+
+    private String clientSurname;
 
     private double overallPrice;
 
