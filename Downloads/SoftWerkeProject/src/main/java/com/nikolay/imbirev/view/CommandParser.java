@@ -34,6 +34,8 @@ public class CommandParser implements CommandParserInterface {
     private String sortColumns;
     private String insertOrUpdateString;
 
+    private int delimiterCounter = 0;
+
     // create client (first_name = nikolay, second_name = imbirev, date_of_birth = 30/06/1997)
     // delete client (first_name = nikolay, second_name = imbirev, date_of_birth = 30/06/1997)
     // get client [first_name = nikolay, second_name = imbirev] {date_of_birth}
@@ -73,8 +75,6 @@ public class CommandParser implements CommandParserInterface {
             if (input[0].trim().equals(word)) {
                 for (String entityName : arrayOfEntities) {
                     if (input[1].trim().equals(entityName)) {
-                        log.info("operation  " + input[0]);
-                        log.info("entity  " + input[1]);
                         operation = input[0].trim();
                         entity = input[1].trim();
                         return true;
@@ -86,30 +86,9 @@ public class CommandParser implements CommandParserInterface {
     }
 
     private boolean getBracketCheck(String string) {
-        int delimiterCounter = 0;
-        String searchPart = null;
-        String sortPart = null;
-        String insertOrUpdatePart = null;
-        for (char letter : string.toCharArray()) {
-            if (letter == startOfSearchConditions || letter == endOfSearchConditions) {
-                searchPart = string.substring(string.indexOf(startOfSearchConditions)+1,
-                        string.indexOf(endOfSearchConditions));
-                log.info("search part " + searchPart);
-                delimiterCounter++;
-            }
-            if(letter == startOfSortConditions || letter == endOfSortConditions) {
-                sortPart = string.substring(string.indexOf(startOfSortConditions)+1,
-                        string.indexOf(endOfSortConditions));
-                log.info("sort part " + sortPart);
-                delimiterCounter++;
-            }
-            if (letter == startOfInsertOrUpdate || letter == endOfInsertOrUpdate) {
-                insertOrUpdatePart = string.substring(string.indexOf(startOfInsertOrUpdate)+1,
-                        string.indexOf(endOfInsertOrUpdate));
-                log.info("insert or update part " + insertOrUpdatePart);
-                delimiterCounter++;
-            }
-        }
+        String searchPart = getPart(string, startOfSearchConditions, endOfSearchConditions);
+        String sortPart = getPart(string, startOfSortConditions, endOfSortConditions);
+        String insertOrUpdatePart = getPart(string, startOfInsertOrUpdate, endOfInsertOrUpdate);
         if (searchPart != null) {
             searchConditions = searchPart;
         }
@@ -125,5 +104,21 @@ public class CommandParser implements CommandParserInterface {
 
     private String[] getArray(String input) {
         return input.split(delimiter);
+    }
+
+    private String getPart(String string, char startBracket, char endBracket) {
+        for (char letter : string.toCharArray()) {
+            if (letter == startBracket) {
+                delimiterCounter++;
+                for (char let : string.substring(string.indexOf(startBracket) + 1).toCharArray()) {
+                    if (let == endBracket) {
+                        delimiterCounter++;
+                        return string.substring(string.indexOf(startBracket) + 1,
+                                string.indexOf(endBracket));
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
             try (Scanner scanner = new Scanner(System.in)) {
                 CommandParserInterface parserInterface = new CommandParser();
