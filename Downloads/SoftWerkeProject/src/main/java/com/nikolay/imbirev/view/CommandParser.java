@@ -1,13 +1,11 @@
 package com.nikolay.imbirev.view;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-import com.nikolay.imbirev.queryform.QueryForm;
+import com.nikolay.imbirev.connector.queryform.QueryForm;
 import com.sun.istack.internal.NotNull;
-
 import java.util.logging.Logger;
 
 public class CommandParser implements CommandParserInterface {
-
 
     private final static char startOfSearchConditions = '[';
     private final static char endOfSearchConditions = ']';
@@ -38,11 +36,13 @@ public class CommandParser implements CommandParserInterface {
 
     private final static Logger log = Logger.getAnonymousLogger();
 
-    // sample of the requests
-    // create client (first_name = nikolay, second_name = imbirev, date_of_birth = 30/06/1997)
-    // delete client (first_name = nikolay, second_name = imbirev, date_of_birth = 30/06/1997)
-    // get client [first_name = nikolay, second_name = imbirev] {date_of_birth}
-    // update client [first_name = nikolay, second_name = imbirev] (first_name = new_name, date_of_birth = new_date)
+    /*
+    sample of the requests
+    create client (first_name = nikolai, second_name = imbirev, date_of_birth = 30/06/1997)
+    delete client (first_name = nikola, second_name = imbirev, date_of_birth = 30/06/1997)
+    get client [first_name = nikolai, second_name = imbirev] {date_of_birth}
+    update client [first_name = nikolai, second_name = imbirev] (first_name = new_name, date_of_birth = new_date)
+    */
 
     /**
      * in this method we divide string to some parts and make initial checks for errors

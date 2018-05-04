@@ -1,4 +1,4 @@
-package table;
+package parsing;
 
 import com.nikolay.imbirev.view.CommandParser;
 import org.junit.Assert;
