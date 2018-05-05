@@ -1,11 +1,10 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.connector.dbpackage.ClientDbService;
-import com.nikolay.imbirev.model.entities.ClientTable;
-import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.entities.Query;
-import com.nikolay.imbirev.model.entities.RequestCode;
+import com.nikolay.imbirev.connector.savers.SaverClients;
+import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
+import com.nikolay.imbirev.view.ListViewer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -30,7 +29,12 @@ class ClientQueryForm {
         }
         RequestCode code = service.createTable(ClientTable.Cols.columns);
         if (code == RequestCode.SUCCESS) {
-            return performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
+            RequestCode requestCode =
+                    performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
+            if (operation.equals("get") && requestCode == RequestCode.SUCCESS) {
+                new ListViewer<Client>().listView(SaverClients.getInstance().getClients());
+            }
+            return requestCode;
         } else return RequestCode.DATABASE_ERROR;
     }
 }

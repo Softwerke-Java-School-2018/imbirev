@@ -1,11 +1,10 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.connector.dbpackage.DeviceDbService;
-import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.entities.DeviceTable;
-import com.nikolay.imbirev.model.entities.Query;
-import com.nikolay.imbirev.model.entities.RequestCode;
+import com.nikolay.imbirev.connector.savers.DeviceSaver;
+import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
+import com.nikolay.imbirev.view.ListViewer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -29,7 +28,12 @@ class DeviceQueryForm {
         }
         RequestCode code = service.createTable(DeviceTable.Cols.columns);
         if (code == RequestCode.SUCCESS) {
-            return performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
+            RequestCode requestCode =
+                    performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
+            if (operation.equals("get") && requestCode == RequestCode.SUCCESS) {
+                new ListViewer<Device>().listView(DeviceSaver.getInstance().getDeviceList());
+            }
+            return requestCode;
         } else return RequestCode.DATABASE_ERROR;
     }
 }

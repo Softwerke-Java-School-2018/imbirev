@@ -1,16 +1,14 @@
 package com.nikolay.imbirev.model.entities;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.time.LocalDate;
 
+@EqualsAndHashCode(callSuper = false)
 @Builder
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Device {
+public class Device extends BaseEntity {
 
     private String deviceId;
 
