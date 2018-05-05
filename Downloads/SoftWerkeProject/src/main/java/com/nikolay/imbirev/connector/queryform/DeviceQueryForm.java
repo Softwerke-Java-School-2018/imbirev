@@ -21,22 +21,15 @@ class DeviceQueryForm {
 
     RequestCode performOperation() {
         DeviceDbService service;
+        Performer performer = new Performer();
         try {
             service = new DeviceDbService();
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-            switch (operation) {
-                case "create":
-                    return service.insertIntoTable(insertOrUpdateQueries);
-                case "update":
-                    return service.updateTable(searhQueries, insertOrUpdateQueries);
-                case "delete":
-                    return service.deleteFromTable(insertOrUpdateQueries);
-                case "get":
-                    return service.getFromTable(searhQueries, sortColumns);
-                default:
-                    return RequestCode.SYNTAX_ERROR;
-            }
+        RequestCode code = service.createTable(DeviceTable.Cols.columns);
+        if (code == RequestCode.SUCCESS) {
+            return performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
+        } else return RequestCode.DATABASE_ERROR;
     }
 }

@@ -1,6 +1,7 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.connector.dbpackage.ClientDbService;
+import com.nikolay.imbirev.model.entities.ClientTable;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.RequestCode;
@@ -21,21 +22,15 @@ class ClientQueryForm {
 
     RequestCode performOperation() {
         ClientDbService service;
+        Performer performer = new Performer();
         try {
             service = new ClientDbService();
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        switch (operation) {
-            case "create":
-                return service.insertIntoTable(insertOrUpdateQueries);
-            case "update":
-                return service.updateTable(searhQueries, insertOrUpdateQueries);
-            case "delete":
-                return service.deleteFromTable(insertOrUpdateQueries);
-            case "get":
-                return service.getFromTable(searhQueries, sortColumns);
-                default:return RequestCode.SYNTAX_ERROR;
-        }
+        RequestCode code = service.createTable(ClientTable.Cols.columns);
+        if (code == RequestCode.SUCCESS) {
+            return performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
+        } else return RequestCode.DATABASE_ERROR;
     }
 }
