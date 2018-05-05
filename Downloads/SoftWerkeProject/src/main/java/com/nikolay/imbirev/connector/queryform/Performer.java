@@ -12,7 +12,10 @@ class Performer {
             case "create":
                 return service.insertIntoTable(insertOrUpdateQueries);
             case "update":
-                return service.updateTable(searhQueries, insertOrUpdateQueries);
+                RequestCode code = service.getFromTable(searhQueries, null);
+                if (code == RequestCode.SUCCESS) {
+                    return service.updateTable(searhQueries, insertOrUpdateQueries);
+                } else return RequestCode.EMPTY_SET;
             case "delete":
                 return service.deleteFromTable(insertOrUpdateQueries);
             case "get":
