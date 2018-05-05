@@ -79,20 +79,11 @@ class QueryForm {
         switch (operation.trim()) {
             case "create":
             case "delete":
-                if (sortArray != null) {
-                    return false;
-                }
-                if (searchArray != null) {
-                    return false;
-                }
                 return insertOrUpdateArray != null;
             case "update":
-                if (sortArray != null) {
-                    return false;
-                }
                 return searchArray != null && insertOrUpdateArray != null;
             case "get":
-                return insertOrUpdateArray == null;
+                return true;
             default:
                 return false;
         }
@@ -111,7 +102,6 @@ class QueryForm {
             String queryName = sortArray[i].trim();
             for (String tableName : getAllTablesColumns()) {
                 if (queryName.equals(tableName))  {
-                    if (queryName.contains("=,.:;")) throw new IllegalArgumentException();
                     resultArray[i] = Column.builder().columnName(queryName).build();
                     counter++;
                 }
@@ -165,6 +155,7 @@ class QueryForm {
                 try {
                     if (dataColName.equals(nameColumnItem)) {
                         itemParts[1] = parserInterface.getLocalDateFromString(itemParts[1].trim()).toString();
+                        break;
                     }
                 } catch (DateTimeParseException e) {
                     throw new LocalDateParseException(e.getMessage());

@@ -37,7 +37,7 @@ public class DeviceDao extends AbstractDao {
             abstractExecutor.execQuery(query.toString(), resultSet -> {
                 while (resultSet.next()) {
                     Device device = Device.builder()
-                            .deviceId(resultSet.getString(DeviceTable.Cols.ID))
+                            .deviceId(String.valueOf(resultSet.getInt(DeviceTable.Cols.ID)))
                             .dateOfManufactoringStarted(resultSet.getDate(DeviceTable.Cols.DATE_OF_STARTING_MANUFACTORING).toLocalDate())
                             .model(resultSet.getString(DeviceTable.Cols.MODEL))
                             .price(resultSet.getDouble(DeviceTable.Cols.PRICE))

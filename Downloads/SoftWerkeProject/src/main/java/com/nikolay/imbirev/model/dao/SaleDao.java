@@ -35,11 +35,11 @@ public class SaleDao extends AbstractDao {
         try {abstractExecutor.execQuery(query.toString(), resultSet -> {
                 while (resultSet.next()) {
                     Sale sale = Sale.builder()
-                            .saleId(resultSet.getString(SaleTable.Cols.ID))
+                            .saleId(String.valueOf(resultSet.getInt(SaleTable.Cols.ID)))
                             .clientName(resultSet.getString(SaleTable.Cols.CLIENT_NAME))
                             .clientSurname(resultSet.getString(SaleTable.Cols.CLIENT_SURNAME))
                             .dateOfSale(resultSet.getDate(SaleTable.Cols.DATE_OF_SALE).toLocalDate())
-                            .overallPrice(resultSet.getDouble(SaleTable.Cols.PRICE))
+                            .overallPrice(Double.parseDouble(resultSet.getString(SaleTable.Cols.PRICE)))
                             .build();
                     sales.add(sale);
                 }

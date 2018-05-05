@@ -35,7 +35,7 @@ public class ClientDao extends AbstractDao {
         try {
             abstractExecutor.execQuery(query.toString(), resultSet -> {
                 while (resultSet.next()) {
-                    clients.add(Client.builder().clietnId(resultSet.getString(ClientTable.Cols.ID))
+                    clients.add(Client.builder().clietnId(String.valueOf(resultSet.getInt(ClientTable.Cols.ID)))
                             .firstName(resultSet.getString(ClientTable.Cols.FIRST_NAME))
                             .lastName(resultSet.getString(ClientTable.Cols.SECOND_NAME))
                             .dateOfBirth(resultSet.getDate(ClientTable.Cols.DATE_OF_BIRTH).toLocalDate())

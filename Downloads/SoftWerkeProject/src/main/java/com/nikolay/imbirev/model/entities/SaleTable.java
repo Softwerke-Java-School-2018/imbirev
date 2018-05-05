@@ -2,7 +2,7 @@ package com.nikolay.imbirev.model.entities;
 
 public class SaleTable {
 
-    public final static String TABLE_NAME = "sale_table";
+    public final static String TABLE_NAME = "sale_table2";
 
     public static class Cols {
 
@@ -15,7 +15,7 @@ public class SaleTable {
         private static final String type = "varchar (256) ";
 
         public static  Column[] columns = {
-                Column.builder().columnName(ID).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
+                Column.builder().columnName(ID).columnType("int").isNullableColumn(false).isAutoIncremented(true).build(),
                 Column.builder().columnName(CLIENT_NAME).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
                 Column.builder().columnName(CLIENT_SURNAME).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
                 Column.builder().columnName(PRICE).columnType(type).isNullableColumn(false).isAutoIncremented(false).build(),
