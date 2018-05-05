@@ -17,6 +17,6 @@ class SaleQueryForm {
     private Query[] insertOrUpdateQueries;
 
     RequestCode performOperation() {
-        return null;
+        return RequestCode.SUCCESS;
     }
 }

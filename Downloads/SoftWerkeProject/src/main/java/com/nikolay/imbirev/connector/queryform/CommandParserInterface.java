@@ -1,4 +1,4 @@
-package com.nikolay.imbirev.view;
+package com.nikolay.imbirev.connector.queryform;
 
 public interface CommandParserInterface {
 

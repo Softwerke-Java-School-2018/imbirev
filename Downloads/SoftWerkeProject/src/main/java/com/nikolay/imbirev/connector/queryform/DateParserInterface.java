@@ -9,4 +9,6 @@ public interface DateParserInterface {
 
     Date localDateToSqlDate(LocalDate localDate);
 
+    LocalDate getLocalDateFromString(String input);
+
 }

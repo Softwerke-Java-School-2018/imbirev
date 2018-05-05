@@ -18,6 +18,6 @@ class ClientQueryForm {
 
 
     RequestCode performOperation() {
-        return null;
+        return RequestCode.SUCCESS;
     }
 }

@@ -1,7 +1,7 @@
 package parsing;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-import com.nikolay.imbirev.view.CommandParser;
+import com.nikolay.imbirev.connector.queryform.CommandParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

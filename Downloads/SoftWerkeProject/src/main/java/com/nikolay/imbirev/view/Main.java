@@ -1,5 +1,8 @@
 package com.nikolay.imbirev.view;
 
+import com.nikolay.imbirev.connector.queryform.CommandParser;
+import com.nikolay.imbirev.connector.queryform.CommandParserInterface;
+
 import java.util.Scanner;
 
 public class Main {

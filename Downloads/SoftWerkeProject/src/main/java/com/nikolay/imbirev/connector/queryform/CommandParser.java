@@ -1,7 +1,6 @@
-package com.nikolay.imbirev.view;
+package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-import com.nikolay.imbirev.connector.queryform.QueryForm;
 import com.sun.istack.internal.NotNull;
 import java.util.logging.Logger;
 
