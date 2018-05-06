@@ -84,5 +84,4 @@ public class UpdateTableTest {
         Assert.assertEquals(0, result);
         log.info("test 8 passed");
     }
-
 }

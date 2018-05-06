@@ -72,9 +72,4 @@ public class DeleteFromTableTest {
         Assert.assertEquals(0, result);
         log.info("test 7 passed");
     }
-
-
-
-
-
 }

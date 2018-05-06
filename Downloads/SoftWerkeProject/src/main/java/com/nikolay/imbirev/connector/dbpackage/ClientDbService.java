@@ -29,11 +29,6 @@ public class ClientDbService implements DbInterface {
     }
 
     @Override
-    public RequestCode dropTable() {
-        return dao.dropTable(ClientTable.TABLE_NAME);
-    }
-
-    @Override
     public RequestCode deleteFromTable(Query[] array) {
         return dao.deleteFromTable(ClientTable.TABLE_NAME, array);
     }

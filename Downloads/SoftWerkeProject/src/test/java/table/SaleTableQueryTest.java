@@ -54,6 +54,4 @@ public class SaleTableQueryTest {
         int result = dao.getListFromTable("sale_table",null, null).getValue();
         Assert.assertEquals(2, result);
     }
-
-
 }

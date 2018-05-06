@@ -8,8 +8,6 @@ public interface DbInterface {
 
     RequestCode createTable(Column[] array);
 
-    RequestCode dropTable();
-
     RequestCode deleteFromTable(Query[] array);
 
     RequestCode updateTable(Query[] condArray, Query[] newArray);

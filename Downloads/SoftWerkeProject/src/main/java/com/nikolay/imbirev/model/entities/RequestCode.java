@@ -7,7 +7,6 @@ public enum RequestCode {
     DATE_PARSING_ERROR(50),
     DATA_ERROR(60),
     SQL_SYNTAX_ERROR(99),
-    WARNING(15),
     SUCCESS(0),
     DATABASE_ERROR(30),
     EMPTY_SET(2);

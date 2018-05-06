@@ -102,8 +102,4 @@ public class InsertTableTest {
         Assert.assertEquals(99, result);
         log.info("test 7 passed");
     }
-
-
-
-
 }

@@ -29,11 +29,6 @@ public class DeviceDbService implements DbInterface {
     }
 
     @Override
-    public RequestCode dropTable() {
-        return dao.dropTable(DeviceTable.TABLE_NAME);
-    }
-
-    @Override
     public RequestCode deleteFromTable(Query[] array) {
         return dao.deleteFromTable(DeviceTable.TABLE_NAME, array);
     }

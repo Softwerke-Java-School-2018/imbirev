@@ -30,11 +30,6 @@ public class SaleDbService implements DbInterface {
     }
 
     @Override
-    public RequestCode dropTable() {
-        return dao.dropTable(SaleTable.TABLE_NAME);
-    }
-
-    @Override
     public RequestCode deleteFromTable(Query[] array) {
         return dao.deleteFromTable(SaleTable.TABLE_NAME, array);
     }

@@ -22,4 +22,3 @@ public class Device extends BaseEntity {
     private LocalDate dateOfManufactoringStarted;
 
 }
-

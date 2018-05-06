@@ -1,7 +1,5 @@
 package com.nikolay.imbirev.model.exceptions;
 
-import java.lang.annotation.Documented;
-
 /**
  * this exception throws when application cannot connect to the database
  */
