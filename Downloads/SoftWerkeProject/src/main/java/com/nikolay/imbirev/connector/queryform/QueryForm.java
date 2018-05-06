@@ -139,7 +139,10 @@ class QueryForm {
      */
     private Query[] getQuery(String[] initialArray) throws LocalDateParseException {
         if (initialArray == null) return null;
-        if (!checkForEquals(initialArray.length, initialArray)) throw new IllegalArgumentException();
+        if (!checkForEquals(initialArray.length, initialArray)) {
+            log.info("exception");
+            throw new IllegalArgumentException();
+        }
         int num = 0;
         int counter = 0;
         parserInterface = new DateParser();
