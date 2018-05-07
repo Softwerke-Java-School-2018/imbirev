@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.java.Log;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +32,6 @@ class QueryForm {
     private Column[] sortColumns;
     private Query[] searchQueries;
     private Query[] insertOrUpdateQueries;
-    private DateParserInterface parserInterface;
 
     String createQuery() {
         log.info("operation " + operation);
@@ -145,7 +146,6 @@ class QueryForm {
         }
         int num = 0;
         int counter = 0;
-        parserInterface = new DateParser();
         Query[] resultArray = new Query[initialArray.length];
         for (String item : initialArray) {
             String[] itemParts = item.split("=");
@@ -157,7 +157,11 @@ class QueryForm {
             for (String dataColName : getAllDataColumns()) {
                 try {
                     if (dataColName.equals(nameColumnItem)) {
-                        itemParts[1] = parserInterface.getLocalDateFromString(itemParts[1].trim()).toString();
+                        DateParserInterface dateParserInterface = (string) -> {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            return LocalDate.parse(string.trim(), formatter);
+                        };
+                        itemParts[1] = dateParserInterface.getLocalDateFromString(itemParts[1]).toString();
                         break;
                     }
                 } catch (DateTimeParseException e) {

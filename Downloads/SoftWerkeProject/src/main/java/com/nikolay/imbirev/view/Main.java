@@ -1,7 +1,6 @@
 package com.nikolay.imbirev.view;
 
 import com.nikolay.imbirev.connector.queryform.CommandParser;
-import com.nikolay.imbirev.connector.queryform.CommandParserInterface;
 import lombok.extern.java.Log;
 
 import java.util.Scanner;
@@ -15,11 +14,11 @@ public class Main {
     @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
             try (Scanner scanner = new Scanner(System.in)) {
-                CommandParserInterface parserInterface = new CommandParser();
+                CommandParser parser = new CommandParser();
                 while (true) {
                     String command = scanner.nextLine();
                     log.info(command + " command");
-                    System.out.println(parserInterface.parseCommand(command));
+                    System.out.println(parser.parseCommand(command));
                 }
             }
     }

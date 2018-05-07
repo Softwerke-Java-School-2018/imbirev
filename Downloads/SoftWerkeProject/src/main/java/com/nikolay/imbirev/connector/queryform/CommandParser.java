@@ -5,7 +5,7 @@ import com.sun.istack.internal.NotNull;
 import lombok.extern.java.Log;
 
 @Log
-public class CommandParser implements CommandParserInterface {
+public class CommandParser {
 
     private final static char startOfSearchConditions = '[';
     private final static char endOfSearchConditions = ']';
@@ -47,33 +47,35 @@ public class CommandParser implements CommandParserInterface {
      * @param string is a initial string of the request
      * @return result code of query from QueryForm or enter error
      */
-    @Override
     public String parseCommand(@NotNull String string) {
-        if (string == null || string.equals("")) return RequestCode.ENTER_ERROR.toString();
-        if (!getFirstCheck(string)) return RequestCode.ENTER_ERROR.toString();
-        if (!getBracketCheck(string)) return RequestCode.ENTER_ERROR.toString();
-        QueryForm.QueryFormBuilder builder = QueryForm.builder();
-        builder.entity(entity).operation(operation);
-        if (searchConditions != null) {
-            if (!searchConditions.equals(RequestCode.ENTER_ERROR.toString())) {
-                String[] searchArray = getArray(searchConditions);
-                builder.searchArray(searchArray);
-            } else return RequestCode.ENTER_ERROR.toString();
-        }
-        if (sortColumns != null) {
-        if (!sortColumns.equals(RequestCode.ENTER_ERROR.toString())) {
-            String[] sortArray = getArray(sortColumns);
-            builder.sortArray(sortArray);
-        } else return RequestCode.ENTER_ERROR.toString();
-        }
-        if (insertOrUpdateString != null) {
-        if (!insertOrUpdateString.equals(RequestCode.ENTER_ERROR.toString())) {
-            String[] insertOrUpdateArray = getArray(insertOrUpdateString);
-            builder.insertOrUpdateArray(insertOrUpdateArray);
-        } else return RequestCode.ENTER_ERROR.toString();
-        }
-        QueryForm queryForm = builder.build();
-        return queryForm.createQuery();
+        CommandParserInterface commandParserInterface = (string1 -> {
+            if (string == null || string.equals("")) return RequestCode.ENTER_ERROR.toString();
+            if (!getFirstCheck(string)) return RequestCode.ENTER_ERROR.toString();
+            if (!getBracketCheck(string)) return RequestCode.ENTER_ERROR.toString();
+            QueryForm.QueryFormBuilder builder = QueryForm.builder();
+            builder.entity(entity).operation(operation);
+            if (searchConditions != null) {
+                if (!searchConditions.equals(RequestCode.ENTER_ERROR.toString())) {
+                    String[] searchArray = getArray(searchConditions);
+                    builder.searchArray(searchArray);
+                } else return RequestCode.ENTER_ERROR.toString();
+            }
+            if (sortColumns != null) {
+                if (!sortColumns.equals(RequestCode.ENTER_ERROR.toString())) {
+                    String[] sortArray = getArray(sortColumns);
+                    builder.sortArray(sortArray);
+                } else return RequestCode.ENTER_ERROR.toString();
+            }
+            if (insertOrUpdateString != null) {
+                if (!insertOrUpdateString.equals(RequestCode.ENTER_ERROR.toString())) {
+                    String[] insertOrUpdateArray = getArray(insertOrUpdateString);
+                    builder.insertOrUpdateArray(insertOrUpdateArray);
+                } else return RequestCode.ENTER_ERROR.toString();
+            }
+            QueryForm queryForm = builder.build();
+            return queryForm.createQuery();
+        });
+        return commandParserInterface.parseCommand(string);
     }
 
     /**
