@@ -8,6 +8,7 @@ import com.nikolay.imbirev.view.ListViewer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
+import java.util.Collections;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Value
@@ -32,7 +33,7 @@ class ClientQueryForm {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
             if (operation.equals("get") && requestCode == RequestCode.SUCCESS) {
-                new ListViewer<Client>().listView(SaverClients.getInstance().getClients());
+                new ListViewer<Client>().listView(Collections.unmodifiableList(SaverClients.getInstance().getClients()));
             }
             return requestCode;
         } else return RequestCode.DATABASE_ERROR;

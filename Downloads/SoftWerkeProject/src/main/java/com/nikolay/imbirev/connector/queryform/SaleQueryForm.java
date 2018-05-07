@@ -8,7 +8,7 @@ import com.nikolay.imbirev.view.ListViewer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
-
+import java.util.Collections;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Value
@@ -31,7 +31,7 @@ class SaleQueryForm {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
             if (operation.equals("get") && requestCode == RequestCode.SUCCESS) {
-                new ListViewer<Sale>().listView(SaleSaver.getInstance().getSaleList());
+                new ListViewer<Sale>().listView(Collections.unmodifiableList(SaleSaver.getInstance().getSaleList()));
             }
             return requestCode;
         } else return RequestCode.DATABASE_ERROR;
