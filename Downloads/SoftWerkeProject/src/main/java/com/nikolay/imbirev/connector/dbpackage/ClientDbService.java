@@ -4,12 +4,12 @@ import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import java.util.logging.Logger;
+import lombok.extern.java.Log;
 
+@Log
 public class ClientDbService implements DbInterface {
 
     private ClientDao dao;
-    private final static Logger log = Logger.getAnonymousLogger();
     private final static String TAG = "ClientDbService";
 
     public ClientDbService() throws DatabaseAccessException {

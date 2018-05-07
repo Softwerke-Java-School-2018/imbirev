@@ -2,9 +2,11 @@ package com.nikolay.imbirev.view;
 
 import com.nikolay.imbirev.connector.queryform.CommandParser;
 import com.nikolay.imbirev.connector.queryform.CommandParserInterface;
+import lombok.extern.java.Log;
 
 import java.util.Scanner;
 
+@Log
 public class Main {
 
     /**
@@ -16,6 +18,7 @@ public class Main {
                 CommandParserInterface parserInterface = new CommandParser();
                 while (true) {
                     String command = scanner.nextLine();
+                    log.info(command + " command");
                     System.out.println(parserInterface.parseCommand(command));
                 }
             }

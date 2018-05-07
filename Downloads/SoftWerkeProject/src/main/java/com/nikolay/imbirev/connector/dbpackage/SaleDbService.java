@@ -4,13 +4,12 @@ import com.nikolay.imbirev.model.dao.SaleDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
+import lombok.extern.java.Log;
 
-import java.util.logging.Logger;
-
+@Log
 public class SaleDbService implements DbInterface {
 
     private SaleDao dao;
-    private final static Logger log = Logger.getAnonymousLogger();
     private final static String TAG = "SaleDbService";
 
     public SaleDbService() throws DatabaseAccessException {

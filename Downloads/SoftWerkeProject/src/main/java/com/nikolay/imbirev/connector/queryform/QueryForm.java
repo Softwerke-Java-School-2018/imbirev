@@ -6,18 +6,18 @@ import com.sun.istack.internal.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.extern.java.Log;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Log
 class QueryForm {
 
-    private final static Logger log = Logger.getAnonymousLogger();
 
     private DateParserInterface dateParser;
 

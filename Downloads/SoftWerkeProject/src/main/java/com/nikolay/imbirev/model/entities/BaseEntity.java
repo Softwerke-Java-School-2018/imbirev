@@ -1,9 +1,6 @@
 package com.nikolay.imbirev.model.entities;
 
- public class BaseEntity {
+import lombok.ToString;
 
-    @Override
-    public String toString() {
-        return "BaseEntity{}";
-    }
-}
+@ToString
+public class BaseEntity {}

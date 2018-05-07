@@ -2,8 +2,9 @@ package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
 import com.sun.istack.internal.NotNull;
-import java.util.logging.Logger;
+import lombok.extern.java.Log;
 
+@Log
 public class CommandParser implements CommandParserInterface {
 
     private final static char startOfSearchConditions = '[';
@@ -32,8 +33,6 @@ public class CommandParser implements CommandParserInterface {
     private String insertOrUpdateString;
 
     private int delimiterCounter = 0;
-
-    private final static Logger log = Logger.getAnonymousLogger();
 
     /*
     sample of the requests

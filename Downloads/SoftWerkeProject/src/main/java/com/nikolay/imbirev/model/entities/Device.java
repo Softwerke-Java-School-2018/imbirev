@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Builder
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString(exclude = "deviceId") // call super = false
 public class Device extends BaseEntity {
 
     private String deviceId;
