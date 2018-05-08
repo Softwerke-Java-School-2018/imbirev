@@ -51,4 +51,10 @@ public class DateParsingTest {
         String result = parser.parseCommand("get client [date_of_birth = 03/09/2001] {}");
         Assert.assertEquals(RequestCode.EMPTY_SET.toString(), result);
     }
+
+    @Test
+    public void test7() {
+        String result = parser.parseCommand("get client [date_of_birth = 03/09/2001] {}");
+        Assert.assertEquals(RequestCode.EMPTY_SET.toString(), result);
+    }
 }

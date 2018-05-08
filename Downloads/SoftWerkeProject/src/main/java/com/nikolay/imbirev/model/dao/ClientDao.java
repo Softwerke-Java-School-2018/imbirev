@@ -3,7 +3,8 @@ package com.nikolay.imbirev.model.dao;
 import com.nikolay.imbirev.connector.savers.SaverClients;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
+
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ public class ClientDao extends AbstractDao {
      * @param sortArray is an array of sorting columns to determine the order of the results
      * @return success code and add list of clients to the singleton or return unsuccessful code
      */
-    public RequestCode getListFromTable(@NotNull String tableName, Query[] array, Column[] sortArray) {
-        if (tableName == null || tableName.equals("")) return RequestCode.SYNTAX_ERROR;
+    public RequestCode getListFromTable(@NonNull String tableName, Query[] array, Column[] sortArray) {
+        if (tableName.equals("")) return RequestCode.SYNTAX_ERROR;
         StringBuilder query = new StringBuilder();
         query.append(execQueryOperation(tableName, array, sortArray));
         try {

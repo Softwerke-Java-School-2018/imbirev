@@ -2,7 +2,7 @@ package com.nikolay.imbirev.model.exceptions;
 
 public class LocalDateParseException extends Exception {
 
-    private String message;
+    private final String message;
 
     public LocalDateParseException(String message) {
         this.message = message;

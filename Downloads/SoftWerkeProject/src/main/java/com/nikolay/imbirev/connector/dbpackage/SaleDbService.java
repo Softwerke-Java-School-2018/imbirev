@@ -10,7 +10,7 @@ import lombok.extern.java.Log;
 public class SaleDbService implements DbInterface {
 
     private SaleDao dao;
-    private final static String TAG = "SaleDbService";
+    private static final String TAG = "SaleDbService";
 
     public SaleDbService() throws DatabaseAccessException {
         AbstractExecutor executor;

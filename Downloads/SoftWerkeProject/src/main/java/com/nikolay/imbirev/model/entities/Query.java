@@ -9,6 +9,6 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Query {
 
-    private String ColumnName;
-    private String ColumnQuery;
+    private String columnName;
+    private String columnQuery;
 }

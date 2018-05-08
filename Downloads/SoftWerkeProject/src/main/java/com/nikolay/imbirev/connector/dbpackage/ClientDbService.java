@@ -9,8 +9,8 @@ import lombok.extern.java.Log;
 @Log
 public class ClientDbService implements DbInterface {
 
+    private static final String TAG = "ClientDbService";
     private ClientDao dao;
-    private final static String TAG = "ClientDbService";
 
     public ClientDbService() throws DatabaseAccessException {
         AbstractExecutor executor;

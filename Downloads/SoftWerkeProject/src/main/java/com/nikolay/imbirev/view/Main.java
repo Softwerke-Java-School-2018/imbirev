@@ -13,6 +13,7 @@ public class Main {
                 CommandParser parser = new CommandParser();
                 while (true) {
                     String command = scanner.nextLine();
+                    if (command.trim().equals("exit")) break;
                     log.info(command + " command");
                     System.out.println(parser.parseCommand(command));
                 }

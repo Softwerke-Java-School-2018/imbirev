@@ -2,10 +2,10 @@ package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.LocalDateParseException;
-import com.sun.istack.internal.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.extern.java.Log;
 
 import java.time.LocalDate;
@@ -76,7 +76,7 @@ class QueryForm {
      * @param operation is a name of operation
      * @return true if all conditions are good or false
      */
-    private boolean checkForAvailableOperation(@NotNull String operation) {
+    private boolean checkForAvailableOperation(@NonNull String operation) {
         switch (operation.trim()) {
             case "create":
             case "delete":
@@ -157,7 +157,7 @@ class QueryForm {
             for (String dataColName : getAllDataColumns()) {
                 try {
                     if (dataColName.equals(nameColumnItem)) {
-                        DateParserInterface dateParserInterface = (string) -> {
+                        DateParserInterface dateParserInterface = string -> {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             return LocalDate.parse(string.trim(), formatter);
                         };

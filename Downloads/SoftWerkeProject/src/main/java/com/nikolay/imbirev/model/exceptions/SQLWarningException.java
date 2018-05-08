@@ -5,7 +5,7 @@ package com.nikolay.imbirev.model.exceptions;
  */
 public class SQLWarningException extends Exception {
 
-    private String message;
+    private final String message;
 
     public SQLWarningException(String message) {
         this.message = message;

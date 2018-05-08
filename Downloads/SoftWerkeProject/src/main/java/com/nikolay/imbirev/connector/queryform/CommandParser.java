@@ -1,27 +1,27 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
 import lombok.extern.java.Log;
 
 @Log
 public class CommandParser {
 
-    private final static char startOfSearchConditions = '[';
-    private final static char endOfSearchConditions = ']';
+    private static final char START_OF_SEARCH_CONDITIONS = '[';
+    private static final char END_OF_SEARCH_CONDITIONS = ']';
 
-    private final static char startOfSortConditions = '{';
-    private final static char endOfSortConditions = '}';
+    private static final char START_OF_SORT_CONDITIONS = '{';
+    private static final char END_OF_SORT_CONDITIONS = '}';
 
-    private final static char startOfInsertOrUpdate = '(';
-    private final static char endOfInsertOrUpdate = ')';
+    private static final char START_OF_INSERT_OR_UPDATE = '(';
+    private static final char END_OF_INSERT_OR_UPDATE = ')';
 
-    private final static String delimiter = ",";
+    private static final String DELIMITER = ",";
 
-    private final static String[] arrayOfKeyWords = {
+    private static final String[] arrayOfKeyWords = {
          "create", "update", "get", "delete"
     };
-    private final static String[] arrayOfEntities = {
+    private static final String[] arrayOfEntities = {
             "sale", "client", "device"
     };
 
@@ -38,7 +38,6 @@ public class CommandParser {
     sample of the requests
     create client (first_name = nikolai, second_name = imbirev, date_of_birth = 30/06/1997)
     delete client (first_name = nikola, second_name = imbirev, date_of_birth = 30/06/1997)
-    get client [first_name = nikolai, second_name = imbirev] {date_of_birth}
     update client [first_name = nikolai, second_name = imbirev] (first_name = new_name, date_of_birth = new_date)
     */
 
@@ -47,7 +46,7 @@ public class CommandParser {
      * @param string is a initial string of the request
      * @return result code of query from QueryForm or enter error
      */
-    public String parseCommand(@NotNull String string) {
+    public String parseCommand(@NonNull String string) {
         CommandParserInterface commandParserInterface = (string1 -> {
             if (string == null || string.equals("")) return RequestCode.ENTER_ERROR.toString();
             if (!getFirstCheck(string)) return RequestCode.ENTER_ERROR.toString();
@@ -83,7 +82,7 @@ public class CommandParser {
      * @param string is an initial string
      * @return true if everything is okey or false if first two words from the request are irrelevant
      */
-    private boolean getFirstCheck(@NotNull String string) {
+    private boolean getFirstCheck(@NonNull String string) {
         String[] input = string.split(" +");
         for (String word : arrayOfKeyWords) {
             if (input[0].trim().equals(word)) {
@@ -104,12 +103,12 @@ public class CommandParser {
      * @param string is an initial string
      * @return true if amount of brackets is good or false
      */
-    private boolean getBracketCheck(@NotNull String string) {
-        String searchPart = getPart(string, startOfSearchConditions, endOfSearchConditions);
+    private boolean getBracketCheck(@NonNull String string) {
+        String searchPart = getPart(string, START_OF_SEARCH_CONDITIONS, END_OF_SEARCH_CONDITIONS);
         log.info(searchPart + " sp");
-        String sortPart = getPart(string, startOfSortConditions, endOfSortConditions);
+        String sortPart = getPart(string, START_OF_SORT_CONDITIONS, END_OF_SORT_CONDITIONS);
         log.info(sortPart + " sop");
-        String insertOrUpdatePart = getPart(string, startOfInsertOrUpdate, endOfInsertOrUpdate);
+        String insertOrUpdatePart = getPart(string, START_OF_INSERT_OR_UPDATE, END_OF_INSERT_OR_UPDATE);
         log.info(insertOrUpdatePart + " ip");
         if (searchPart != null) {
             searchConditions = searchPart;
@@ -129,9 +128,9 @@ public class CommandParser {
      * @param input is initial string
      * @return new string array or null, if length of the string is null
      */
-    private String[] getArray(@NotNull String input) {
+    private String[] getArray(@NonNull String input) {
         if (input.trim().length() == 0) return null;
-        return input.split(delimiter);
+        return input.split(DELIMITER);
     }
 
     /**
@@ -141,7 +140,7 @@ public class CommandParser {
      * @param endBracket is an end position
      * @return new part of string or null, if we have irrelevant brackets location
      */
-    private String getPart(@NotNull String string, @NotNull char startBracket, @NotNull char endBracket) {
+    private String getPart(@NonNull String string, @NonNull char startBracket, @NonNull char endBracket) {
         int localCounter = 0;
         for (char letter : string.toCharArray()) {
             if (letter == startBracket) {

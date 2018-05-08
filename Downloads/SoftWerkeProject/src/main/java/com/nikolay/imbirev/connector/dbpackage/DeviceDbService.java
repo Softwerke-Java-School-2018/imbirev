@@ -10,7 +10,7 @@ import lombok.extern.java.Log;
 public class DeviceDbService implements DbInterface {
 
     private DeviceDao dao;
-    private final static String TAG = "DeviceDbService";
+    private static final String TAG = "DeviceDbService";
 
     public DeviceDbService() throws DatabaseAccessException {
         AbstractExecutor executor;
