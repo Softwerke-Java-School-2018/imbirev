@@ -39,7 +39,7 @@ public class InitialRequestParserTest {
     @Test
     public void test4() {
         String result = parser.parseCommand("update     device     [     ]    ");
-        Assert.assertNull(result);
+        Assert.assertEquals("DATA_ERROR", result);
     }
     @Test
     public void test5() {
@@ -61,6 +61,4 @@ public class InitialRequestParserTest {
         String result = parser.parseCommand("              create       client  {)         ");
         Assert.assertEquals("ENTER_ERROR", result);
     }
-
-
 }

@@ -75,7 +75,7 @@ public class ClientQueryTest {
         }, new Column[]{
                 Column.builder().columnName("first_name").build()
         }).getValue();
-        Assert.assertEquals(0, result);
+        Assert.assertEquals(2, result);
     }
     @Test
     public void test8() {
@@ -85,7 +85,7 @@ public class ClientQueryTest {
                 Column.builder().columnName("first_name").build()
         }).getValue();
         System.out.println(SaverClients.getInstance().getClients().size());
-        Assert.assertEquals(0, result);
+        Assert.assertEquals(2, result);
     }
 
 }
