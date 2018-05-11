@@ -14,7 +14,7 @@ public class SaleTable {
 
         private static final String TYPE = "varchar (256) ";
 
-        public static  Column[] columns = {
+        public static  Column[] COLUMNS = {
                 Column.builder().columnName(ID).columnType("int").isNullableColumn(false).isAutoIncremented(true).build(),
                 Column.builder().columnName(CLIENT_NAME).columnType(TYPE).isNullableColumn(false).isAutoIncremented(false).build(),
                 Column.builder().columnName(CLIENT_SURNAME).columnType(TYPE).isNullableColumn(false).isAutoIncremented(false).build(),

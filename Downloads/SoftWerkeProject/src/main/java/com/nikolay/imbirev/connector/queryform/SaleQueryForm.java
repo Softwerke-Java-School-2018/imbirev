@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 import java.util.Collections;
 
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Value
 class SaleQueryForm {
     private String operation;
@@ -18,15 +18,19 @@ class SaleQueryForm {
     private Query[] searhQueries;
     private Query[] insertOrUpdateQueries;
 
+    static SaleQueryForm getClientQueryForm(String operation, Column[] sortColumns, Query[] searhQueries, Query[] insertOrUpdateQueries) {
+        return new SaleQueryForm(operation, sortColumns, searhQueries, insertOrUpdateQueries);
+    }
+
     RequestCode performOperation() {
         SaleDbService service;
-        Performer performer = new Performer();
+        Performer performer = Performer.getPerformer();
         try {
-            service = new SaleDbService();
+            service = SaleDbService.getSaleDbService();
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        RequestCode code = service.createTable(SaleTable.Cols.columns);
+        RequestCode code = service.createTable(SaleTable.Cols.COLUMNS);
         if (code == RequestCode.SUCCESS) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);

@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 import java.util.Collections;
 
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Value
 class ClientQueryForm {
 
@@ -19,16 +19,19 @@ class ClientQueryForm {
     private Query[] searhQueries;
     private Query[] insertOrUpdateQueries;
 
+    static ClientQueryForm getClientQueryForm(String operation, Column[] sortColumns, Query[] searhQueries, Query[] insertOrUpdateQueries) {
+        return new ClientQueryForm(operation, sortColumns, searhQueries, insertOrUpdateQueries);
+    }
 
     RequestCode performOperation() {
         ClientDbService service;
-        Performer performer = new Performer();
+        Performer performer = Performer.getPerformer();
         try {
-            service = new ClientDbService();
+            service = ClientDbService.getClientDbService();
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        RequestCode code = service.createTable(ClientTable.Cols.columns);
+        RequestCode code = service.createTable(ClientTable.Cols.COLUMNS);
         if (code == RequestCode.SUCCESS) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);

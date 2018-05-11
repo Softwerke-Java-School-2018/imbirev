@@ -12,16 +12,21 @@ public class DeviceDbService implements DbInterface {
     private DeviceDao dao;
     private static final String TAG = "DeviceDbService";
 
-    public DeviceDbService() throws DatabaseAccessException {
+    private DeviceDbService() throws DatabaseAccessException {
         AbstractExecutor executor;
         try {
-            executor = new AbstractExecutor();
+            executor = AbstractExecutor.getAbstractExecutor();
         } catch (DatabaseAccessException e) {
             log.info(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new DeviceDao(executor);
     }
+
+    public static DeviceDbService getDeviceDbService() throws DatabaseAccessException {
+        return new DeviceDbService();
+    }
+
     @Override
     public RequestCode createTable(Column[] array) {
         return dao.createTable(DeviceTable.TABLE_NAME, array);

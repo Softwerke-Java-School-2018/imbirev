@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 import java.util.Collections;
 
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Value
 class DeviceQueryForm {
 
@@ -19,15 +19,19 @@ class DeviceQueryForm {
     private Query[] searhQueries;
     private Query[] insertOrUpdateQueries;
 
+    static DeviceQueryForm getClientQueryForm(String operation, Column[] sortColumns, Query[] searhQueries, Query[] insertOrUpdateQueries) {
+        return new DeviceQueryForm(operation, sortColumns, searhQueries, insertOrUpdateQueries);
+    }
+
     RequestCode performOperation() {
         DeviceDbService service;
-        Performer performer = new Performer();
+        Performer performer = Performer.getPerformer();
         try {
-            service = new DeviceDbService();
+            service = DeviceDbService.getDeviceDbService();
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        RequestCode code = service.createTable(DeviceTable.Cols.columns);
+        RequestCode code = service.createTable(DeviceTable.Cols.COLUMNS);
         if (code == RequestCode.SUCCESS) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);

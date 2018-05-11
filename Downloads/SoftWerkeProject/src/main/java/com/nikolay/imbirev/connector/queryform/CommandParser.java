@@ -34,6 +34,10 @@ public class CommandParser {
 
     private int delimiterCounter = 0;
 
+    public static CommandParser getCommandParser() {
+        return new CommandParser();
+    }
+
     /*
     sample of the requests
     create client (first_name = nikolai, second_name = imbirev, date_of_birth = 30/06/1997)

@@ -7,10 +7,9 @@ import java.util.Scanner;
 
 @Log
 public class Main {
-    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
             try (Scanner scanner = new Scanner(System.in)) {
-                CommandParser parser = new CommandParser();
+                CommandParser parser = CommandParser.getCommandParser();
                 while (true) {
                     String command = scanner.nextLine();
                     if (command.trim().equals("exit")) break;

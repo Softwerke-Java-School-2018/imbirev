@@ -12,15 +12,19 @@ public class ClientDbService implements DbInterface {
     private static final String TAG = "ClientDbService";
     private ClientDao dao;
 
-    public ClientDbService() throws DatabaseAccessException {
+    private ClientDbService() throws DatabaseAccessException {
         AbstractExecutor executor;
         try {
-            executor = new AbstractExecutor();
+            executor = AbstractExecutor.getAbstractExecutor();
         } catch (DatabaseAccessException e) {
             log.info(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new ClientDao(executor);
+    }
+
+    public static ClientDbService getClientDbService() throws DatabaseAccessException {
+        return new ClientDbService();
     }
 
     @Override

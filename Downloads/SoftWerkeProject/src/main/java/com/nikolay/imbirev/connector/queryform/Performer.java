@@ -7,6 +7,10 @@ import com.nikolay.imbirev.model.entities.RequestCode;
 
 class Performer {
 
+    static Performer getPerformer() {
+        return new Performer();
+    }
+
     RequestCode perform(DbInterface service, String operation, Column[] sortColumns, Query[] searhQueries, Query[] insertOrUpdateQueries) {
         switch (operation) {
             case "create":

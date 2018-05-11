@@ -62,12 +62,12 @@ class QueryForm {
     private RequestCode performOperation() {
         switch (entity.trim()) {
             case "client":
-                return new ClientQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
+                return ClientQueryForm.getClientQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
             case "device":
-                return new DeviceQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
+                return DeviceQueryForm.getClientQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
             case "sale":
-               return new SaleQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
-                default: return RequestCode.DATA_ERROR;
+               return SaleQueryForm.getClientQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
+               default: return RequestCode.DATA_ERROR;
         }
     }
 
@@ -118,13 +118,13 @@ class QueryForm {
      */
     private String[] getAllTablesColumns() {
         List<String> resultArray = new ArrayList<>();
-        for (Column column : SaleTable.Cols.columns) {
+        for (Column column : SaleTable.Cols.COLUMNS) {
             resultArray.add(column.getColumnName());
         }
-        for (Column column : ClientTable.Cols.columns) {
+        for (Column column : ClientTable.Cols.COLUMNS) {
             resultArray.add(column.getColumnName());
         }
-        for (Column column : DeviceTable.Cols.columns) {
+        for (Column column : DeviceTable.Cols.COLUMNS) {
             resultArray.add(column.getColumnName());
         }
         String[] strings = new String[resultArray.size()];
@@ -198,17 +198,17 @@ class QueryForm {
      */
     private String[] getAllDataColumns() {
         List<String> resultArray = new ArrayList<>();
-            for (Column column : SaleTable.Cols.columns) {
+            for (Column column : SaleTable.Cols.COLUMNS) {
                 if (column.getColumnType().equals("date")) {
                     resultArray.add(column.getColumnName());
                 }
             }
-            for (Column column : ClientTable.Cols.columns) {
+            for (Column column : ClientTable.Cols.COLUMNS) {
                 if (column.getColumnType().equals("date")) {
                     resultArray.add(column.getColumnName());
                 }
             }
-            for (Column column : DeviceTable.Cols.columns) {
+            for (Column column : DeviceTable.Cols.COLUMNS) {
                 if (column.getColumnType().equals("date")) {
                     resultArray.add(column.getColumnName());
                 }

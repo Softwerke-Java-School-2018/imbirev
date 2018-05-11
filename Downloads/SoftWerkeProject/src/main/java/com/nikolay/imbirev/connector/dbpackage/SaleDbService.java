@@ -12,15 +12,19 @@ public class SaleDbService implements DbInterface {
     private SaleDao dao;
     private static final String TAG = "SaleDbService";
 
-    public SaleDbService() throws DatabaseAccessException {
+    private SaleDbService() throws DatabaseAccessException {
         AbstractExecutor executor;
         try {
-            executor = new AbstractExecutor();
+            executor = AbstractExecutor.getAbstractExecutor();
         } catch (DatabaseAccessException e) {
             log.info(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new SaleDao(executor);
+    }
+
+    public static SaleDbService getSaleDbService() throws DatabaseAccessException {
+        return new SaleDbService();
     }
 
     @Override
