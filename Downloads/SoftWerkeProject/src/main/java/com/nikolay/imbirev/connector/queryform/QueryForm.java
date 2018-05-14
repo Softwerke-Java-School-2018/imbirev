@@ -20,7 +20,6 @@ import java.util.List;
 @Log
 class QueryForm {
 
-
     private DateParserInterface dateParser;
 
     private String operation;
@@ -42,11 +41,8 @@ class QueryForm {
         if (!checkForAvailableOperation(operation)) return RequestCode.DATA_ERROR.toString();
         try {
             sortColumns = getSortColumns();
-            log.info("sort columns " + (sortColumns != null ? Arrays.toString(sortColumns) : null));
             searchQueries = getQuery(searchArray);
-            log.info("search columns " + (searchQueries != null ? Arrays.toString(searchQueries) : null));
             insertOrUpdateQueries = getQuery(insertOrUpdateArray);
-            log.info("insertOrUpdate columns " + (insertOrUpdateQueries != null ? Arrays.toString(insertOrUpdateQueries) : null));
         } catch (IllegalArgumentException e) {
             return RequestCode.DATA_ERROR.toString();
         } catch (LocalDateParseException e) {
@@ -80,11 +76,11 @@ class QueryForm {
         switch (operation.trim()) {
             case "create":
             case "delete":
-                return insertOrUpdateArray != null;
+                return insertOrUpdateArray.length != 0;
             case "update":
-                return searchArray != null && insertOrUpdateArray != null;
+                return searchArray.length != 0 && insertOrUpdateArray.length != 0;
             case "get":
-                return true;
+                return insertOrUpdateArray.length == 0;
             default:
                 return false;
         }
@@ -96,7 +92,7 @@ class QueryForm {
      * if we have illegal columns here
      */
     private Column[] getSortColumns() {
-        if (sortArray == null) return null;
+        if (sortArray == null || sortArray.length == 0) return new Column[0];
         Column[] resultArray = new Column[sortArray.length];
         int counter = 0;
         for (int i = 0; i < sortArray.length; i++) {
@@ -118,13 +114,13 @@ class QueryForm {
      */
     private String[] getAllTablesColumns() {
         List<String> resultArray = new ArrayList<>();
-        for (Column column : SaleTable.Cols.COLUMNS) {
+        for (Column column : SaleTable.Cols.getCOLUMNS()) {
             resultArray.add(column.getColumnName());
         }
-        for (Column column : ClientTable.Cols.COLUMNS) {
+        for (Column column : ClientTable.Cols.getCOLUMNS()) {
             resultArray.add(column.getColumnName());
         }
-        for (Column column : DeviceTable.Cols.COLUMNS) {
+        for (Column column : DeviceTable.Cols.getCOLUMNS()) {
             resultArray.add(column.getColumnName());
         }
         String[] strings = new String[resultArray.size()];
@@ -139,9 +135,8 @@ class QueryForm {
      * or throw LocalDateParseException if we cannot convert input to LocalDate
      */
     private Query[] getQuery(String[] initialArray) throws LocalDateParseException {
-        if (initialArray == null) return null;
+        if (initialArray.length == 0) return new Query[0];
         if (!checkForEquals(initialArray.length, initialArray)) {
-            log.info("exception");
             throw new IllegalArgumentException();
         }
         int num = 0;
@@ -157,10 +152,7 @@ class QueryForm {
             for (String dataColName : getAllDataColumns()) {
                 try {
                     if (dataColName.equals(nameColumnItem)) {
-                        DateParserInterface dateParserInterface = string -> {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                            return LocalDate.parse(string.trim(), formatter);
-                        };
+                        DateParserInterface dateParserInterface = this::getDate;
                         itemParts[1] = dateParserInterface.getLocalDateFromString(itemParts[1]).toString();
                         break;
                     }
@@ -174,6 +166,10 @@ class QueryForm {
         return resultArray;
     }
 
+    private LocalDate getDate(String string) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(string.trim(), formatter);
+    }
     /**
      * here we check for illegal amount of '=' in the scope
      * @param num is an illegal number
@@ -198,17 +194,17 @@ class QueryForm {
      */
     private String[] getAllDataColumns() {
         List<String> resultArray = new ArrayList<>();
-            for (Column column : SaleTable.Cols.COLUMNS) {
+            for (Column column : SaleTable.Cols.getCOLUMNS()) {
                 if (column.getColumnType().equals("date")) {
                     resultArray.add(column.getColumnName());
                 }
             }
-            for (Column column : ClientTable.Cols.COLUMNS) {
+            for (Column column : ClientTable.Cols.getCOLUMNS()) {
                 if (column.getColumnType().equals("date")) {
                     resultArray.add(column.getColumnName());
                 }
             }
-            for (Column column : DeviceTable.Cols.COLUMNS) {
+            for (Column column : DeviceTable.Cols.getCOLUMNS()) {
                 if (column.getColumnType().equals("date")) {
                     resultArray.add(column.getColumnName());
                 }

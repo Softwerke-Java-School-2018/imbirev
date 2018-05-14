@@ -1,8 +1,9 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-import lombok.NonNull;
 import lombok.extern.java.Log;
+
+import java.util.Arrays;
 
 @Log
 public class CommandParser {
@@ -50,43 +51,50 @@ public class CommandParser {
      * @param string is a initial string of the request
      * @return result code of query from QueryForm or enter error
      */
-    public String parseCommand(@NonNull String string) {
+    public String parseCommand(String string) {
         CommandParserInterface commandParserInterface = (string1 -> {
-            if (string == null || string.equals("")) return RequestCode.ENTER_ERROR.toString();
-            if (!getFirstCheck(string)) return RequestCode.ENTER_ERROR.toString();
-            if (!getBracketCheck(string)) return RequestCode.ENTER_ERROR.toString();
+            if (string == null) return RequestCode.ENTER_ERROR.toString();
+            if (!initialCheck(string.trim())) {
+                log.info("initial checked failed");
+                return RequestCode.ENTER_ERROR.toString();
+            }
             QueryForm.QueryFormBuilder builder = QueryForm.builder();
+
             builder.entity(entity).operation(operation);
-            if (searchConditions != null) {
-                if (!searchConditions.equals(RequestCode.ENTER_ERROR.toString())) {
-                    String[] searchArray = getArray(searchConditions);
-                    builder.searchArray(searchArray);
-                } else return RequestCode.ENTER_ERROR.toString();
-            }
-            if (sortColumns != null) {
-                if (!sortColumns.equals(RequestCode.ENTER_ERROR.toString())) {
-                    String[] sortArray = getArray(sortColumns);
-                    builder.sortArray(sortArray);
-                } else return RequestCode.ENTER_ERROR.toString();
-            }
-            if (insertOrUpdateString != null) {
-                if (!insertOrUpdateString.equals(RequestCode.ENTER_ERROR.toString())) {
-                    String[] insertOrUpdateArray = getArray(insertOrUpdateString);
-                    builder.insertOrUpdateArray(insertOrUpdateArray);
-                } else return RequestCode.ENTER_ERROR.toString();
-            }
+            String[] searchArray = getArray(searchConditions);
+            log.info(Arrays.toString(searchArray) + "  ok");
+
+            builder.searchArray(searchArray);
+            String[] sortArray = getArray(sortColumns);
+            log.info(Arrays.toString(sortArray) + " ok");
+
+            builder.sortArray(sortArray);
+            String[] insertOrUpdateArray = getArray(insertOrUpdateString);
+            log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
+
+            builder.insertOrUpdateArray(insertOrUpdateArray);
             QueryForm queryForm = builder.build();
             return queryForm.createQuery();
         });
         return commandParserInterface.parseCommand(string);
     }
 
+    private boolean initialCheck(String string) {
+        if (!getFirstCheck(string)) {
+            log.info("first checker failed");
+            return false;
+        }
+        log.info(String.valueOf(getBracketCheck(string)));
+        return getBracketCheck(string);
+    }
+
+
     /**
      * here we get initial checks for empty string or irrelevant first two key words
      * @param string is an initial string
      * @return true if everything is okey or false if first two words from the request are irrelevant
      */
-    private boolean getFirstCheck(@NonNull String string) {
+    private boolean getFirstCheck(String string) {
         String[] input = string.split(" +");
         for (String word : arrayOfKeyWords) {
             if (input[0].trim().equals(word)) {
@@ -107,13 +115,13 @@ public class CommandParser {
      * @param string is an initial string
      * @return true if amount of brackets is good or false
      */
-    private boolean getBracketCheck(@NonNull String string) {
+    private boolean getBracketCheck(String string) {
         String searchPart = getPart(string, START_OF_SEARCH_CONDITIONS, END_OF_SEARCH_CONDITIONS);
-        log.info(searchPart + " sp");
+        log.info(searchPart + "  search part");
         String sortPart = getPart(string, START_OF_SORT_CONDITIONS, END_OF_SORT_CONDITIONS);
-        log.info(sortPart + " sop");
+        log.info(sortPart + "  sort part");
         String insertOrUpdatePart = getPart(string, START_OF_INSERT_OR_UPDATE, END_OF_INSERT_OR_UPDATE);
-        log.info(insertOrUpdatePart + " ip");
+        log.info(insertOrUpdatePart + "   insert part");
         if (searchPart != null) {
             searchConditions = searchPart;
         }
@@ -124,6 +132,8 @@ public class CommandParser {
             insertOrUpdateString = insertOrUpdatePart;
         }
         if (delimiterCounter == 0) return false;
+        log.info(delimiterCounter + " del counter");
+        log.info(String.valueOf((delimiterCounter % 2 == 0)));
         return delimiterCounter % 2 == 0;
     }
 
@@ -132,8 +142,8 @@ public class CommandParser {
      * @param input is initial string
      * @return new string array or null, if length of the string is null
      */
-    private String[] getArray(@NonNull String input) {
-        if (input.trim().length() == 0) return null;
+    private String[] getArray(String input) {
+        if (input == null || input.trim().length() == 0) return new String[0];
         return input.split(DELIMITER);
     }
 
@@ -144,7 +154,7 @@ public class CommandParser {
      * @param endBracket is an end position
      * @return new part of string or null, if we have irrelevant brackets location
      */
-    private String getPart(@NonNull String string, @NonNull char startBracket, @NonNull char endBracket) {
+    private String getPart(String string, char startBracket, char endBracket) {
         int localCounter = 0;
         for (char letter : string.toCharArray()) {
             if (letter == startBracket) {

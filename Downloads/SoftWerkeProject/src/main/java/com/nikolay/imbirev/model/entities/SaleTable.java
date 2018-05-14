@@ -2,9 +2,17 @@ package com.nikolay.imbirev.model.entities;
 
 public class SaleTable {
 
+    private SaleTable() {}
+
     public static final String TABLE_NAME = "sale_table2";
 
     public static class Cols {
+
+        private Cols() {}
+
+        public static Column[] getCOLUMNS() {
+            return COLUMNS;
+        }
 
         public static final String ID = "sale_id";
         public static final String CLIENT_NAME = "client_name";
@@ -14,7 +22,7 @@ public class SaleTable {
 
         private static final String TYPE = "varchar (256) ";
 
-        public static  Column[] COLUMNS = {
+        private static final Column[] COLUMNS = {
                 Column.builder().columnName(ID).columnType("int").isNullableColumn(false).isAutoIncremented(true).build(),
                 Column.builder().columnName(CLIENT_NAME).columnType(TYPE).isNullableColumn(false).isAutoIncremented(false).build(),
                 Column.builder().columnName(CLIENT_SURNAME).columnType(TYPE).isNullableColumn(false).isAutoIncremented(false).build(),

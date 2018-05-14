@@ -14,7 +14,7 @@ public class Main {
                     String command = scanner.nextLine();
                     if (command.trim().equals("exit")) break;
                     log.info(command + " command");
-                    System.out.println(parser.parseCommand(command));
+                    log.info(parser.parseCommand(command));
                 }
             }
     }
