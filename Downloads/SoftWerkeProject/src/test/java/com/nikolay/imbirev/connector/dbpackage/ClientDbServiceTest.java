@@ -16,11 +16,6 @@ public class ClientDbServiceTest {
     }
 
     @Test
-    public void update_test() {
-        String result = parser.parseCommand("update client [first_name = nikolai, second_name = imbirev] (first_name = new_name, date_of_birth = 30/06/1997)");
-        Assert.assertEquals(RequestCode.EMPTY_SET.toString(), result);
-    }
-    @Test
     public void update_test2_empty_set_expected() {
         String result = parser.parseCommand("update client [first_name = bibi] (first_name = new_name)");
         Assert.assertEquals(RequestCode.EMPTY_SET.toString(), result);

@@ -32,6 +32,9 @@ class QueryForm {
     private Query[] searchQueries;
     private Query[] insertOrUpdateQueries;
 
+    private static final String DATE_TYPE = "date";
+    private static final String EQUAL = "=";
+
     String createQuery() {
         log.info("operation " + operation);
         log.info("entity " + entity);
@@ -97,8 +100,8 @@ class QueryForm {
         int counter = 0;
         for (int i = 0; i < sortArray.length; i++) {
             String queryName = sortArray[i].trim();
-            for (String tableName : getAllTablesColumns()) {
-                if (queryName.equals(tableName))  {
+            for (Column tableName : getAllTablesColumns()) {
+                if (queryName.equals(tableName.getColumnName()))  {
                     resultArray[i] = Column.builder().columnName(queryName).build();
                     counter++;
                 }
@@ -112,20 +115,14 @@ class QueryForm {
      * in this method we get all tables columns to check names of the query or sortArray
      * @return string array of all columns names
      */
-    private String[] getAllTablesColumns() {
-        List<String> resultArray = new ArrayList<>();
-        for (Column column : SaleTable.Cols.getCOLUMNS()) {
-            resultArray.add(column.getColumnName());
-        }
-        for (Column column : ClientTable.Cols.getCOLUMNS()) {
-            resultArray.add(column.getColumnName());
-        }
-        for (Column column : DeviceTable.Cols.getCOLUMNS()) {
-            resultArray.add(column.getColumnName());
-        }
-        String[] strings = new String[resultArray.size()];
-        strings = resultArray.toArray(strings);
-        return strings;
+    private Column[] getAllTablesColumns() {
+        List<Column> resultArray = new ArrayList<>();
+        resultArray.addAll(Arrays.asList(SaleTable.Cols.getCOLUMNS()));
+        resultArray.addAll(Arrays.asList(ClientTable.Cols.getCOLUMNS()));
+        resultArray.addAll(Arrays.asList(DeviceTable.Cols.getCOLUMNS()));
+        Column[] columns = new Column[resultArray.size()];
+        columns = resultArray.toArray(columns);
+        return columns;
     }
 
     /**
@@ -143,21 +140,21 @@ class QueryForm {
         int counter = 0;
         Query[] resultArray = new Query[initialArray.length];
         for (String item : initialArray) {
-            String[] itemParts = item.split("=");
+            String[] itemParts = item.split(EQUAL);
             if (num >= resultArray.length) throw new IllegalArgumentException();
             String nameColumnItem = itemParts[0].trim();
-            for (String colName : getAllTablesColumns()) {
-                if (nameColumnItem.equals(colName)) counter++; // if we have this column in entities -> increment counter
-            }
-            for (String dataColName : getAllDataColumns()) {
-                try {
-                    if (dataColName.equals(nameColumnItem)) {
-                        DateParserInterface dateParserInterface = this::getDate;
-                        itemParts[1] = dateParserInterface.getLocalDateFromString(itemParts[1]).toString();
-                        break;
+            for (Column colName : getAllTablesColumns()) {
+                if (nameColumnItem.equals(colName.getColumnName())) {
+                    counter++; // if we have this column in entities -> increment counter
+                    try {
+                        if (colName.getColumnType().trim().equals(DATE_TYPE)) {
+                            DateParserInterface dateParserInterface = this::getDate;
+                            itemParts[1] = dateParserInterface.getLocalDateFromString(itemParts[1]).toString();
+                            break;
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new LocalDateParseException(e.getMessage());
                     }
-                } catch (DateTimeParseException e) {
-                    throw new LocalDateParseException(e.getMessage());
                 }
             }
             if (counter == 0) throw new IllegalArgumentException(); // we have illegal column
@@ -186,31 +183,5 @@ class QueryForm {
             }
         }
         return counter == num;
-    }
-
-    /**
-     * in this method we get all columns with date type from the database entities
-     * @return array of column names
-     */
-    private String[] getAllDataColumns() {
-        List<String> resultArray = new ArrayList<>();
-            for (Column column : SaleTable.Cols.getCOLUMNS()) {
-                if (column.getColumnType().equals("date")) {
-                    resultArray.add(column.getColumnName());
-                }
-            }
-            for (Column column : ClientTable.Cols.getCOLUMNS()) {
-                if (column.getColumnType().equals("date")) {
-                    resultArray.add(column.getColumnName());
-                }
-            }
-            for (Column column : DeviceTable.Cols.getCOLUMNS()) {
-                if (column.getColumnType().equals("date")) {
-                    resultArray.add(column.getColumnName());
-                }
-            }
-        String[] strings = new String[resultArray.size()];
-        strings = resultArray.toArray(strings);
-        return strings;
     }
 }
