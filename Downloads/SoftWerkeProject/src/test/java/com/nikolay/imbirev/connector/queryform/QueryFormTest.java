@@ -80,4 +80,16 @@ public class QueryFormTest {
         String result = commandParser.parseCommand("get client [first_name = n =, second_name = i =, date_of_birth == 1997/06/30] {first_name, second_name}");
         Assert.assertEquals(RequestCode.DATA_ERROR.toString(), result);
     }
+    @Test
+    public void illegal_column_name() {
+        commandParser = CommandParser.getCommandParser();
+        String result = commandParser.parseCommand("get client [firstname = n, secondname = i, dateof_birth = 1997/06/30] {first_name, second_name}");
+        Assert.assertEquals(RequestCode.DATA_ERROR.toString(), result);
+    }
+    @Test
+    public void illegal_column_name2() {
+        commandParser = CommandParser.getCommandParser();
+        String result = commandParser.parseCommand("get client [first_name = n, second_name = i, date_of_birth = 1997/06/30] {frst_name, scond_name}");
+        Assert.assertEquals(RequestCode.DATA_ERROR.toString(), result);
+    }
 }
