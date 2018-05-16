@@ -127,40 +127,50 @@ class QueryForm {
 
     /**
      * here we perform query of arguments (if we have column with data -> try to convert it to the LocalDate)
-     * @param initialArray from this string array
+     * @param initialArray from this.string array
      * @return new query array or throw IllegalArgumentException (or empty array, if initialArray is empty)
      * or throw LocalDateParseException if we cannot convert input to LocalDate
      */
     private Query[] getQuery(String[] initialArray) throws LocalDateParseException {
         if (initialArray.length == 0) return new Query[0];
-        if (!checkForEquals(initialArray.length, initialArray)) {
-            throw new IllegalArgumentException();
-        }
+        if (!checkForEquals(initialArray.length, initialArray)) throw new IllegalArgumentException();
         int num = 0;
-        int counter = 0;
         Query[] resultArray = new Query[initialArray.length];
         for (String item : initialArray) {
             String[] itemParts = item.split(EQUAL);
             if (num >= resultArray.length) throw new IllegalArgumentException();
             String nameColumnItem = itemParts[0].trim();
-            for (Column colName : getAllTablesColumns()) {
-                if (colName.getColumnName().equals(nameColumnItem)) {
-                    counter++; // if we have this column in entities -> increment counter
-                    try {
-                        if (colName.getColumnType().trim().equals(DATE_TYPE)) {
-                            DateParserInterface dateParserInterface = this::getDate;
-                            itemParts[1] = dateParserInterface.getLocalDateFromString(itemParts[1]).toString();
-                            break;
-                        }
-                    } catch (DateTimeParseException e) {
-                        throw new LocalDateParseException(e.getMessage());
-                    }
-                }
-            }
-            if (counter == 0) throw new IllegalArgumentException(); // we have illegal column
-            resultArray[num++] = new Query(nameColumnItem, itemParts[1].trim());
+            String queryItem = itemParts[1].trim();
+            resultArray[num++] = performQuery(nameColumnItem, queryItem);
         }
         return resultArray;
+    }
+
+    /**
+     * in this method we perform new Query to the database
+     * @param nameColumnItem is the left part of the (some_column = some_query) expression
+     * @param queryItem is the right part of the expression
+     * @return new Query with column bundled with query
+     * @throws LocalDateParseException if we cannot parse date
+     */
+    private Query performQuery(String nameColumnItem, String queryItem) throws LocalDateParseException {
+        int counter = 0;
+        for (Column colName : getAllTablesColumns()) {
+            if (colName.getColumnName().equals(nameColumnItem)) {
+                counter++; // if we have this column in entities -> increment counter
+                try {
+                    if (colName.getColumnType().trim().equals(DATE_TYPE)) {
+                        DateParserInterface dateParserInterface = this::getDate;
+                        queryItem = dateParserInterface.getLocalDateFromString(queryItem).toString();
+                        break;
+                    }
+                } catch (DateTimeParseException e) {
+                    throw new LocalDateParseException(e.getMessage());
+                }
+            }
+        }
+        if (counter == 0) throw new IllegalArgumentException(); // we have illegal column
+        return new Query(nameColumnItem, queryItem);
     }
 
     private LocalDate getDate(String string) {
