@@ -97,9 +97,9 @@ public class CommandParser {
     private boolean getFirstCheck(String string) {
         String[] input = string.split(" +");
         for (String word : arrayOfKeyWords) {
-            if (input[0].trim().equals(word)) {
+            if (word.equals(input[0].trim())) {
                 for (String entityName : arrayOfEntities) {
-                    if (input[1].trim().equals(entityName)) {
+                    if (entityName.equals(input[1].trim())) {
                         operation = input[0].trim();
                         entity = input[1].trim();
                         return true;

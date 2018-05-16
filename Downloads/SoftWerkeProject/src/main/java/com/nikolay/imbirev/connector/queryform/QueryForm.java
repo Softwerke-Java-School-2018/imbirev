@@ -91,7 +91,7 @@ class QueryForm {
 
     /**
      * here we perform new array of columns if we want to sort query
-     * @return new array of columns or null (if initial array is null) or throw IllegalArgumentException
+     * @return new array of columns or empty array (if initial array is null || have 0 length) or throw IllegalArgumentException
      * if we have illegal columns here
      */
     private Column[] getSortColumns() {
@@ -101,7 +101,7 @@ class QueryForm {
         for (int i = 0; i < sortArray.length; i++) {
             String queryName = sortArray[i].trim();
             for (Column tableName : getAllTablesColumns()) {
-                if (queryName.equals(tableName.getColumnName()))  {
+                if (tableName.getColumnName().equals(queryName))  {
                     resultArray[i] = Column.builder().columnName(queryName).build();
                     counter++;
                 }
@@ -128,7 +128,7 @@ class QueryForm {
     /**
      * here we perform query of arguments (if we have column with data -> try to convert it to the LocalDate)
      * @param initialArray from this string array
-     * @return new query array or throw IllegalArgumentException (or null, if initialArray is empty)
+     * @return new query array or throw IllegalArgumentException (or empty array, if initialArray is empty)
      * or throw LocalDateParseException if we cannot convert input to LocalDate
      */
     private Query[] getQuery(String[] initialArray) throws LocalDateParseException {
@@ -144,7 +144,7 @@ class QueryForm {
             if (num >= resultArray.length) throw new IllegalArgumentException();
             String nameColumnItem = itemParts[0].trim();
             for (Column colName : getAllTablesColumns()) {
-                if (nameColumnItem.equals(colName.getColumnName())) {
+                if (colName.getColumnName().equals(nameColumnItem)) {
                     counter++; // if we have this column in entities -> increment counter
                     try {
                         if (colName.getColumnType().trim().equals(DATE_TYPE)) {

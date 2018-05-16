@@ -21,7 +21,10 @@ class Performer {
                     return service.updateTable(searhQueries, insertOrUpdateQueries);
                 } else return RequestCode.EMPTY_SET;
             case "delete":
-                return service.deleteFromTable(insertOrUpdateQueries);
+                RequestCode code1 = service.getFromTable(searhQueries, new Column[]{});
+                if (code1 == RequestCode.SUCCESS) {
+                    return service.deleteFromTable(insertOrUpdateQueries);
+                } else return RequestCode.EMPTY_SET;
             case "get":
                 return service.getFromTable(searhQueries, sortColumns);
             default:

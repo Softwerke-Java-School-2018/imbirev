@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
             try (Scanner scanner = new Scanner(System.in)) {
-                CommandParser parser = CommandParser.getCommandParser();
                 while (true) {
+                    CommandParser parser = CommandParser.getCommandParser();
                     String command = scanner.nextLine();
                     if (command.trim().equals("exit")) break;
                     log.info(command + " command");
