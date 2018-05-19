@@ -1,11 +1,11 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
 import java.util.Arrays;
 
-@Log
+@Log4j
 public class CommandParser {
 
     private static final char START_OF_SEARCH_CONDITIONS = '[';
@@ -55,7 +55,7 @@ public class CommandParser {
         CommandParserInterface commandParserInterface = (string1 -> {
             if (string == null) return RequestCode.ENTER_ERROR.toString();
             if (!initialCheck(string.trim())) {
-                log.info("initial checked failed");
+                log.error("initial checked failed");
                 return RequestCode.ENTER_ERROR.toString();
             }
             QueryForm.QueryFormBuilder builder = QueryForm.builder();
@@ -81,7 +81,7 @@ public class CommandParser {
 
     private boolean initialCheck(String string) {
         if (!getFirstCheck(string)) {
-            log.info("first checker failed");
+            log.error("first checker failed");
             return false;
         }
         log.info(String.valueOf(getBracketCheck(string)));
@@ -102,6 +102,8 @@ public class CommandParser {
                     if (entityName.equals(input[1].trim())) {
                         operation = input[0].trim();
                         entity = input[1].trim();
+                        log.info(operation);
+                        log.info(entity);
                         return true;
                     }
                 }
@@ -143,7 +145,10 @@ public class CommandParser {
      * @return new string array or null, if length of the string is null
      */
     private String[] getArray(String input) {
-        if (input == null || input.trim().length() == 0) return new String[0];
+        if (input == null || input.trim().length() == 0) {
+            log.warn("empty string[]");
+            return new String[0];
+        }
         return input.split(DELIMITER);
     }
 
@@ -171,7 +176,10 @@ public class CommandParser {
         }
         if (localCounter > 1) {
             log.info(localCounter + " localCounter");
-            if (localCounter > 2) return RequestCode.ENTER_ERROR.toString();
+            if (localCounter > 2) {
+                log.error(localCounter + " local counter error");
+                return RequestCode.ENTER_ERROR.toString();
+            }
             delimiterCounter += localCounter;
             return string.substring(string.indexOf(startBracket) + 1,
                     string.indexOf(endBracket));

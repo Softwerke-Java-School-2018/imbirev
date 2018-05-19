@@ -5,12 +5,14 @@ import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import lombok.NonNull;
+import lombok.extern.log4j.Log4j;
 
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 public class DeviceDao extends AbstractDao {
 
     private AbstractExecutor abstractExecutor;
@@ -33,6 +35,7 @@ public class DeviceDao extends AbstractDao {
         if (tableName.equals("")) return RequestCode.SYNTAX_ERROR;
         StringBuilder query = new StringBuilder();
         query.append(execQueryOperation(tableName,array, sortColumns));
+        log.info(query.toString());
         try {
             abstractExecutor.execQuery(query.toString(), resultSet -> {
                 while (resultSet.next()) {
@@ -46,6 +49,7 @@ public class DeviceDao extends AbstractDao {
                             .type(resultSet.getString(DeviceTable.Cols.TYPE))
                             .build();
                     devices.add(device);
+                    log.info("Added " + device);
                 }
             });
             DeviceSaver.getInstance().setDeviceList(devices);

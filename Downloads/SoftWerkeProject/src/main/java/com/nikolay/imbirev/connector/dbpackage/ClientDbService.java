@@ -4,9 +4,9 @@ import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
-@Log
+@Log4j
 public class ClientDbService implements DbInterface {
 
     private static final String TAG = "ClientDbService";
@@ -17,7 +17,7 @@ public class ClientDbService implements DbInterface {
         try {
             executor = AbstractExecutor.getAbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.info(TAG);
+            log.error(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new ClientDao(executor);

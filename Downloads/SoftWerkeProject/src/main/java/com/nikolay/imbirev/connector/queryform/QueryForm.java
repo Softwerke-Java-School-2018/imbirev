@@ -6,7 +6,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-@Log
+@Log4j
 class QueryForm {
 
     private DateParserInterface dateParser;
@@ -47,8 +47,10 @@ class QueryForm {
             searchQueries = getQuery(searchArray);
             insertOrUpdateQueries = getQuery(insertOrUpdateArray);
         } catch (IllegalArgumentException e) {
+            log.error("error data");
             return RequestCode.DATA_ERROR.toString();
         } catch (LocalDateParseException e) {
+            log.error("date parse exception");
             return RequestCode.DATE_PARSING_ERROR.toString();
         }
         return performOperation().toString();
@@ -95,7 +97,10 @@ class QueryForm {
      * if we have illegal columns here
      */
     private Column[] getSortColumns() {
-        if (sortArray == null || sortArray.length == 0) return new Column[0];
+        if (sortArray == null || sortArray.length == 0) {
+            log.warn("empty sort part");
+            return new Column[0];
+        }
         Column[] resultArray = new Column[sortArray.length];
         int counter = 0;
         for (int i = 0; i < sortArray.length; i++) {
@@ -132,13 +137,22 @@ class QueryForm {
      * or throw LocalDateParseException if we cannot convert input to LocalDate
      */
     private Query[] getQuery(String[] initialArray) throws LocalDateParseException {
-        if (initialArray.length == 0) return new Query[0];
-        if (!checkForEquals(initialArray.length, initialArray)) throw new IllegalArgumentException();
+        if (initialArray.length == 0) {
+            log.warn("empty query");
+            return new Query[0];
+        }
+        if (!checkForEquals(initialArray.length, initialArray)) {
+            log.error("'=' illegal amount");
+            throw new IllegalArgumentException();
+        }
         int num = 0;
         Query[] resultArray = new Query[initialArray.length];
         for (String item : initialArray) {
             String[] itemParts = item.split(EQUAL);
-            if (num >= resultArray.length) throw new IllegalArgumentException();
+            if (num >= resultArray.length) {
+                log.error("illegal amount of parts");
+                throw new IllegalArgumentException();
+            }
             String nameColumnItem = itemParts[0].trim();
             String queryItem = itemParts[1].trim();
             resultArray[num++] = performQuery(nameColumnItem, queryItem);
@@ -165,6 +179,7 @@ class QueryForm {
                         break;
                     }
                 } catch (DateTimeParseException e) {
+                    log.error("illegal date format");
                     throw new LocalDateParseException(e.getMessage());
                 }
             }

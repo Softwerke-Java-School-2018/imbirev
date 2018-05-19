@@ -4,7 +4,9 @@ import com.nikolay.imbirev.connector.dbpackage.DbInterface;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.RequestCode;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 class Performer {
 
     static Performer getPerformer() {
@@ -28,6 +30,7 @@ class Performer {
             case "get":
                 return service.getFromTable(searhQueries, sortColumns);
             default:
+                log.error(RequestCode.SYNTAX_ERROR);
                 return RequestCode.SYNTAX_ERROR;
         }
     }

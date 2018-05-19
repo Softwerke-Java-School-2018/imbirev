@@ -1,11 +1,11 @@
 package com.nikolay.imbirev.view;
 
 import com.nikolay.imbirev.connector.queryform.CommandParser;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
 import java.util.Scanner;
 
-@Log
+@Log4j
 public class Main {
     public static void main(String[] args) {
             try (Scanner scanner = new Scanner(System.in)) {

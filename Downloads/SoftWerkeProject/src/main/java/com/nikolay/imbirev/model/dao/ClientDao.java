@@ -4,12 +4,14 @@ import com.nikolay.imbirev.connector.savers.SaverClients;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import lombok.NonNull;
+import lombok.extern.log4j.Log4j;
 
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 public class ClientDao extends AbstractDao {
 
     private AbstractExecutor abstractExecutor;
@@ -33,6 +35,7 @@ public class ClientDao extends AbstractDao {
         if (tableName.equals("")) return RequestCode.SYNTAX_ERROR;
         StringBuilder query = new StringBuilder();
         query.append(execQueryOperation(tableName, array, sortArray));
+        log.info(query.toString());
         try {
             abstractExecutor.execQuery(query.toString(), resultSet -> {
                 while (resultSet.next()) {

@@ -4,9 +4,9 @@ import com.nikolay.imbirev.model.dao.DeviceDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
-@Log
+@Log4j
 public class DeviceDbService implements DbInterface {
 
     private DeviceDao dao;
@@ -17,7 +17,7 @@ public class DeviceDbService implements DbInterface {
         try {
             executor = AbstractExecutor.getAbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.info(TAG);
+            log.error(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new DeviceDao(executor);

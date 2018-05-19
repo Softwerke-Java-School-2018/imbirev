@@ -4,9 +4,9 @@ import com.nikolay.imbirev.model.dao.SaleDao;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
-@Log
+@Log4j
 public class SaleDbService implements DbInterface {
 
     private SaleDao dao;
@@ -17,7 +17,7 @@ public class SaleDbService implements DbInterface {
         try {
             executor = AbstractExecutor.getAbstractExecutor();
         } catch (DatabaseAccessException e) {
-            log.info(TAG);
+            log.error(TAG);
             throw new DatabaseAccessException(e.getMessage());
         }
         dao = new SaleDao(executor);
