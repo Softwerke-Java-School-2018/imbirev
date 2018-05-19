@@ -31,7 +31,7 @@ class SaleQueryForm {
             return RequestCode.DATABASE_ERROR;
         }
         RequestCode code = service.createTable(SaleTable.Cols.getCOLUMNS());
-        if (code == RequestCode.SUCCESS) {
+        if (code == RequestCode.SUCCESS || code == RequestCode.WARNING) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
             if (operation.equals("get") && requestCode == RequestCode.SUCCESS) {

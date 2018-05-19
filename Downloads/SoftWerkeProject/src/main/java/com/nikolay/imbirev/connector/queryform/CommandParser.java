@@ -1,11 +1,14 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.Arrays;
 
 @Log4j
+@Getter
 public class CommandParser {
 
     private static final char START_OF_SEARCH_CONDITIONS = '[';
@@ -35,6 +38,11 @@ public class CommandParser {
 
     private int delimiterCounter = 0;
 
+    private QueryForm.QueryFormBuilder builder;
+
+    @Setter
+    private QueryForm queryForm;
+
     public static CommandParser getCommandParser() {
         return new CommandParser();
     }
@@ -58,7 +66,7 @@ public class CommandParser {
                 log.error("initial checked failed");
                 return RequestCode.ENTER_ERROR.toString();
             }
-            QueryForm.QueryFormBuilder builder = QueryForm.builder();
+            builder = QueryForm.builder();
 
             builder.entity(entity).operation(operation);
             String[] searchArray = getArray(searchConditions);
@@ -73,7 +81,7 @@ public class CommandParser {
             log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
 
             builder.insertOrUpdateArray(insertOrUpdateArray);
-            QueryForm queryForm = builder.build();
+            queryForm = builder.build();
             return queryForm.createQuery();
         });
         return commandParserInterface.parseCommand(string);
