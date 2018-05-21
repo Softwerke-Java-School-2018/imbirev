@@ -10,7 +10,7 @@ import lombok.extern.log4j.Log4j;
 import org.junit.*;
 
 @Log4j
-public class AbstractDaoTests {
+public class CreateTableTests {
 
 
     private AbstractDao dao;
@@ -89,16 +89,7 @@ public class AbstractDaoTests {
 
     @AfterClass
     public static void clean() {
-        AbstractDao dao;
-        try {
-            dao = new ClientDao(AbstractExecutor.getAbstractExecutor());
-            RequestCode code0 = dao.dropTable("table2");
-            RequestCode code = dao.dropTable("table3");
-            if (code == RequestCode.SUCCESS && RequestCode.SUCCESS == code0) {
-                log.info("cleaned");
-            }
-        } catch (DatabaseAccessException e) {
-            log.error("not cleaned");
-        }
+        DeleteTests.dropTable("table2");
+        DeleteTests.dropTable("table3");
     }
 }

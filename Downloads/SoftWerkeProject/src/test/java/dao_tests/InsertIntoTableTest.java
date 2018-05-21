@@ -23,11 +23,7 @@ public class InsertIntoTableTest {
         } catch (DatabaseAccessException e) {
             log.error("executor was not created");
         }
-    }
-
-    @Before
-    public void set() {
-        dao = new ClientDao(abstractExecutor);
+        AbstractDao dao = new ClientDao(abstractExecutor);
         RequestCode code = dao.createTable("test_table", new Column[]{
                 Column.builder().columnName("first").columnType("smallint").isAutoIncremented(false).isNullableColumn(false).build(),
                 Column.builder().columnName("second").columnType("varchar (256)").build()
@@ -35,6 +31,11 @@ public class InsertIntoTableTest {
         if (code == RequestCode.SUCCESS) {
             log.info("test table created");
         }
+    }
+
+    @Before
+    public void set() {
+        dao = new ClientDao(abstractExecutor);
     }
 
     @Test
@@ -75,14 +76,6 @@ public class InsertIntoTableTest {
 
     @AfterClass
     public static void clean() {
-        try {
-            AbstractDao dao = new ClientDao(AbstractExecutor.getAbstractExecutor());
-            RequestCode code = dao.dropTable("test_table");
-            if (code == RequestCode.SUCCESS) {
-                log.info("success clean");
-            }
-        } catch (DatabaseAccessException e) {
-            log.error("executor was not created");
-        }
+        DeleteTests.dropTable("test_table");
     }
 }

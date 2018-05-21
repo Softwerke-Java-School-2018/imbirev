@@ -79,7 +79,7 @@ public class CommandParser {
         return commandParserInterface.parseCommand(string);
     }
 
-    public String goNext(String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
+    private String goNext(String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
         return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
     }
 
