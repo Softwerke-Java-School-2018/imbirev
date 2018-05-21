@@ -3,8 +3,7 @@ package com.nikolay.imbirev.connector.queryform;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.LocalDateParseException;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
 
@@ -15,18 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@NoArgsConstructor(access = AccessLevel.MODULE)
 @Log4j
-class QueryForm {
-
-    private DateParserInterface dateParser;
-
-    private String operation;
-    private String entity;
-    private String[] sortArray;
-    private String[] searchArray;
-    private String[] insertOrUpdateArray;
+public class QueryForm {
 
     private Column[] sortColumns;
     private Query[] searchQueries;
@@ -35,15 +25,18 @@ class QueryForm {
     private static final String DATE_TYPE = "date";
     private static final String EQUAL = "=";
 
-    String createQuery() {
+    /*
+    method has args only for testing
+     */
+   public String createQuery(String operation, String entity, String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
         log.info("operation " + operation);
         log.info("entity " + entity);
         log.info("sortArray " + Arrays.toString(sortArray));
         log.info("searchArray " + Arrays.toString(searchArray));
         log.info("insertOrUpdateArray " + Arrays.toString(insertOrUpdateArray));
-        if (!checkForAvailableOperation(operation)) return RequestCode.DATA_ERROR.toString();
+        if (!checkForAvailableOperation(operation, searchArray, insertOrUpdateArray)) return RequestCode.DATA_ERROR.toString();
         try {
-            sortColumns = getSortColumns();
+            sortColumns = getSortColumns(sortArray);
             searchQueries = getQuery(searchArray);
             insertOrUpdateQueries = getQuery(insertOrUpdateArray);
         } catch (IllegalArgumentException e) {
@@ -53,14 +46,14 @@ class QueryForm {
             log.error("date parse exception");
             return RequestCode.DATE_PARSING_ERROR.toString();
         }
-        return performOperation().toString();
+        return performOperation(operation, entity).toString();
     }
 
     /**
      * here we delegate continuous operation to each entity performer
      * @return request of them operation
      */
-    private RequestCode performOperation() {
+    private RequestCode performOperation(String operation, String entity) {
         switch (entity.trim()) {
             case "client":
                 return ClientQueryForm.getClientQueryForm(operation, sortColumns, searchQueries, insertOrUpdateQueries).performOperation();
@@ -77,7 +70,7 @@ class QueryForm {
      * @param operation is a name of operation
      * @return true if all conditions are good or false
      */
-    private boolean checkForAvailableOperation(@NonNull String operation) {
+    private boolean checkForAvailableOperation(@NonNull String operation, String[] searchArray, String[] insertOrUpdateArray) {
         switch (operation.trim()) {
             case "create":
             case "delete":
@@ -96,7 +89,7 @@ class QueryForm {
      * @return new array of columns or empty array (if initial array is null || have 0 length) or throw IllegalArgumentException
      * if we have illegal columns here
      */
-    private Column[] getSortColumns() {
+    private Column[] getSortColumns(String[] sortArray) {
         if (sortArray == null || sortArray.length == 0) {
             log.warn("empty sort part");
             return new Column[0];

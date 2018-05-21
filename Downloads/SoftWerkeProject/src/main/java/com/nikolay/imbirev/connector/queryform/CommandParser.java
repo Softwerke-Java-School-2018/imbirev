@@ -1,14 +1,14 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
+
+
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.Arrays;
 
 @Log4j
-@Getter
 public class CommandParser {
 
     private static final char START_OF_SEARCH_CONDITIONS = '[';
@@ -38,10 +38,8 @@ public class CommandParser {
 
     private int delimiterCounter = 0;
 
-    private QueryForm.QueryFormBuilder builder;
-
-    @Setter
-    private QueryForm queryForm;
+    @Getter
+    private final QueryForm queryForm = new QueryForm();
 
     public static CommandParser getCommandParser() {
         return new CommandParser();
@@ -60,31 +58,29 @@ public class CommandParser {
      * @return result code of query from QueryForm or enter error
      */
     public String parseCommand(String string) {
+
         CommandParserInterface commandParserInterface = (string1 -> {
             if (string == null) return RequestCode.ENTER_ERROR.toString();
             if (!initialCheck(string.trim())) {
                 log.error("initial checked failed");
                 return RequestCode.ENTER_ERROR.toString();
             }
-            builder = QueryForm.builder();
 
-            builder.entity(entity).operation(operation);
             String[] searchArray = getArray(searchConditions);
             log.info(Arrays.toString(searchArray) + "  ok");
 
-            builder.searchArray(searchArray);
             String[] sortArray = getArray(sortColumns);
             log.info(Arrays.toString(sortArray) + " ok");
 
-            builder.sortArray(sortArray);
             String[] insertOrUpdateArray = getArray(insertOrUpdateString);
             log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
-
-            builder.insertOrUpdateArray(insertOrUpdateArray);
-            queryForm = builder.build();
-            return queryForm.createQuery();
+            return goNext(sortArray, searchArray, insertOrUpdateArray);
         });
         return commandParserInterface.parseCommand(string);
+    }
+
+    public String goNext(String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
+        return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
     }
 
     private boolean initialCheck(String string) {
