@@ -1,5 +1,3 @@
-package dao_tests;
-
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.Column;
@@ -10,8 +8,7 @@ import lombok.extern.log4j.Log4j;
 import org.junit.*;
 
 @Log4j
-public class CreateTableTests {
-
+public class CreateTableTest {
 
     private AbstractDao dao;
     private static AbstractExecutor executor;
@@ -89,7 +86,7 @@ public class CreateTableTests {
 
     @AfterClass
     public static void clean() {
-        DeleteTests.dropTable("table2");
-        DeleteTests.dropTable("table3");
+        DeleteTest.dropTable("table2");
+        DeleteTest.dropTable("table3");
     }
 }

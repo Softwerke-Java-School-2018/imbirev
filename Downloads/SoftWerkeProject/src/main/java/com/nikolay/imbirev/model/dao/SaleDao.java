@@ -4,7 +4,6 @@ import com.nikolay.imbirev.connector.savers.SaleSaver;
 import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
-import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
 
 import java.sql.SQLException;
@@ -31,8 +30,8 @@ public class SaleDao extends AbstractDao {
      * @param sortArray is an array of sorting columns to determine the order of the results
      * @return success code and add list of sales to the singleton or return unsuccessful code
      */
-    public RequestCode getListFromTable(@NonNull String tableName, Query[] array, Column[] sortArray) {
-        if (tableName.equals("")) return RequestCode.SYNTAX_ERROR;
+    public RequestCode getListFromTable(String tableName, Query[] array, Column[] sortArray) {
+        if (tableName == null || tableName.equals("")) return RequestCode.SYNTAX_ERROR;
         StringBuilder query = new StringBuilder();
         query.append(execQueryOperation(tableName, array, sortArray));
         log.info(query.toString());

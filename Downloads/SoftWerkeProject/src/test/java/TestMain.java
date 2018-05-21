@@ -1,5 +1,3 @@
-package com.nikolay.imbirev.connector.mock.view;
-
 import com.nikolay.imbirev.connector.queryform.CommandParser;
 import com.nikolay.imbirev.model.entities.RequestCode;
 import com.nikolay.imbirev.view.Main;

@@ -13,13 +13,13 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 String command = scanner.nextLine();
-                String result = main.start(command);
-                if (result.equalsIgnoreCase("Bye")) {
+                if (command.equalsIgnoreCase("Bye")) {
                     log.info("Bye");
                     break;
                 }
                 else {
-                    log.info(main.start(scanner.nextLine()));
+                    String result = main.start(command);
+                    log.info(result);
                 }
             }
         }
@@ -30,6 +30,6 @@ public class Main {
                 if (command.trim().equalsIgnoreCase("exit")) return "Bye";
                 CommandParser parser = CommandParser.getCommandParser();
                 log.info(command + " command");
-                return parser.parseCommand(command);
+        return parser.parseCommand(command);
     }
 }

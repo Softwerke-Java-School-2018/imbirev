@@ -1,5 +1,3 @@
-package dao_tests;
-
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.dao.ClientDao;
 import com.nikolay.imbirev.model.entities.Column;
@@ -83,7 +81,7 @@ public class UpdateTableTest {
 
     @AfterClass
     public static void clean() {
-        DeleteTests.dropTable(TABLE_NAME);
+        DeleteTest.dropTable(TABLE_NAME);
     }
 
 }

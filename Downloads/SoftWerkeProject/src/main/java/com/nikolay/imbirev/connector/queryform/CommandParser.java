@@ -74,13 +74,9 @@ public class CommandParser {
 
             String[] insertOrUpdateArray = getArray(insertOrUpdateString);
             log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
-            return goNext(sortArray, searchArray, insertOrUpdateArray);
+            return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
         });
         return commandParserInterface.parseCommand(string);
-    }
-
-    private String goNext(String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
-        return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
     }
 
     private boolean initialCheck(String string) {
