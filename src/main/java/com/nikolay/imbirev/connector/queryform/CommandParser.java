@@ -39,12 +39,18 @@ public class CommandParser {
         return new CommandParser();
     }
 
+    private QueryForm queryForm;
+
     /*
     sample of the requests
     create client (first_name = nikolai, second_name = imbirev, date_of_birth = 30/06/1997)
     delete client (first_name = nikola, second_name = imbirev, date_of_birth = 30/06/1997)
     update client [first_name = nikolai, second_name = imbirev] (first_name = new_name, date_of_birth = new_date)
     */
+
+    private CommandParser() {
+        queryForm = new QueryForm();
+    }
 
     /**
      * in this method we divide string to some parts and make initial checks for errors
@@ -72,14 +78,11 @@ public class CommandParser {
 
             String[] insertOrUpdateArray = getArray(insertOrUpdateString);
             log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
-            return getQueryForm().createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
+            return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
         });
         return commandParserInterface.parseCommand(string);
     }
 
-    public QueryForm getQueryForm() {
-        return new QueryForm();
-    }
 
     private boolean initialCheck(String string) {
         if (!getFirstCheck(string)) {

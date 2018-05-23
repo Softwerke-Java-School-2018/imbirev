@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Value
-class ClientQueryForm {
+public class ClientQueryForm {
 
     private String operation;
     private Column[] sortColumns;
@@ -23,7 +23,7 @@ class ClientQueryForm {
         return new ClientQueryForm(operation, sortColumns, searhQueries, insertOrUpdateQueries);
     }
 
-    RequestCode performOperation() {
+    public RequestCode performOperation() {
         ClientDbService service;
         Performer performer = Performer.getPerformer();
         try {

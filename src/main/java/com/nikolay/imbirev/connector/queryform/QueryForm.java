@@ -4,7 +4,6 @@ import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.LocalDateParseException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
 
 import java.time.LocalDate;
@@ -70,7 +69,7 @@ public class QueryForm {
      * @param operation is a name of operation
      * @return true if all conditions are good or false
      */
-    private boolean checkForAvailableOperation(@NonNull String operation, String[] searchArray, String[] insertOrUpdateArray) {
+    private boolean checkForAvailableOperation(String operation, String[] searchArray, String[] insertOrUpdateArray) {
         switch (operation.trim()) {
             case "create":
             case "delete":
