@@ -2,7 +2,7 @@ package com.nikolay.imbirev.model.connections;
 
 import lombok.Synchronized;
 import lombok.extern.log4j.Log4j;
-
+import org.h2.jdbcx.JdbcDataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -48,4 +48,26 @@ public class ConnectionSingleton {
         }
         return null;
     }
+    public Connection getH2Connection() throws SQLInvalidAuthorizationSpecException {
+        try (FileInputStream inputStream = new FileInputStream("src/main/resources/config.properties")) {
+            Properties properties = new Properties();
+            properties.load(inputStream);
+            String url = "jdbc:h2:./testDb";
+            String name = properties.getProperty("h2.name");
+            String pass = properties.getProperty("h2.password");
+
+            JdbcDataSource ds = new JdbcDataSource();
+            ds.setURL(url);
+            ds.setUser(name);
+            ds.setPassword(pass);
+
+            return DriverManager.getConnection(url, name, pass);
+        } catch (SQLException e) {
+            throw new SQLInvalidAuthorizationSpecException();
+        }catch (IOException e) {
+            log.error(e.getMessage());
+        }
+        return null;
+    }
+
 }

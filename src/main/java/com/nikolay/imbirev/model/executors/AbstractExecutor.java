@@ -16,9 +16,29 @@ public class AbstractExecutor implements ExecutorInterface {
         try {
             connection = ConnectionSingleton.getConnection().getMySQlConnection();
         } catch (SQLInvalidAuthorizationSpecException e) {
-            log.error("No connection");
-            throw new DatabaseAccessException("data access error");
+            log.warn("No connection");
+            log.warn("try add h2 connection");
+            try {
+                connection = ConnectionSingleton.getConnection().getH2Connection();
+                log.warn("You are in demo mode!");
+            } catch (SQLInvalidAuthorizationSpecException e1) {
+                log.error("No connection created");
+                throw new DatabaseAccessException("data access error");
+            }
         }
+    }
+
+    private AbstractExecutor(String flush) {
+        try {
+            log.info(flush);
+            connection = ConnectionSingleton.getConnection().getH2Connection();
+        } catch (SQLInvalidAuthorizationSpecException e) {
+            log.warn("h2 connection wasnt created");
+        }
+    }
+
+    public static AbstractExecutor getAbstractExecutor(String flush) {
+        return new AbstractExecutor(flush);
     }
 
     public static AbstractExecutor getAbstractExecutor() throws DatabaseAccessException {

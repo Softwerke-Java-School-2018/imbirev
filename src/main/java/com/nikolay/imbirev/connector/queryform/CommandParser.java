@@ -154,7 +154,6 @@ public class CommandParser {
         }
         return input.split(DELIMITER);
     }
-
     /**
      * here we get some part between brackets from the string
      * @param string is initial string
