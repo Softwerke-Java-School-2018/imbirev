@@ -1,9 +1,6 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
-
-
-import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 import java.util.Arrays;
@@ -38,9 +35,6 @@ public class CommandParser {
 
     private int delimiterCounter = 0;
 
-    @Getter
-    private final QueryForm queryForm = new QueryForm();
-
     public static CommandParser getCommandParser() {
         return new CommandParser();
     }
@@ -61,8 +55,12 @@ public class CommandParser {
 
         CommandParserInterface commandParserInterface = (string1 -> {
             if (string == null) return RequestCode.ENTER_ERROR.toString();
-            if (!initialCheck(string.trim())) {
-                log.error("initial checked failed");
+            try {
+                if (!initialCheck(string.trim())) {
+                    log.error("initial checked failed");
+                    return RequestCode.ENTER_ERROR.toString();
+                }
+            } catch (IllegalArgumentException e) {
                 return RequestCode.ENTER_ERROR.toString();
             }
 
@@ -74,9 +72,13 @@ public class CommandParser {
 
             String[] insertOrUpdateArray = getArray(insertOrUpdateString);
             log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
-            return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
+            return getQueryForm().createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
         });
         return commandParserInterface.parseCommand(string);
+    }
+
+    public QueryForm getQueryForm() {
+        return new QueryForm();
     }
 
     private boolean initialCheck(String string) {
@@ -84,7 +86,6 @@ public class CommandParser {
             log.error("first checker failed");
             return false;
         }
-        log.info(String.valueOf(getBracketCheck(string)));
         return getBracketCheck(string);
     }
 
@@ -135,7 +136,6 @@ public class CommandParser {
         }
         if (delimiterCounter == 0) return false;
         log.info(delimiterCounter + " del counter");
-        log.info(String.valueOf((delimiterCounter % 2 == 0)));
         return delimiterCounter % 2 == 0;
     }
 
@@ -158,6 +158,7 @@ public class CommandParser {
      * @param startBracket is a start position
      * @param endBracket is an end position
      * @return new part of string or null, if we have irrelevant brackets location
+     * @throws IllegalArgumentException when we have some illegal arguments
      */
     private String getPart(String string, char startBracket, char endBracket) {
         int localCounter = 0;
@@ -178,11 +179,11 @@ public class CommandParser {
             log.info(localCounter + " localCounter");
             if (localCounter > 2) {
                 log.error(localCounter + " local counter error");
-                return RequestCode.ENTER_ERROR.toString();
+                throw new IllegalArgumentException();
             }
             delimiterCounter += localCounter;
             return string.substring(string.indexOf(startBracket) + 1,
                     string.indexOf(endBracket));
-        } else return RequestCode.ENTER_ERROR.toString();
+        } else throw new IllegalArgumentException();
     }
 }

@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.MODULE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Log4j
-class QueryForm {
+public class QueryForm {
 
     private Column[] sortColumns;
     private Query[] searchQueries;
@@ -28,7 +28,7 @@ class QueryForm {
     /*
     method has args only for testing
      */
-    String createQuery(String operation, String entity, String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
+   public String createQuery(String operation, String entity, String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
         log.info("operation " + operation);
         log.info("entity " + entity);
         log.info("sortArray " + Arrays.toString(sortArray));
