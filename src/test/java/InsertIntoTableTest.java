@@ -60,7 +60,7 @@ public class InsertIntoTableTest {
         RequestCode code = dao.insertIntoTable(new Query[]{
                 new Query("second", "value")
         }, "test_table");
-        Assert.assertEquals(RequestCode.SQL_SYNTAX_ERROR, code);
+        Assert.assertEquals(RequestCode.DATABASE_ERROR, code);
     }
     @Test
     public void test_insert_into_table_with_illegal_column_value_sql_syntax_error_expected() {
