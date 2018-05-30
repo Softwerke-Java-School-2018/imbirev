@@ -33,7 +33,7 @@ public class AbstractExecutor implements ExecutorInterface {
             log.info(flush);
             connection = ConnectionSingleton.getConnection().getH2Connection();
         } catch (SQLInvalidAuthorizationSpecException e) {
-            log.warn("h2 connection wasnt created");
+            log.warn("h2 connection wasn't created");
         }
     }
 

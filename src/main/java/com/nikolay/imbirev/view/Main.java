@@ -9,6 +9,7 @@ import java.util.Scanner;
 @Log4j
 public class Main {
     public static void main(String[] args) {
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> log.error("Something went wrong, please fire your developer"));
         Main main = new Main();
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {

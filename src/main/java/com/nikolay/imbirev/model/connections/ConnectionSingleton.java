@@ -34,10 +34,11 @@ public class ConnectionSingleton {
             String url = "jdbc:mysql://" +        //db type
                     "localhost:" +           //host name
                     "3306/" +                //port
-                    "Krohne?" +          //db name
-                    "user=root&" +          //login
+                    properties.getProperty("dbName") + "?" + //db name
+                    "user=" +
+                    properties.getProperty("rootName") + "&" +          //login
                     "password=" +
-                    properties.getProperty("db.password") +//password
+                    properties.getProperty("db.password") +       //password
                     "&useSSL=false&serverTimezone=Europe/Moscow"; // timezone
             log.info(url);
             return DriverManager.getConnection(url);

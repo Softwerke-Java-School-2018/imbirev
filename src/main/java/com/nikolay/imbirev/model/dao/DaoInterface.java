@@ -1,11 +1,7 @@
 package com.nikolay.imbirev.model.dao;
 
+import com.nikolay.imbirev.model.entities.*;
 
-import com.nikolay.imbirev.model.entities.Query;
-import com.nikolay.imbirev.model.entities.Column;
-import com.nikolay.imbirev.model.entities.RequestCode;
-
-// standard interface which is determine all methods for abstract dao
 public interface DaoInterface {
 
     RequestCode createTable(String tableName, Column[] array);

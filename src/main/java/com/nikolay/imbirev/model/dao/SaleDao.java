@@ -5,7 +5,6 @@ import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import lombok.extern.log4j.Log4j;
-
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;

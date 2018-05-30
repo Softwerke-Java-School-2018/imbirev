@@ -2,7 +2,6 @@ package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.RequestCode;
 import lombok.extern.log4j.Log4j;
-
 import java.util.Arrays;
 
 @Log4j

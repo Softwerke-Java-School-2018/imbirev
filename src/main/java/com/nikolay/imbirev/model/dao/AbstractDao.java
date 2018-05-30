@@ -5,8 +5,7 @@ import com.nikolay.imbirev.model.entities.*;
 import com.nikolay.imbirev.model.exceptions.SQLWarningException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -148,7 +147,6 @@ public class AbstractDao implements DaoInterface {
          builder.append("drop table ").append(tableName);
          return execOperation(builder);
     }
-
 
     /**
      * table is updating in three stages too:
