@@ -25,7 +25,7 @@ public class GetClientsFromTableTest {
             log.error("executor was not created");
         }
         AbstractDao dao = new ClientDao(abstractExecutor);
-        RequestCode code = dao.createTable(TABLE_NAME, ClientTable.Cols.getCOLUMNS());
+        RequestCode code = dao.createTable(TABLE_NAME, (Column[]) ClientTable.Cols.getListOfColumns().toArray());
         if (code == RequestCode.SUCCESS) {
             log.info("test table created");
         }

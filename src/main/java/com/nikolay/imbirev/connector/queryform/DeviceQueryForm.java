@@ -31,7 +31,7 @@ class DeviceQueryForm {
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        RequestCode code = service.createTable(DeviceTable.Cols.getCOLUMNS());
+        RequestCode code = service.createTable(DeviceTable.Cols.getListOfColumns());
         if (code == RequestCode.SUCCESS || code == RequestCode.WARNING) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);

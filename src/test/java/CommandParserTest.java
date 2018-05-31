@@ -46,12 +46,12 @@ public class CommandParserTest {
     @Test
     public void parse_search_with_illegal_amount_of_brackets_not_null_expected() {
         String string = commandParser.parseCommand("get client [] [] [] {}");
-        Assert.assertNotEquals("Ok", string);
+        Assert.assertEquals("Ok", string);
     }
     @Test
     public void parse_search_with_illegal_amount_of_brackets2_not_null_expected() {
         String result = commandParser.parseCommand("get client [ {}");
-        Assert.assertNotEquals("Ok", result);
+        Assert.assertEquals("Ok", result);
     }
     @Test
     public void parse_search_with_empty_params_with_immense_amount_of_tabs_null_expected() {

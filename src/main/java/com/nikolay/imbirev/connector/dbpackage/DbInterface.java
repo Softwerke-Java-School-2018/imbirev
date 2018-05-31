@@ -4,9 +4,11 @@ import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.entities.RequestCode;
 
+import java.util.List;
+
 public interface DbInterface {
 
-    RequestCode createTable(Column[] array);
+    RequestCode createTable(List<Column> array);
 
     RequestCode deleteFromTable(Query[] array);
 

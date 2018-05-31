@@ -1,8 +1,11 @@
 package com.nikolay.imbirev.connector.queryform;
 
+import com.mysql.cj.core.util.StringUtils;
 import com.nikolay.imbirev.model.entities.RequestCode;
 import lombok.extern.log4j.Log4j;
-import java.util.Arrays;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Log4j
 public class CommandParser {
@@ -32,8 +35,6 @@ public class CommandParser {
     private String sortColumns;
     private String insertOrUpdateString;
 
-    private int delimiterCounter = 0;
-
     private QueryForm queryForm;
 
     public static CommandParser getCommandParser() {
@@ -46,20 +47,13 @@ public class CommandParser {
     delete client (first_name = nikola, second_name = imbirev, date_of_birth = 30/06/1997)
     update client [first_name = nikolai, second_name = imbirev] (first_name = new_name, date_of_birth = new_date)
     */
-
     private CommandParser() {
         queryForm = new QueryForm();
     }
 
-    /**
-     * in this method we divide string to some parts and make initial checks for errors
-     * @param input is a initial string of the request
-     * @return result code of query from QueryForm or enter error
-     */
     public String parseCommand(String input) {
-
         CommandParserInterface commandParserInterface = (string -> {
-            if (input == null) return RequestCode.ENTER_ERROR.toString();
+            if (Objects.isNull(input)) return RequestCode.ENTER_ERROR.toString();
             try {
                 if (!initialCheck(input.trim())) {
                     log.error("initial checked failed");
@@ -70,18 +64,17 @@ public class CommandParser {
             }
 
             String[] searchArray = getArray(searchConditions);
-            log.info(Arrays.toString(searchArray) + "  ok");
+            log.info(Arrays.toString(searchArray) + "  search Conditions");
 
             String[] sortArray = getArray(sortColumns);
-            log.info(Arrays.toString(sortArray) + " ok");
+            log.info(Arrays.toString(sortArray) + " sort Columns");
 
             String[] insertOrUpdateArray = getArray(insertOrUpdateString);
-            log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
+            log.info(Arrays.toString(insertOrUpdateArray) + "  insert or update part");
             return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
         });
         return commandParserInterface.parseCommand(input);
     }
-
 
     private boolean initialCheck(String string) {
         if (!getFirstCheck(string)) {
@@ -91,12 +84,6 @@ public class CommandParser {
         return getBracketCheck(string);
     }
 
-
-    /**
-     * here we get initial checks for empty string or irrelevant first two key words
-     * @param string is an initial string
-     * @return true if everything is okey or false if first two words from the request are irrelevant
-     */
     private boolean getFirstCheck(String string) {
         boolean flag;
         String[] inputString = string.split(" +");
@@ -110,76 +97,53 @@ public class CommandParser {
         return false;
     }
 
-    /**
-     * here we check amount of brackets
-     * @param string is an initial string
-     * @return true if amount of brackets is good or false
-     */
     private boolean getBracketCheck(String string) {
-        String searchPart = getPart(string, START_OF_SEARCH_CONDITIONS, END_OF_SEARCH_CONDITIONS);
-        log.info(searchPart + "  search part");
-        String sortPart = getPart(string, START_OF_SORT_CONDITIONS, END_OF_SORT_CONDITIONS);
-        log.info(sortPart + "  sort part");
-        String insertOrUpdatePart = getPart(string, START_OF_INSERT_OR_UPDATE, END_OF_INSERT_OR_UPDATE);
-        log.info(insertOrUpdatePart + "   insert part");
-        if (searchPart != null) {
-            searchConditions = searchPart;
-        }
-        if (sortPart != null) {
-            sortColumns = sortPart;
-        }
-        if (insertOrUpdatePart != null) {
-            insertOrUpdateString = insertOrUpdatePart;
-        }
-        if (delimiterCounter == 0) return false;
-        log.info(delimiterCounter + " del counter");
-        return delimiterCounter % 2 == 0;
+        String searchPart = getPart(string, START_OF_SEARCH_CONDITIONS, END_OF_SEARCH_CONDITIONS, 0);
+        String sortPart = getPart(string, START_OF_SORT_CONDITIONS, END_OF_SORT_CONDITIONS, 1);
+        String insertOrUpdatePart = getPart(string, START_OF_INSERT_OR_UPDATE, END_OF_INSERT_OR_UPDATE, -1);
+        searchConditions = searchPart;
+        sortColumns = sortPart;
+        insertOrUpdateString = insertOrUpdatePart;
+        return true;
     }
 
-    /**
-     * here we get string array from the string with ',' delimiter
-     * @param input is initial string
-     * @return new string array or null, if length of the string is null
-     */
     private String[] getArray(String input) {
-        if (input == null || input.trim().length() == 0) {
+        if (StringUtils.isNullOrEmpty(input)) {
             log.warn("empty string[]");
             return new String[0];
         }
-        return input.split(DELIMITER);
+        return input.trim().split(DELIMITER);
     }
-    /**
-     * here we get some part between brackets from the string
-     * @param string is initial string
-     * @param startBracket is a start position
-     * @param endBracket is an end position
-     * @return new part of string or null, if we have irrelevant brackets location
-     * @throws IllegalArgumentException when we have some illegal arguments
-     */
-    private String getPart(String string, char startBracket, char endBracket) {
-        int localCounter = 0;
-        for (char letter : string.toCharArray()) {
-            if (letter == startBracket) {
-                localCounter++;
-                for (char let : string.substring(string.indexOf(startBracket) + 1).toCharArray()) {
-                    if (let == endBracket) {
-                        localCounter++;
-                    }
-                }
-            }
+
+    private String getPart(String string, char startBracket, char endBracket, int code) {
+        Pattern searchPattern = Pattern.compile("(.*)(\\[[^]\\[{}()]*])(.*)");
+        Pattern sortPattern = Pattern.compile("(.*)(\\{[^]\\[{}()]*})(.*)");
+        Pattern insertOrUpdatePattern = Pattern.compile("(.*)(\\([^]\\[{}()]*\\))(.*)");
+        switch (code) {
+            case 1:
+                return getString(string, startBracket, endBracket, sortPattern);
+            case 0:
+                return getString(string, startBracket, endBracket, searchPattern);
+            case -1:
+                return getString(string, startBracket, endBracket, insertOrUpdatePattern);
+            default: throw new IllegalArgumentException();
         }
-        if (localCounter == 0) {
+    }
+
+    private String getString(String string, char startBracket, char endBracket, Pattern pattern) {
+        try {
+            String part = string.substring(string.indexOf(startBracket),
+                    string.indexOf(endBracket) + 1);
+            log.info(part + " part");
+            Matcher matcher = pattern.matcher(part);
+            if (matcher.matches()) {
+                String group = matcher.group(2);
+                log.info(group);
+                return group.substring(group.indexOf(startBracket) + 1, group.indexOf(endBracket));
+            }
+            return null;
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
-        if (localCounter > 1) {
-            log.info(localCounter + " localCounter");
-            if (localCounter > 2) {
-                log.error(localCounter + " local counter error");
-                throw new IllegalArgumentException();
-            }
-            delimiterCounter += localCounter;
-            return string.substring(string.indexOf(startBracket) + 1,
-                    string.indexOf(endBracket));
-        } else throw new IllegalArgumentException();
     }
 }

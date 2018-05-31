@@ -31,7 +31,7 @@ class ClientQueryForm {
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        RequestCode code = service.createTable(ClientTable.Cols.getCOLUMNS());
+        RequestCode code = service.createTable(ClientTable.Cols.getListOfColumns());
         if (code == RequestCode.SUCCESS || code == RequestCode.WARNING) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);

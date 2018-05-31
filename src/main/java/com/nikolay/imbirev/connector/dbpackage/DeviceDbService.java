@@ -6,6 +6,8 @@ import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import lombok.extern.log4j.Log4j;
 
+import java.util.List;
+
 @Log4j
 public class DeviceDbService implements DbInterface {
 
@@ -28,8 +30,8 @@ public class DeviceDbService implements DbInterface {
     }
 
     @Override
-    public RequestCode createTable(Column[] array) {
-        return dao.createTable(DeviceTable.TABLE_NAME, array);
+    public RequestCode createTable(List<Column> array) {
+        return dao.createTable(DeviceTable.TABLE_NAME, (Column[]) array.toArray());
     }
 
     @Override

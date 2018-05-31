@@ -25,7 +25,7 @@ public class GetSalesFromTableTest {
             log.error("executor was not created");
         }
         AbstractDao dao = new SaleDao(abstractExecutor);
-        RequestCode code = dao.createTable(TABLE_NAME, SaleTable.Cols.getCOLUMNS());
+        RequestCode code = dao.createTable(TABLE_NAME,(Column[]) SaleTable.Cols.getListOfColumns().toArray());
         if (code == RequestCode.SUCCESS) {
             log.info("test table created");
         }

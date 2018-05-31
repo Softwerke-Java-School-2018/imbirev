@@ -24,7 +24,7 @@ public class GetDevicesFromTableTest {
             log.error("executor was not created");
         }
         AbstractDao dao = new DeviceDao(abstractExecutor);
-        RequestCode code = dao.createTable(TABLE_NAME, DeviceTable.Cols.getCOLUMNS());
+        RequestCode code = dao.createTable(TABLE_NAME, (Column[]) DeviceTable.Cols.getListOfColumns().toArray());
         if (code == RequestCode.SUCCESS) {
             log.info("test table created");
         }

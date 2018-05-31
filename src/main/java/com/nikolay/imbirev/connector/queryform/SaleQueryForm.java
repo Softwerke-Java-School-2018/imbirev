@@ -30,7 +30,7 @@ class SaleQueryForm {
         } catch (DatabaseAccessException e) {
             return RequestCode.DATABASE_ERROR;
         }
-        RequestCode code = service.createTable(SaleTable.Cols.getCOLUMNS());
+        RequestCode code = service.createTable(SaleTable.Cols.getListOfColumns());
         if (code == RequestCode.SUCCESS || code == RequestCode.WARNING) {
             RequestCode requestCode =
                     performer.perform(service, operation, sortColumns, searhQueries, insertOrUpdateQueries);
