@@ -24,9 +24,6 @@ public class QueryForm {
     private static final String DATE_TYPE = "date";
     private static final String EQUAL = "=";
 
-    /*
-    method has args only for testing
-     */
    public String createQuery(String operation, String entity, String[] sortArray, String[] searchArray, String[] insertOrUpdateArray) {
         log.info("operation " + operation);
         log.info("entity " + entity);
@@ -66,6 +63,9 @@ public class QueryForm {
 
     /**
      * here we check for avaliable conditions for each operation
+     * insert or update operation should have insert or update part
+     * search operation may have empty params (but it cannot have insert or update part)
+     * delete part should have insert or update part
      * @param operation is a name of operation
      * @return true if all conditions are good or false
      */
