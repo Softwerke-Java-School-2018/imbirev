@@ -29,7 +29,6 @@ public class Main {
 
     public String start(String command) {
         if (StringUtils.isNullOrEmpty(command)) return RequestCode.ENTER_ERROR.toString();
-        if (command.trim().equalsIgnoreCase("exit")) return "Bye";
         CommandParser parser = CommandParser.getCommandParser();
         log.info(command + " command");
         return parser.parseCommand(command);
