@@ -1,5 +1,8 @@
 package com.nikolay.imbirev.model.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SaleTable {
 
     private SaleTable() {}
@@ -10,8 +13,12 @@ public class SaleTable {
 
         private Cols() {}
 
-        public static Column[] getCOLUMNS() {
+        private static Column[] getCOLUMNS() {
             return COLUMNS;
+        }
+
+        public static List<Column> getListOfColumns() {
+            return Arrays.asList(getCOLUMNS());
         }
 
         public static final String ID = "sale_id";

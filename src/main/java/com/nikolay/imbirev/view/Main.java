@@ -1,5 +1,6 @@
 package com.nikolay.imbirev.view;
 
+import com.mysql.cj.core.util.StringUtils;
 import com.nikolay.imbirev.connector.queryform.CommandParser;
 import com.nikolay.imbirev.model.entities.RequestCode;
 import lombok.extern.log4j.Log4j;
@@ -27,10 +28,10 @@ public class Main {
     }
 
     public String start(String command) {
-                if (command == null) return RequestCode.ENTER_ERROR.toString();
-                if (command.trim().equalsIgnoreCase("exit")) return "Bye";
-                CommandParser parser = CommandParser.getCommandParser();
-                log.info(command + " command");
+        if (StringUtils.isNullOrEmpty(command)) return RequestCode.ENTER_ERROR.toString();
+        if (command.trim().equalsIgnoreCase("exit")) return "Bye";
+        CommandParser parser = CommandParser.getCommandParser();
+        log.info(command + " command");
         return parser.parseCommand(command);
     }
 }

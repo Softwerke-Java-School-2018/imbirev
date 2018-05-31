@@ -1,5 +1,8 @@
 package com.nikolay.imbirev.model.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DeviceTable {
 
     private DeviceTable() {}
@@ -20,8 +23,12 @@ public class DeviceTable {
 
         private static final String COLUMN_TYPE = "varchar (256) ";
 
-        public static Column[] getCOLUMNS() {
+        private static Column[] getCOLUMNS() {
             return COLUMNS;
+        }
+
+        public static List<Column> getListOfColumns() {
+            return Arrays.asList(getCOLUMNS());
         }
 
         private static final Column[] COLUMNS = {

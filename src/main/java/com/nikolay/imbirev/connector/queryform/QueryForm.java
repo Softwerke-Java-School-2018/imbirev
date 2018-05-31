@@ -114,9 +114,9 @@ public class QueryForm {
      */
     private Column[] getAllTablesColumns() {
         List<Column> resultArray = new ArrayList<>();
-        resultArray.addAll(Arrays.asList(SaleTable.Cols.getCOLUMNS()));
-        resultArray.addAll(Arrays.asList(ClientTable.Cols.getCOLUMNS()));
-        resultArray.addAll(Arrays.asList(DeviceTable.Cols.getCOLUMNS()));
+        resultArray.addAll(SaleTable.Cols.getListOfColumns());
+        resultArray.addAll(ClientTable.Cols.getListOfColumns());
+        resultArray.addAll(DeviceTable.Cols.getListOfColumns());
         Column[] columns = new Column[resultArray.size()];
         columns = resultArray.toArray(columns);
         return columns;

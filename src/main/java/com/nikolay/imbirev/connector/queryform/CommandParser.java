@@ -34,11 +34,11 @@ public class CommandParser {
 
     private int delimiterCounter = 0;
 
+    private QueryForm queryForm;
+
     public static CommandParser getCommandParser() {
         return new CommandParser();
     }
-
-    private QueryForm queryForm;
 
     /*
     sample of the requests
@@ -53,15 +53,15 @@ public class CommandParser {
 
     /**
      * in this method we divide string to some parts and make initial checks for errors
-     * @param string is a initial string of the request
+     * @param input is a initial string of the request
      * @return result code of query from QueryForm or enter error
      */
-    public String parseCommand(String string) {
+    public String parseCommand(String input) {
 
-        CommandParserInterface commandParserInterface = (string1 -> {
-            if (string == null) return RequestCode.ENTER_ERROR.toString();
+        CommandParserInterface commandParserInterface = (string -> {
+            if (input == null) return RequestCode.ENTER_ERROR.toString();
             try {
-                if (!initialCheck(string.trim())) {
+                if (!initialCheck(input.trim())) {
                     log.error("initial checked failed");
                     return RequestCode.ENTER_ERROR.toString();
                 }
@@ -79,7 +79,7 @@ public class CommandParser {
             log.info(Arrays.toString(insertOrUpdateArray) + "  ok");
             return queryForm.createQuery(operation, entity, sortArray, searchArray, insertOrUpdateArray);
         });
-        return commandParserInterface.parseCommand(string);
+        return commandParserInterface.parseCommand(input);
     }
 
 
@@ -98,19 +98,14 @@ public class CommandParser {
      * @return true if everything is okey or false if first two words from the request are irrelevant
      */
     private boolean getFirstCheck(String string) {
-        String[] input = string.split(" +");
-        for (String word : arrayOfKeyWords) {
-            if (word.equals(input[0].trim())) {
-                for (String entityName : arrayOfEntities) {
-                    if (entityName.equals(input[1].trim())) {
-                        operation = input[0].trim();
-                        entity = input[1].trim();
-                        log.info(operation);
-                        log.info(entity);
-                        return true;
-                    }
-                }
-            }
+        boolean flag;
+        String[] inputString = string.split(" +");
+        flag = Arrays.stream(arrayOfKeyWords).anyMatch(s -> s.equals(inputString[0].trim()))
+                && Arrays.stream(arrayOfEntities).anyMatch(s -> s.equals(inputString[1].trim()));
+        if (flag) {
+            operation = inputString[0].trim();
+            entity = inputString[1].trim();
+            return true;
         }
         return false;
     }

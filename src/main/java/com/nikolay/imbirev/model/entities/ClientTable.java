@@ -1,5 +1,8 @@
 package com.nikolay.imbirev.model.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ClientTable {
 
     private ClientTable() {}
@@ -17,8 +20,12 @@ public class ClientTable {
         public static final String SECOND_NAME = "second_name";
         public static final String DATE_OF_BIRTH = "date_of_birth";
 
-        public static Column[] getCOLUMNS() {
+        private static Column[] getCOLUMNS() {
             return COLUMNS;
+        }
+
+        public static List<Column> getListOfColumns() {
+            return Arrays.asList(getCOLUMNS());
         }
 
         private static final Column[] COLUMNS = {
