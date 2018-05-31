@@ -31,7 +31,7 @@ public class ClientDbService implements DbInterface {
 
     @Override
     public RequestCode createTable(List<Column> array) {
-        return dao.createTable(ClientTable.TABLE_NAME, (Column[]) array.toArray());
+        return dao.createTable(ClientTable.TABLE_NAME, array.toArray(new Column[0]));
     }
 
     @Override

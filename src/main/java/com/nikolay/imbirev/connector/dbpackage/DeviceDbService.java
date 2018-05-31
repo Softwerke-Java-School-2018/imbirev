@@ -31,7 +31,7 @@ public class DeviceDbService implements DbInterface {
 
     @Override
     public RequestCode createTable(List<Column> array) {
-        return dao.createTable(DeviceTable.TABLE_NAME, (Column[]) array.toArray());
+        return dao.createTable(DeviceTable.TABLE_NAME, array.toArray(new Column[0]));
     }
 
     @Override
