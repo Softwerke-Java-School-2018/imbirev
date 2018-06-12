@@ -1,8 +1,8 @@
 package com.nikolay.imbirev.model.executors;
 
 import com.nikolay.imbirev.model.connections.ConnectionSingleton;
-import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
-import com.nikolay.imbirev.model.exceptions.SQLWarningException;
+import com.nikolay.imbirev.connector.exceptions.DatabaseAccessException;
+import com.nikolay.imbirev.connector.exceptions.SQLWarningException;
 import lombok.extern.log4j.Log4j;
 
 import java.sql.*;

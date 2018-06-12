@@ -3,7 +3,7 @@ package com.nikolay.imbirev.connector.queryform;
 import com.nikolay.imbirev.connector.dbpackage.ClientDbService;
 import com.nikolay.imbirev.connector.savers.SaverClients;
 import com.nikolay.imbirev.model.entities.*;
-import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
+import com.nikolay.imbirev.connector.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.view.ListViewer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

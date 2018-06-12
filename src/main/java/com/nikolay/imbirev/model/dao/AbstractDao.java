@@ -2,7 +2,7 @@ package com.nikolay.imbirev.model.dao;
 
 import com.mysql.cj.core.util.StringUtils;
 import com.nikolay.imbirev.model.entities.*;
-import com.nikolay.imbirev.model.exceptions.SQLWarningException;
+import com.nikolay.imbirev.connector.exceptions.SQLWarningException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import java.sql.SQLException;
 import java.util.*;

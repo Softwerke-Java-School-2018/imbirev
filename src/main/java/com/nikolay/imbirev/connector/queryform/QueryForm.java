@@ -1,7 +1,7 @@
 package com.nikolay.imbirev.connector.queryform;
 
 import com.nikolay.imbirev.model.entities.*;
-import com.nikolay.imbirev.model.exceptions.LocalDateParseException;
+import com.nikolay.imbirev.connector.exceptions.LocalDateParseException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;

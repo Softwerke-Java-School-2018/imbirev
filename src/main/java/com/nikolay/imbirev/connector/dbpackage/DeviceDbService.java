@@ -2,7 +2,7 @@ package com.nikolay.imbirev.connector.dbpackage;
 
 import com.nikolay.imbirev.model.dao.DeviceDao;
 import com.nikolay.imbirev.model.entities.*;
-import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
+import com.nikolay.imbirev.connector.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import lombok.extern.log4j.Log4j;
 

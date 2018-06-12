@@ -1,10 +1,12 @@
+package tests;
+
 import com.nikolay.imbirev.model.dao.AbstractDao;
 import com.nikolay.imbirev.model.dao.SaleDao;
 import com.nikolay.imbirev.model.entities.Column;
 import com.nikolay.imbirev.model.entities.Query;
 import com.nikolay.imbirev.model.entities.RequestCode;
 import com.nikolay.imbirev.model.entities.SaleTable;
-import com.nikolay.imbirev.model.exceptions.DatabaseAccessException;
+import com.nikolay.imbirev.connector.exceptions.DatabaseAccessException;
 import com.nikolay.imbirev.model.executors.AbstractExecutor;
 import lombok.extern.log4j.Log4j;
 import org.junit.*;

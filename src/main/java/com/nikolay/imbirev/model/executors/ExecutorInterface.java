@@ -1,6 +1,6 @@
 package com.nikolay.imbirev.model.executors;
 
-import com.nikolay.imbirev.model.exceptions.SQLWarningException;
+import com.nikolay.imbirev.connector.exceptions.SQLWarningException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
